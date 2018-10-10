@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+body,
+html {
+  height: 100%;
+}
+body {
+  background: linear-gradient(to bottom, #1e5799 0%, #2989d8 50%, #7db9e8 100%);
+  font-family: 'Monaco', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #fff;
+}
