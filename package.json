@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "docs:gen": "./node_modules/.bin/compodoc -p src/tsconfig.app.json -n 'Angular Dokumentation' --hideGenerator --disablePrivate --includes ./additional-documentation --includesName 'Additional documentation'",
+    "docs:dev": "npm run docs:gen && ./node_modules/.bin/compodoc documentation -s"
   },
   "private": true,
   "dependencies": {
@@ -29,6 +31,7 @@
     "@angular/cli": "~6.2.4",
     "@angular/compiler-cli": "^6.1.0",
     "@angular/language-service": "^6.1.0",
+    "@compodoc/compodoc": "^1.1.5",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
@@ -44,5 +47,10 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~2.9.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "./node_modules/.bin/compodoc -p src/tsconfig.app.json --coverageMinimumPerFile 0 && lint-staged"
+    }
   }
 }
