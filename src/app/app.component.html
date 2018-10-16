@@ -1,3 +1,9 @@
 <div>
-  Temp: {{ weatherData.main.temp }}°
+  <div>Temp:
+    <span *ngIf="weatherData;else loading">
+      {{ weatherData.main.temp }}
+    </span>
+    <ng-template #loading>lädt</ng-template>°
+  </div>
+
 </div>
