@@ -4,10 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
+    "start:local": "ng serve --open --environment=local",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "docs:gen": "./node_modules/.bin/compodoc -p src/tsconfig.app.json -n 'Angular Dokumentation' --hideGenerator --disablePrivate --includes ./additional-documentation --includesName 'Additional documentation'",
     "docs:dev": "npm run docs:gen && ./node_modules/.bin/compodoc documentation -s"
   },
@@ -24,6 +26,7 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
+    "conventional-changelog-cli": "^2.0.5",
     "core-js": "^2.5.4",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
@@ -38,6 +41,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.3.0",
+    "husky": "^1.1.2",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.0.0",
@@ -52,7 +56,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "./node_modules/.bin/compodoc -p src/tsconfig.app.json --coverageMinimumPerFile 0 && lint-staged"
+      "pre-commit": "./node_modules/.bin/compodoc -p src/tsconfig.app.json -n 'Angular Dokumentation' --hideGenerator --disablePrivate --includes ./additional-documentation --includesName 'Additional documentation' --coverageMinimumPerFile 0 && yarn lint"
     }
   }
 }
