@@ -12,8 +12,9 @@ export class WeatherService {
   WEATHER_API_URL = environment.WEATHER_API_URL;
 
   public getWeatherData(): Observable<any[]> {
-    const { prefix, base, cityId, key } = this.WEATHER_API_URL;
-    const _url = `${prefix}${base}?id=${cityId}&appid=${key}`;
+    // const { prefix, base, cityId, key } = this.WEATHER_API_URL;
+    // const _url = `${prefix}${base}?id=${cityId}&appid=${key}`;
+    const _url = `http://localhost:3000/weather`;
     return this.http.get<Weatherdata[]>(_url);
   }
 }
