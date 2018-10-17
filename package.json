@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open",
+    "start": "json-server --watch src/assets/mockData/mockData.json & ng serve --open",
     "start:local": "ng serve --open --environment=local",
     "build": "ng build",
     "test": "ng test",
