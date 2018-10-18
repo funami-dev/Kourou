@@ -7,9 +7,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { RocketModule } from './rocket/rocket.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -23,7 +23,8 @@ import { AppComponent } from './app.component';
     MatIconModule,
     BrowserAnimationsModule,
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    RocketModule
   ],
   providers: [],
   bootstrap: [AppComponent]
