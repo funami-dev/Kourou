@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSliderModule } from '@angular/material/slider';
-
-import { ControllerService } from './controller.service';
+import { FormsModule } from '@angular/forms';
 
 import { RocketComponent } from './rocket/rocket.component';
-import { RocketDashboardComponent } from './rocket-dashboard/rocket-dashboard.component';
+import { RocketDashboardComponent } from '../rocket/rocket-dashboard/rocket-dashboard.component';
 
 @NgModule({
-  imports: [CommonModule, MatSliderModule],
+  imports: [CommonModule, MatSliderModule, FormsModule],
   declarations: [RocketComponent, RocketDashboardComponent],
   exports: [RocketComponent],
-  providers: [ControllerService]
+  providers: []
 })
 export class RocketModule {}

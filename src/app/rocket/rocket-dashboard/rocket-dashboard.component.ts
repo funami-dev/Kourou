@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ControllerService } from '../controller.service';
+import { RocketService } from '../rocket/rocket.service';
+import { RocketState } from '../../../interfaces/RocketState';
 
 @Component({
   selector: 'app-rocket-dashboard',
@@ -7,14 +8,11 @@ import { ControllerService } from '../controller.service';
   styleUrls: ['./rocket-dashboard.component.scss']
 })
 export class RocketDashboardComponent implements OnInit {
-  constructor(private controllerService: ControllerService) {}
-  angle = 0;
+  values: RocketState;
 
-  getWeatherData(): void {
-    this.angle = this.controllerService.getAngle();
+  constructor(private service: RocketService) {
+    this.values = service.rocketInfo.value;
   }
 
-  ngOnInit() {
-    this.getWeatherData();
-  }
+  ngOnInit() {}
 }
