@@ -1,5 +1,7 @@
 # Kourou
 
+Time to deepen and train my angular knowledge. This is a small game with the goal to launch a rocket successfully.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.4.
 
 ## Development server
