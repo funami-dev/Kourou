@@ -15,5 +15,16 @@
       </ng-template>
     </mat-toolbar-row>
   </mat-toolbar>
-  <app-rocket></app-rocket>
+  <mat-grid-list cols="3" rowHeight="240px">
+    <mat-grid-tile colspan="2" rowspan="2">
+      <app-rocket></app-rocket>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <h2>Crew</h2>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <h3>Checklist</h3>
+    </mat-grid-tile>
+  </mat-grid-list>
+
 </div>
