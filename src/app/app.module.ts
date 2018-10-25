@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxsModule } from '@ngxs/store';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,6 +19,7 @@ import { AppComponent } from './app.component';
   declarations: [AppComponent],
   imports: [
     MatToolbarModule,
+    MatListModule,
     MatProgressSpinnerModule,
     MatChipsModule,
     MatGridListModule,

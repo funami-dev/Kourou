@@ -1,19 +1,29 @@
 import { Action, StateContext, State } from '@ngxs/store';
-import { AddCrewMember } from './crew.actions';
+import { AddCrewMember, RemoveCrewMember } from './crew.actions';
 
 export interface CrewStateModel {
+  id: number;
   name: string;
+  position: string;
 }
-
-@State<CrewStateModel>({
+@State<CrewStateModel[]>({
   name: 'crew',
-  defaults: {
-    name: 'Alex'
-  }
+  defaults: [
+    {
+      id: 0,
+      name: 'Alex',
+      position: 'Commander'
+    }
+  ]
 })
 export class CrewState {
   @Action(AddCrewMember)
-  crewStateModel({ patchState }: StateContext<CrewStateModel>, { payload }: AddCrewMember) {
-    patchState({ name: payload });
+  AddCrewMember({ getState, setState }: StateContext<CrewStateModel[]>, { payload }: AddCrewMember) {
+    setState([...getState(), payload]);
+  }
+
+  @Action(RemoveCrewMember)
+  RemoveCrewMember({ getState, setState }: StateContext<CrewStateModel[]>, { payload }: RemoveCrewMember) {
+    setState(getState().filter(item => item.id !== payload));
   }
 }

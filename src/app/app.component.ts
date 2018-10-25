@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { WeatherService } from './weather.service';
 import { Weatherdata } from '../interfaces/WeatherData';
 import { CrewStateModel } from 'src/store/crew.state';
-import { AddCrewMember } from 'src/store/crew.actions';
+import { AddCrewMember, RemoveCrewMember } from 'src/store/crew.actions';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,7 @@ import { AddCrewMember } from 'src/store/crew.actions';
 export class AppComponent implements OnInit {
   public weatherData: Weatherdata[] = [];
   @Select()
-  crew$: Observable<CrewStateModel>;
+  crew$: Observable<CrewStateModel[]>;
 
   constructor(private weatherService: WeatherService, private store: Store) {}
 
@@ -25,8 +25,12 @@ export class AppComponent implements OnInit {
     });
   }
 
-  addCrewMember(name) {
-    this.store.dispatch(new AddCrewMember(name));
+  addCrewMember(member) {
+    this.store.dispatch(new AddCrewMember(member));
+  }
+
+  removeCrewMember(id) {
+    this.store.dispatch(new RemoveCrewMember(id));
   }
 
   ngOnInit() {

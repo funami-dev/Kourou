@@ -15,16 +15,25 @@
       </ng-template>
     </mat-toolbar-row>
   </mat-toolbar>
-  <mat-grid-list cols="3" rowHeight="240px">
-    <mat-grid-tile colspan="2" rowspan="2">
+  <mat-grid-list cols="3" rowHeight="480px">
+    <mat-grid-tile>
       <app-rocket></app-rocket>
     </mat-grid-tile>
-    <mat-grid-tile>
-      <h2>Crew</h2>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <h3>Checklist</h3>
+    <mat-grid-tile colspan="2">
+      <div>
+        <mat-list>
+          <h3 mat-header>Crew</h3>
+          <mat-list-item *ngFor="let crew of crew$ | async">
+            <mat-icon mat-list-icon>face</mat-icon>
+            <h4 mat-line>{{crew.name}} ({{crew.position}})</h4>
+            <p mat-icon-button (click)="removeCrewMember(crew.id)">
+              <mat-icon>delete</mat-icon>
+            </p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+        <p (click)="addCrewMember({name:'Peter', position: 'Kitchen', id: 1})">Add Member</p>
+      </div>
     </mat-grid-tile>
   </mat-grid-list>
-
 </div>
