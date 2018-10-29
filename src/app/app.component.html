@@ -1,39 +1,11 @@
-<div>
-  <mat-toolbar>
-    <mat-toolbar-row>
-      <mat-icon class="example-icon">cloud</mat-icon>
-      <span *ngIf="weatherData.main; else loading;">
-        {{ weatherData.main.temp }}°
-      </span>
-      <mat-icon class="example-icon">play_for_work</mat-icon>
-      <span *ngIf="weatherData.main; else loading;">
-        {{ weatherData.main.pressure }}
-      </span>
-      <ng-template #loading>
-        <mat-progress-spinner [color]="'warn'" [mode]="'indeterminate'">
-        </mat-progress-spinner>
-      </ng-template>
-    </mat-toolbar-row>
-  </mat-toolbar>
-  <mat-grid-list cols="3" rowHeight="480px">
-    <mat-grid-tile>
+<div class="page">
+  <app-topbar></app-topbar>
+  <div class="flex">
+    <div class="flex-item">
       <app-rocket></app-rocket>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="2">
-      <div>
-        <mat-list>
-          <h3 mat-header>Crew</h3>
-          <mat-list-item *ngFor="let crew of crew$ | async">
-            <mat-icon mat-list-icon>face</mat-icon>
-            <h4 mat-line>{{crew.name}} ({{crew.position}})</h4>
-            <p mat-icon-button (click)="removeCrewMember(crew.id)">
-              <mat-icon>delete</mat-icon>
-            </p>
-          </mat-list-item>
-          <mat-divider></mat-divider>
-        </mat-list>
-        <p (click)="addCrewMember({name:'Peter', position: 'Kitchen', id: 1})">Add Member</p>
-      </div>
-    </mat-grid-tile>
-  </mat-grid-list>
+    </div>
+    <div class="flex-item">
+      <app-right-dashboard></app-right-dashboard>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,8 @@
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+.flex-item:nth-child(2) {
+  flex: 2 0 auto;
+}
