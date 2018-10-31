@@ -16,4 +16,10 @@
     </mat-toolbar-row>
   </mat-toolbar>
   <app-rocket></app-rocket>
+  <p (click)="addCrewMember('Karl')">Add member Karl</p>
+  <ul>
+    <li *ngFor="let member of crew$ | async">
+      {{ member }}
+    </li>
+  </ul>
 </div>
