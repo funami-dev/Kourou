@@ -9,13 +9,20 @@ import {
   MatSidenavModule,
   MatGridListModule,
   MatListModule,
+  MatButtonModule,
   MatIconModule,
   MatMenuModule,
+  MatBadgeModule,
   MatToolbarModule,
   MatSliderModule,
+  MatTabsModule,
+  MatCheckboxModule,
+  MatSlideToggleModule,
+  MatRadioModule,
   MatChipsModule,
   MatProgressSpinnerModule
 } from '@angular/material';
+
 import { CrewState } from '../store/crew.state';
 // import { RocketModule } from './rocket/rocket.module';
 import { AppComponent } from './app.component';
@@ -36,15 +43,21 @@ import { CommandsComponent } from './modules/home/components/commands/commands.c
   ],
   imports: [
     MatToolbarModule,
+    MatSlideToggleModule,
     MatListModule,
+    MatButtonModule,
+    MatBadgeModule,
     MatProgressSpinnerModule,
+    MatCheckboxModule,
     MatChipsModule,
     MatGridListModule,
     MatMenuModule,
     MatSliderModule,
     MatSidenavModule,
     FormsModule,
+    MatTabsModule,
     MatIconModule,
+    MatRadioModule,
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,

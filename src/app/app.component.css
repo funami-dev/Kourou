@@ -1,8 +1,24 @@
-.flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
+.sidebar {
+    grid-area: sidebar;
 }
-.flex-item:nth-child(2) {
-  flex: 2 0 auto;
+
+.content {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 24px;
+    grid-area: content;
+}
+
+.wrapper {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas: "sidebar content";
+}
+
+.box {
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 150%;
 }

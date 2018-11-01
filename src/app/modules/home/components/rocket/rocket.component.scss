@@ -1,8 +1,9 @@
 .rocket {
-  padding: 200px;
-  span {
-    transform: rotate(-45deg) perspective(0);
-    transform-origin: 50% 50%;
-    display: inline-block;
-  }
+    padding: 20px;
+
+    span {
+        transform: rotate(-45deg) perspective(0);
+        transform-origin: 50% 50%;
+        display: inline-block;
+    }
 }
