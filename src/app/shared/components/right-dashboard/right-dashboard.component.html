@@ -4,6 +4,20 @@
     <mat-tab label="ControlRoom">
       <div>
         <mat-list role="list">
+          <div>
+            <h6>
+              Aus dem Store
+            </h6>
+            <p>isLoading: {{ (globalState | async).isLoading }}</p>
+            <mat-list-item *ngFor="let crew of (globalState | async).crew.members">
+              <mat-icon mat-list-icon>face</mat-icon>
+              <h4 mat-line>{{crew.name}} ({{crew.position}})</h4>
+              <p mat-icon-button (click)="removeCrewMember(crew.id)">
+                <mat-icon>delete</mat-icon>
+              </p>
+            </mat-list-item>
+            <p (click)="addCrewMember({name:'Peter', position: 'Kitchen', id: 1})">Add Member</p>
+          </div>
           <mat-list-item role="listitem" *ngFor="let item of ['Haltevorrichtung entriegeln','Haltevorrichtung einfahren']">
             <mat-slide-toggle class="example-margin">
               {{item}}
@@ -17,13 +31,13 @@
       </div>
     </mat-tab>
     <mat-tab label="Weather">
-      <app-topbar></app-topbar>
+      <!-- <app-topbar></app-topbar> -->
     </mat-tab>
     <mat-tab label="Crew">
       <app-crew></app-crew>
     </mat-tab>
     <mat-tab label="Commands">
-      <app-commands></app-commands>
+      <!-- <app-commands></app-commands> -->
     </mat-tab>
   </mat-tab-group>
 

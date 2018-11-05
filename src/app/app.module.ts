@@ -23,7 +23,12 @@ import {
   MatProgressSpinnerModule
 } from '@angular/material';
 
-import { CrewState } from '../store/crew.state';
+// import { CrewState } from '../store/crew.state'; // old store
+// import { KourouStoreService } from './core/ngxs/services/store.service'; // new Store
+
+import { KourouStoreService } from './core/ngxs/services/store.service';
+import { KourouStoreModule } from './core/ngxs/ngxs.module';
+
 // import { RocketModule } from './rocket/rocket.module';
 import { AppComponent } from './app.component';
 import { TopbarComponent } from './shared/components/topbar/topbar.component';
@@ -61,10 +66,13 @@ import { CommandsComponent } from './modules/home/components/commands/commands.c
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
+    KourouStoreModule
     // RocketModule,
-    NgxsModule.forRoot([CrewState])
+    // NgxsModule.forRoot([CrewState]) // old store
+    // NgxsModule.forRoot([KourouStoreService]) // new Store
   ],
   providers: [],
+  // providers: [KourouStoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
