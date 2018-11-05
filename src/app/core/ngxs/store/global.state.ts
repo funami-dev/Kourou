@@ -13,7 +13,6 @@ export class RemoveCrewMember {
   static readonly type = '[Crew] Remove a crew member';
   constructor(public payload) {}
 }
-
 export class ToggleComplete {
   static readonly type = '[Global] Toggle complete';
 }
@@ -22,19 +21,13 @@ export interface CrewStateModel {
   name: string;
   position: string;
 }
-
 export interface WeatherModel {
   temp: number;
 }
-
-export interface CrewModel {
-  complete: boolean;
-  members: CrewStateModel[];
-}
-
 export interface GlobalStateModel {
   isLoading: boolean;
-  crew: CrewModel;
+  isCrewComplete: boolean;
+  crew: CrewStateModel[];
   weather: WeatherModel;
 }
 
@@ -42,16 +35,14 @@ export interface GlobalStateModel {
   name: 'globalState',
   defaults: {
     isLoading: false,
-    crew: {
-      complete: true,
-      members: [
-        {
-          id: 0,
-          name: 'Alex',
-          position: 'Commanderaa'
-        }
-      ]
-    },
+    isCrewComplete: false,
+    crew: [
+      {
+        id: 0,
+        name: 'Alex',
+        position: 'Commander'
+      }
+    ],
     weather: {
       temp: 9
     }
@@ -65,13 +56,17 @@ export class GlobalState {
   globalState$: Observable<any[]>;
 
   @Action(AddCrewMember)
-  AddCrewMember({ getState, setState }: StateContext<GlobalStateModel[]>, { payload }: AddCrewMember) {
-    setState([...getState(), payload]);
+  AddCrewMember(ctx: StateContext<GlobalStateModel>, { payload }: AddCrewMember) {
+    const state = ctx.getState();
+    state.crew.push(payload);
+    ctx.setState(state);
   }
 
   @Action(RemoveCrewMember)
-  RemoveCrewMember({ getState, setState }: StateContext<GlobalStateModel[]>, { payload }: RemoveCrewMember) {
-    setState(getState('crew.members').filter(item => item.id !== payload));
+  RemoveCrewMember(ctx: StateContext<GlobalStateModel>, { payload }: RemoveCrewMember) {
+    const state = ctx.getState();
+    state.crew = state.crew.filter(item => item.id !== payload);
+    ctx.patchState(state);
   }
 
   @Action(SetLoadingStatus)
@@ -83,7 +78,7 @@ export class GlobalState {
   @Action(ToggleComplete)
   toggleComplete(ctx: StateContext<GlobalStateModel>, action: ToggleComplete) {
     const state = ctx.getState();
-    state.crew.complete = !state.crew.complete;
+    state.isCrewComplete = !state.isCrewComplete;
     ctx.patchState(state);
   }
 }

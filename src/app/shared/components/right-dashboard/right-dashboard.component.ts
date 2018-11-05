@@ -20,7 +20,6 @@ export class RightDashboardComponent implements OnInit {
   }
 
   removeCrewMember(id) {
-    console.log(id);
     this.store.removeCrewMember(id);
   }
 }

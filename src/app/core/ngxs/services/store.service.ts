@@ -18,7 +18,6 @@ export class KourouStoreService {
 
   constructor(private store: Store) {
     this.globalStore$ = this.store.select(data => {
-      console.log(data.globalState);
       return data.globalState;
     });
   }
@@ -40,7 +39,6 @@ export class KourouStoreService {
   }
 
   removeCrewMember(id) {
-    console.log(id);
     this.store.dispatch(new RemoveCrewMember(id));
   }
 }
