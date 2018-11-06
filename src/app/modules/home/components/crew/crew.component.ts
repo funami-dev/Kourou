@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { CrewStateModel } from 'src/store/crew.state';
-import { AddCrewMember, RemoveCrewMember } from 'src/store/crew.actions';
+import { KourouStoreService } from '../../../../core/ngxs/services/store.service';
 
 @Component({
   selector: 'app-crew',
@@ -10,18 +8,19 @@ import { AddCrewMember, RemoveCrewMember } from 'src/store/crew.actions';
   styleUrls: ['./crew.component.scss']
 })
 export class CrewComponent implements OnInit {
-  @Select()
-  crew$: Observable<CrewStateModel[]>;
+  globalState = {};
 
-  constructor(private store: Store) {}
+  constructor(public store: KourouStoreService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.globalState = this.store.getGlobalStore();
+  }
 
   addCrewMember(member) {
-    this.store.dispatch(new AddCrewMember(member));
+    this.store.addCrewMember(member);
   }
 
   removeCrewMember(id) {
-    this.store.dispatch(new RemoveCrewMember(id));
+    this.store.removeCrewMember(id);
   }
 }

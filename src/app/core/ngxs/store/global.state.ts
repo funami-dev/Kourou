@@ -51,7 +51,6 @@ export interface GlobalStateModel {
 export class GlobalState {
   constructor() {}
 
-  // TODO: IMPROVE
   @Select(GlobalState)
   globalState$: Observable<any[]>;
 
