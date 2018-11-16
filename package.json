@@ -10,8 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
-    "docs:gen": "./node_modules/.bin/compodoc -p src/tsconfig.app.json -n 'Angular Dokumentation' --hideGenerator --disablePrivate --includes ./additional-documentation --includesName 'Additional documentation' --coverageMinimumPerFile 0",
-    "docs:commit": "./node_modules/.bin/compodoc -p src/tsconfig.app.json -n 'Angular Dokumentation' --hideGenerator --disablePrivate --includes ./additional-documentation --includesName 'Additional documentation' --coverageMinimumPerFile 0",
+    "docs:gen": "./node_modules/.bin/compodoc -p src/tsconfig.app.json -n 'Angular Dokumentation' --hideGenerator --disablePrivate --includes ./additional-documentation --includesName 'Additional documentation' --coverageMinimumPerFile 0 --output ./src",
+    "docs:commit": "./node_modules/.bin/compodoc -p src/tsconfig.app.json -n 'Angular Dokumentation' --hideGenerator --disablePrivate --includes ./additional-documentation --includesName 'Additional documentation' --coverageMinimumPerFile 0 --output ./src",
     "docs:dev": "npm run docs:gen && ./node_modules/.bin/compodoc documentation -s"
   },
   "private": true,
