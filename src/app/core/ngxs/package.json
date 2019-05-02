@@ -1,0 +1,9 @@
+{
+  "name": "kourou-store",
+  "version": "0.0.0",
+  "description": "",
+  "private": true,
+  "dependencies": {
+    "@ngxs/store": "^3.2.0"
+  }
+}

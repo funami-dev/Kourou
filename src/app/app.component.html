@@ -1,19 +1,11 @@
-<div>
-  <mat-toolbar>
-    <mat-toolbar-row>
-      <mat-icon class="example-icon">cloud</mat-icon>
-      <span *ngIf="weatherData.main; else loading;">
-        {{ weatherData.main.temp }}°
-      </span>
-      <mat-icon class="example-icon">play_for_work</mat-icon>
-      <span *ngIf="weatherData.main; else loading;">
-        {{ weatherData.main.pressure }}
-      </span>
-      <ng-template #loading>
-        <mat-progress-spinner [color]="'warn'" [mode]="'indeterminate'">
-        </mat-progress-spinner>
-      </ng-template>
-    </mat-toolbar-row>
-  </mat-toolbar>
-  <app-rocket></app-rocket>
+<div class="page">
+  <div class="wrapper">
+    <div class="box sidebar">
+      <app-rocket></app-rocket>
+    </div>
+    <div class="box content">
+      <app-right-dashboard></app-right-dashboard>
+    </div>
+  </div>
 </div>
+<div id="sky"></div><div id="night"><div></div></div>

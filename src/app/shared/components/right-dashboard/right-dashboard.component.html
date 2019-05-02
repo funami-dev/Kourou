@@ -1,0 +1,30 @@
+<div class="right-sidebar">
+
+  <mat-tab-group>
+    <mat-tab label="ControlRoom">
+      <div>
+        <mat-list role="list">
+          <mat-list-item role="listitem" *ngFor="let item of ['Haltevorrichtung entriegeln','Haltevorrichtung einfahren']">
+            <mat-slide-toggle class="example-margin">
+              {{item}}
+            </mat-slide-toggle>
+          </mat-list-item>
+        </mat-list>
+        <mat-list role="list">
+          <button mat-flat-button disabled color="warn">Start countdown</button>
+          <mat-icon matBadge="22" matBadgeColor="warn" matBadgePosition="above before"></mat-icon>
+        </mat-list>
+      </div>
+    </mat-tab>
+    <mat-tab label="Weather">
+      <app-topbar></app-topbar>
+    </mat-tab>
+    <mat-tab label="Crew">
+      <app-crew></app-crew>
+    </mat-tab>
+    <mat-tab label="Commands">
+      <app-commands></app-commands>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>
