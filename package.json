@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "now-build": "ng build && next export -o dist",
+    "now-build": "ng build",
     "mockserver": "json-server --watch src/assets/mockData/mockData.json",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "docs:gen": "./node_modules/.bin/compodoc -p src/tsconfig.app.json -n 'Angular Dokumentation' --hideGenerator --disablePrivate --includes ./additional-documentation --includesName 'Additional documentation' --coverageMinimumPerFile 0",
