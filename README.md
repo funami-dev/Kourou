@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6386d5d6-2959-4074-a544-226204b43028/deploy-status)](https://app.netlify.com/sites/kourou/deploys)
+
 # Kourou
 
 ---
