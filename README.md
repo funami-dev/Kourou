@@ -5,6 +5,7 @@
 ---
 
 **DEMO: https://kourou.funami.now.sh**
+**DEMO: https://kourou.netlify.com**
 
 ---
 
