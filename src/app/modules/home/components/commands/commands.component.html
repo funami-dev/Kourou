@@ -1,7 +1,0 @@
-<h3 mat-header>Rocket</h3>
-<div>
-  {{(service.rocketInfo | async).speed}} <mat-slider thumbLabel="true" (valueChange)="setRocketInfo()" min="1" max="30"
-    [(ngModel)]="values.speed" vertical></mat-slider>
-  {{(service.rocketInfo | async).angle}} <mat-slider thumbLabel="true" (valueChange)="setRocketInfo()" min="0" max="360"
-    [(ngModel)]="values.angle" vertical></mat-slider>
-</div>

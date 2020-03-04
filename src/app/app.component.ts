@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-import { WeatherService } from './core/services/weather.service';
-import { Weatherdata } from '../interfaces/WeatherData';
+import { CrewState, CrewModel, CrewMemberModel, CrewMember, RemoveCrewMember } from '../store/';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,17 +9,24 @@ import { Weatherdata } from '../interfaces/WeatherData';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  public weatherData: Weatherdata[] = [];
+  @Select(CrewState.getCrew)
+  public crew$: Observable<CrewMemberModel[]>;
+  public crew: CrewMemberModel[];
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(private store: Store) {}
 
-  getWeatherData(): void {
-    this.weatherService.getWeatherData().subscribe(data => {
-      this.weatherData = data;
+  ngOnInit() {
+    this.crew$.subscribe(c => {
+      this.crew = c;
     });
   }
 
-  ngOnInit() {
-    this.getWeatherData();
+  RemoveCrewMember(id) {
+    console.log('remove id ', id);
+    this.store.dispatch(
+      new RemoveCrewMember({
+        id
+      })
+    );
   }
 }
