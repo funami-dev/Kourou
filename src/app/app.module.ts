@@ -5,12 +5,13 @@ import { NgxsModule } from '@ngxs/store';
 
 import { CrewState } from '../store';
 
+import { AreaModule } from './area/area.module';
 import { RocketModule } from './rocket/rocket.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule, NgxsModule.forRoot([CrewState]), RocketModule],
+  imports: [BrowserModule, HttpClientModule, NgxsModule.forRoot([CrewState]), RocketModule, AreaModule],
   providers: [],
   bootstrap: [AppComponent]
 })
