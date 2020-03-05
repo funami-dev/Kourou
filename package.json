@@ -3,7 +3,8 @@
   "version": "0.2.0",
   "scripts": {
     "ng": "ng",
-    "start": "yarn mockserver & ng serve --open --port 4201",
+    "start": "ng serve --open --port 4201",
+    "start:mock": "yarn mockserver & ng serve --open --port 4201",
     "start:local": "ng serve --open --environment=local",
     "build": "ng build",
     "test": "ng test",
@@ -30,6 +31,8 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "@ngrx/store": "^6.1.0",
+    "@ngxs/devtools-plugin": "^3.6.2",
+    "@ngxs/storage-plugin": "^3.6.2",
     "@ngxs/store": "^3.4.3",
     "conventional-changelog-cli": "^2.0.17",
     "core-js": "^2.6.5",

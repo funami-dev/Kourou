@@ -1,0 +1,35 @@
+#sky,
+#night,
+#night div {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 100%;
+}
+#sky {
+  background: linear-gradient(0deg, rgb(255, 255, 255), rgb(0, 220, 237));
+  z-index: -2;
+}
+#night {
+  background: linear-gradient(0deg, rgb(0, 0, 144), rgb(0, 0, 0));
+  z-index: -1;
+  //   animation: dayAndNight 30s infinite;
+}
+#night div {
+  background-image: url(../../../assets/location/stars.png);
+  background-size: contain;
+  opacity: 0.7;
+  //   animation: dayAndNight 30s infinite;
+}
+
+@keyframes dayAndNight {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}

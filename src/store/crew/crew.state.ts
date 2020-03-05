@@ -1,6 +1,6 @@
-import { CrewStateModel, CrewMemberModel } from './crew.model';
-import { Action, NgxsOnInit, Selector, State, StateContext, Store } from '@ngxs/store';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
 
+import { CrewStateModel, CrewMemberModel } from './crew.model';
 import { AddCrewMember, RemoveCrewMember } from './crew.actions';
 
 @State<CrewStateModel>({
@@ -18,6 +18,7 @@ import { AddCrewMember, RemoveCrewMember } from './crew.actions';
 export class CrewState {
   @Selector()
   static getCrew(state: CrewStateModel): CrewMemberModel[] {
+    console.log({ state });
     return state.members;
   }
 

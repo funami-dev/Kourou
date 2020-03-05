@@ -1,0 +1,14 @@
+:host {
+  padding: 0;
+  display: flex;
+  box-sizing: border-box;
+  align-content: stretch;
+  height: 100%;
+}
+:host(.noPadding) {
+  padding: 0;
+}
+.mat-card-full {
+  flex: 1 1 auto;
+  align-self: stretch;
+}
