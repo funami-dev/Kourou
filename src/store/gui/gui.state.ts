@@ -1,6 +1,6 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Router } from '@angular/router';
-
+import { Injectable } from '@angular/core';
 import { GuiStateModel } from './gui.model';
 import { SetCurrentLocation } from './gui.actions';
 
@@ -10,6 +10,7 @@ import { SetCurrentLocation } from './gui.actions';
     currentLocation: null
   }
 })
+@Injectable()
 export class GuiState {
   @Selector()
   static getCurrentLocation(state: GuiStateModel): string {

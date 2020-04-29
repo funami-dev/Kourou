@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 
 import { CrewStateModel, CrewMemberModel } from './crew.model';
@@ -15,6 +16,7 @@ import { AddCrewMember, RemoveCrewMember } from './crew.actions';
     ]
   }
 })
+@Injectable()
 export class CrewState {
   @Selector()
   static getCrew(state: CrewStateModel): CrewMemberModel[] {

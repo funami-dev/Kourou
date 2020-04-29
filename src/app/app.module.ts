@@ -5,10 +5,12 @@ import { NgModule } from '@angular/core';
 import { NgxsStoragePluginModule, STORAGE_ENGINE } from '@ngxs/storage-plugin';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { LocalstorageStorageEngine } from './storage';
-import { MatCardModule, MatMenuModule, MatIconModule } from '@angular/material';
 import { InlineSVGModule } from 'ng-inline-svg';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
+import { LocalstorageStorageEngine } from './storage';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
