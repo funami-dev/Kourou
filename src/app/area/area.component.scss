@@ -8,6 +8,12 @@
   // }
 }
 
+.grid {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: auto 230px;
+}
+
 #ground {
   position: fixed;
   z-index: 200;

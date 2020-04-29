@@ -1,6 +1,6 @@
-<div *ngIf="currentLocation">
+<mat-toolbar color="primary" *ngIf="currentLocation">
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-    <mat-icon>more_vert</mat-icon>
+    <mat-icon color="primary">more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
     <button mat-menu-item routerLink="/game/area">
@@ -12,7 +12,7 @@
       <span>Settings</span>
     </button>
   </mat-menu>
-</div>
+</mat-toolbar>
 
 <div class="full-height" *ngIf="!currentLocation">
   <app-location-picker></app-location-picker>
