@@ -7,7 +7,7 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { LocalstorageStorageEngine } from './storage';
 import { MatCardModule, MatMenuModule, MatIconModule } from '@angular/material';
-// import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg';
 
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +29,7 @@ import { SkyComponent } from './components/sky/sky.component';
     MatMenuModule,
     MatIconModule,
     BrowserAnimationsModule,
-    // InlineSVGModule.forRoot()
+    InlineSVGModule.forRoot()
   ],
   providers: [
     {
