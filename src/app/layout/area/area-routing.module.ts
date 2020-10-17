@@ -5,7 +5,7 @@ import { AreaComponent } from './area.component';
 import { GroundComponent } from './ground/ground.component';
 
 export const routes: Routes = [
-  // { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '', redirectTo: 'ground', pathMatch: 'full'},
   { path: 'area', component: AreaComponent },
   { path: 'ground', component: GroundComponent }
 ];

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Router } from '@angular/router';
 
-import { SetCurrentLocation } from '../../store/';
+import { SetCurrentLocation } from '../../../store';
 
 @Component({
   selector: 'app-settings',

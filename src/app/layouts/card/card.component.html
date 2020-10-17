@@ -1,0 +1,18 @@
+<app-toolbar></app-toolbar>
+<mat-card>
+  <nav mat-tab-nav-bar>
+    <a
+      mat-tab-link
+      *ngFor="let section of $sections"
+      [routerLink]="section.path"
+      (click)="activeLink = section.path"
+      [active]="activeLink == section.path"
+    >
+      {{ section?.data?.label || section.path }}
+    </a>
+  </nav>
+  <mat-card-content>
+    <router-outlet></router-outlet>
+  </mat-card-content>
+  <mat-card-footer>infos from store to content</mat-card-footer>
+</mat-card>
