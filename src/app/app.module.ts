@@ -16,13 +16,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { LocalstorageStorageEngine } from './storage';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LayoutComponent } from './layout/layout.component';
 import { LocationPickerComponent } from './location-picker/location-picker.component';
 import { CrewState, GuiState } from '../store';
 import { SkyComponent } from './components/sky/sky.component';
 import { FullscreenComponent } from './layouts/fullscreen/fullscreen.component';
 import { CardComponent } from './layouts/card/card.component';
-import { AreaComponent } from './layouts/area/area.component';
 import { ScenicBackgroundComponent } from './layouts/scenic-background/scenic-background.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
@@ -31,12 +29,10 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
   declarations: [
     AppComponent,
     routingComponents,
-    LayoutComponent,
     LocationPickerComponent,
     SkyComponent,
     FullscreenComponent,
     CardComponent,
-    AreaComponent,
     ScenicBackgroundComponent,
     ToolbarComponent,
     MainMenuComponent

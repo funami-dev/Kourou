@@ -10,7 +10,7 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
 
 // Pages
 import { CrewRoutingModule, routes as CrewRoutes } from './pages/crew/crew-routing/crew-routing.module';
-import { AreaRoutingModule } from './layout/area/area-routing.module';
+import { AreaRoutingModule } from './layouts/area/area-routing.module';
 import { SettingsRoutingModule } from './pages/settings/settings-routing/settings-routing.module';
 
 const routes: Routes = [
