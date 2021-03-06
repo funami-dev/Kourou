@@ -9,3 +9,7 @@
  width: 480px;
  height: 320px;
 }
+.example-header-image {
+  background-image: url(../../../assets/spaceman-4160023_1920.jpg);
+  background-size: cover;
+}

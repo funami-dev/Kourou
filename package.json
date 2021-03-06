@@ -3,7 +3,7 @@
   "version": "0.2.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open --port 4201",
+    "start": "ng serve --open --port 4200 --host 0.0.0.0 --public-host http://127.0.0.1",
     "start:mock": "yarn mockserver & ng serve --open --port 4201",
     "start:local": "ng serve --open --environment=local",
     "build": "ng build",

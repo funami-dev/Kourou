@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Layouts
 import { FullscreenComponent } from './layouts/fullscreen/fullscreen.component';
 import { ScenicBackgroundComponent } from './layouts/scenic-background/scenic-background.component';
 import { CardComponent } from './layouts/card/card.component';
-import { AreaComponent } from './layouts/area/area.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 
 // Pages
@@ -15,17 +15,17 @@ import { SettingsRoutingModule } from './pages/settings/settings-routing/setting
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
-  { path: '', component: MainMenuComponent },
-  { path: 'crew', component: CardComponent, loadChildren: () => CrewRoutingModule, data: { sections: CrewRoutes} },
-  { path: 'area', component: FullscreenComponent, loadChildren: () => AreaRoutingModule },
+  { path: '', component: MainMenuComponent, data: { animation: 'GoodNight' } },
+  { path: 'crew', component: CardComponent, loadChildren: () => CrewRoutingModule, data: { sections: CrewRoutes, animation: 'GoodNight' } },
+  { path: 'area', component: FullscreenComponent, loadChildren: () => AreaRoutingModule, data: { animation: 'GoodNight' } },
   { path: 'settings', component: ScenicBackgroundComponent, loadChildren: () => SettingsRoutingModule },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
+  imports: [RouterModule.forRoot(routes, { enableTracing: true }), BrowserAnimationsModule],
   exports: [RouterModule],
   declarations: []
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
 
 export const routingComponents = [];

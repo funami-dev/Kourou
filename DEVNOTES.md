@@ -1,3 +1,24 @@
+# Steps:
+
+[ ] bennene laout module iumin zB FullscreenLayoutComponent
+
+
+## Anatomy of this
+
+There are `/pages` 
+There are `/layouts` 
+
+
+
+
+## prototype
+
+alles was  nicht geht ist premium und auhc al solches gekeinnzeihnet
+
+Scenischer hg ist immer da, auch wenn kein spieler aktiv. dann reine infobubbles statt funktion.
+
+
+
 # Todo
 
 - Auf Angular 9 umstellen

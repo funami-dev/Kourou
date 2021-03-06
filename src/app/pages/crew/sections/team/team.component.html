@@ -1,1 +1,13 @@
-<p>team works!</p>
+<mat-list>
+  <mat-expansion-panel hideToggle *ngFor="let item of members">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ item.name }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ item.position }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <button mat-flat-button color="warn" (click)="removeCrewMember(item)">REMOVE</button>
+  </mat-expansion-panel>
+</mat-list>

@@ -1,15 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 
-import { CrewStateModel, CrewMemberModel } from './crew.model';
+import { CrewStateModel, PersonModel } from './crew.model';
 import { AddCrewMember, RemoveCrewMember } from './crew.actions';
 
 @State<CrewStateModel>({
   name: 'crew',
   defaults: {
+    message: 'just contetn for module',
+    talents: [
+      {
+        id: 'fnjkfnsfdf-nfndsjfndsjfndskfs',
+        name: 'Frank',
+        position: 'Commander'
+      }
+    ],
     members: [
       {
-        id: 0,
+        id: 'dweerk4t435-34543g-rg-43g-3',
         name: 'Alex',
         position: 'Commander'
       }
@@ -19,9 +27,12 @@ import { AddCrewMember, RemoveCrewMember } from './crew.actions';
 @Injectable()
 export class CrewState {
   @Selector()
-  static getCrew(state: CrewStateModel): CrewMemberModel[] {
-    console.log({ state });
+  static getCrew(state: CrewStateModel): PersonModel[] {
     return state.members;
+  }
+  @Selector()
+  static getTalents(state: CrewStateModel): PersonModel[] {
+    return state.talents;
   }
 
   @Selector()
@@ -30,12 +41,32 @@ export class CrewState {
   }
 
   @Action(AddCrewMember)
-  AddCrewMember({ getState, setState }: StateContext<CrewMemberModel[]>, { payload }: AddCrewMember) {
-    setState([...getState(), payload]);
+  AddCrewMember({ getState, patchState }: StateContext<CrewStateModel>, { payload }: AddCrewMember) {
+    const state = getState();
+    const newState = state.talents.filter(el => el.id !== payload.id);
+    patchState({
+      talents: newState
+    });
+    patchState({
+      members: [
+        ...state.members,
+        payload
+      ]
+    });
   }
 
   @Action(RemoveCrewMember)
-  RemoveCrewMember({ getState, setState }: StateContext<CrewMemberModel[]>, { payload }: RemoveCrewMember) {
-    setState(getState().filter(item => item.id !== payload));
+  RemoveCrewMember({ getState, setState, patchState }: StateContext<CrewStateModel>, { payload }: RemoveCrewMember) {
+    const state = getState();
+    const newState = state.members.filter(el => el.id !== payload.id);
+    patchState({
+      members: newState
+    });
+    patchState({
+      talents: [
+        ...state.talents,
+        payload
+      ]
+    });
   }
 }
