@@ -1,30 +1,33 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { select } from '@ngxs/store';
 
-import { GuiState, SetCurrentLocation } from '../../store';
+import { GuiState } from '../../store';
+import { LocationPickerComponent } from '../location-picker/location-picker.component';
+import { SkyComponent } from '../components/sky/sky.component';
 
 @Component({
   selector: 'app-layout',
+  imports: [
+    RouterLink,
+    RouterOutlet,
+    MatToolbarModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+    LocationPickerComponent,
+    SkyComponent
+  ],
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  styleUrl: './layout.component.scss',
+  host: {
+    '[class.noPadding]': 'currentLocation()'
+  }
 })
-export class LayoutComponent implements OnInit {
-  @Select(GuiState.getCurrentLocation)
-  public currentLocation$: Observable<string>;
-  public currentLocation: string;
-
-  @HostBinding('class.noPadding') noPadding = false;
-
-  constructor(private store: Store) {}
-
-  ngOnInit() {
-    this.currentLocation$.subscribe(data => {
-      this.currentLocation = data;
-      this.noPadding = Boolean(this.currentLocation);
-    });
-  }
-  SetCurrentLocation(id) {
-    this.store.dispatch(new SetCurrentLocation(id));
-  }
+export class LayoutComponent {
+  readonly currentLocation = select(GuiState.getCurrentLocation);
 }

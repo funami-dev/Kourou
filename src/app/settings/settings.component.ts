@@ -1,20 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngxs/store';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { dispatch } from '@ngxs/store';
 
-import { SetCurrentLocation } from '../../store/';
+import { SetCurrentLocation } from '../../store';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrl: './settings.component.scss'
 })
-export class SettingsComponent implements OnInit {
-  constructor(private store: Store, private router: Router) {}
+export class SettingsComponent {
+  private readonly setCurrentLocation = dispatch(SetCurrentLocation);
 
-  public resetLocation() {
-    this.store.dispatch(new SetCurrentLocation(null));
+  resetLocation(): void {
+    this.setCurrentLocation(null);
   }
-
-  ngOnInit() {}
 }

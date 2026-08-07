@@ -1,28 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
+import { dispatch, select } from '@ngxs/store';
 
-import { GuiState, SetCurrentLocation } from '../../store/';
+import { GuiState, SetCurrentLocation } from '../../store';
+
 @Component({
   selector: 'app-location-picker',
   templateUrl: './location-picker.component.html',
-  styleUrls: ['./location-picker.component.scss']
+  styleUrl: './location-picker.component.scss'
 })
-export class LocationPickerComponent implements OnInit {
-  @Select(GuiState.getCurrentLocation)
-  public currentLocation$: Observable<string>;
-  public currentLocation: string;
+export class LocationPickerComponent {
+  readonly currentLocation = select(GuiState.getCurrentLocation);
 
-  constructor(private store: Store, private router: Router) {}
+  private readonly setCurrentLocation = dispatch(SetCurrentLocation);
 
-  ngOnInit() {
-    this.currentLocation$.subscribe(data => {
-      this.currentLocation = data;
-    });
-  }
-
-  SetCurrentLocation(id) {
-    this.store.dispatch(new SetCurrentLocation(id));
+  selectLocation(id: string): void {
+    this.setCurrentLocation(id);
   }
 }

@@ -1,22 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideStore } from '@ngxs/store';
 
+import { CrewState, GuiState } from '../../../store';
 import { SkyComponent } from './sky.component';
 
 describe('SkyComponent', () => {
-  let component: SkyComponent;
   let fixture: ComponentFixture<SkyComponent>;
+  let component: SkyComponent;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ SkyComponent ]
-    })
-    .compileComponents();
-  }));
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [SkyComponent],
+      providers: [provideRouter([]), provideStore([CrewState, GuiState])]
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(SkyComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

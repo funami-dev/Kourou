@@ -39,3 +39,6 @@ testem.log
 Thumbs.db
 environment.local.ts
 launch.json
+
+# Angular / build caches
+.angular/

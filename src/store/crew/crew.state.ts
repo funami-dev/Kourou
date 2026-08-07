@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { Action, Selector, State } from '@ngxs/store';
+import type { StateContext } from '@ngxs/store';
 
-import { CrewStateModel, CrewMemberModel } from './crew.model';
+import type { CrewStateModel, CrewMemberModel } from './crew.model';
 import { AddCrewMember, RemoveCrewMember } from './crew.actions';
 
 @State<CrewStateModel>({
@@ -20,22 +21,21 @@ import { AddCrewMember, RemoveCrewMember } from './crew.actions';
 export class CrewState {
   @Selector()
   static getCrew(state: CrewStateModel): CrewMemberModel[] {
-    console.log({ state });
     return state.members;
   }
 
   @Selector()
-  public static getState(state: CrewStateModel) {
+  static getState(state: CrewStateModel): CrewStateModel {
     return state;
   }
 
   @Action(AddCrewMember)
-  AddCrewMember({ getState, setState }: StateContext<CrewMemberModel[]>, { payload }: AddCrewMember) {
-    setState([...getState(), payload]);
+  addCrewMember(ctx: StateContext<CrewStateModel>, { payload }: AddCrewMember): void {
+    ctx.patchState({ members: [...ctx.getState().members, payload] });
   }
 
   @Action(RemoveCrewMember)
-  RemoveCrewMember({ getState, setState }: StateContext<CrewMemberModel[]>, { payload }: RemoveCrewMember) {
-    setState(getState().filter(item => item.id !== payload));
+  removeCrewMember(ctx: StateContext<CrewStateModel>, { payload }: RemoveCrewMember): void {
+    ctx.patchState({ members: ctx.getState().members.filter(item => item.id !== payload) });
   }
 }
