@@ -1,7 +1,9 @@
-import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Injectable } from '@angular/core';
-import { GuiStateModel } from './gui.model';
+import { Action, Selector, State } from '@ngxs/store';
+import type { StateContext } from '@ngxs/store';
+
+import type { GuiStateModel } from './gui.model';
 import { SetCurrentLocation } from './gui.actions';
 
 @State<GuiStateModel>({
@@ -13,20 +15,15 @@ import { SetCurrentLocation } from './gui.actions';
 @Injectable()
 export class GuiState {
   @Selector()
-  static getCurrentLocation(state: GuiStateModel): string {
+  static getCurrentLocation(state: GuiStateModel): string | null {
     return state.currentLocation;
   }
 
-  constructor(private router: Router) {}
+  private readonly router = inject(Router);
 
   @Action(SetCurrentLocation)
-  SetCurrentLocation({ getState, setState }: StateContext<GuiStateModel>, { id }: SetCurrentLocation) {
-    console.log(id);
-    setState({ ...getState(), currentLocation: id });
-    if (id) {
-      this.router.navigate(['/area']);
-    } else {
-      this.router.navigate(['/']);
-    }
+  setCurrentLocation(ctx: StateContext<GuiStateModel>, { id }: SetCurrentLocation): void {
+    ctx.patchState({ currentLocation: id });
+    void this.router.navigate([id ? '/game/area' : '/']);
   }
 }

@@ -1,22 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideStore } from '@ngxs/store';
 
+import { CrewState, GuiState } from '../../../store';
 import { GroundComponent } from './ground.component';
 
 describe('GroundComponent', () => {
-  let component: GroundComponent;
   let fixture: ComponentFixture<GroundComponent>;
+  let component: GroundComponent;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ GroundComponent ]
-    })
-    .compileComponents();
-  }));
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [GroundComponent],
+      providers: [provideRouter([]), provideStore([CrewState, GuiState])]
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(GroundComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

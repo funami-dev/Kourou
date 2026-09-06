@@ -1,5 +1,5 @@
 export interface GuiStateModel {
-  currentLocation: string;
+  currentLocation: string | null;
 }
 
 export interface Location {
