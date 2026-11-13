@@ -79,7 +79,7 @@
         <button
           mat-flat-button
           type="button"
-          [disabled]="!pad.canStartCountdown || isCountdownOpen()"
+          [disabled]="!pad.canStartCountdown || isCountdownOpen() || unstaffedRoles().length > 0"
           (click)="startCountdown()"
           i18n="@@launchPad.startCountdown"
         >
@@ -95,6 +95,15 @@
           Von der Rampe nehmen
         </button>
       </div>
+      @if (unstaffedRoles().length > 0) {
+        <p class="launch-pad__warning">
+          <ng-container i18n="@@launchPad.unstaffed">Im Kontrollzentrum fehlt Personal:</ng-container>
+          @for (role of unstaffedRoles(); track role) {
+            <strong>{{ roleLabel(role) }}</strong>
+          }
+          <a routerLink="/game/staff" i18n="@@launchPad.toStaff">Zum Personal</a>
+        </p>
+      }
       @if (!pad.canStartCountdown) {
         <p class="launch-pad__hint" i18n="@@launchPad.windowTooLate">
           Der Start wäre zehn Minuten nach Beginn des Countdowns – dann muss das Startfenster offen sein.

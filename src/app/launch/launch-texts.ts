@@ -7,6 +7,7 @@ import type {
   Station
 } from '../../game/launch/launch.model';
 import type { WeatherConstraint } from '../../game/launch/launch-weather';
+import type { StationCrew } from '../../game/staff/staff.model';
 
 /** Player-facing texts for launches. Each `Record` makes sure every value has a text. */
 
@@ -91,15 +92,18 @@ export function weatherConstraintText(constraint: WeatherConstraint): string {
   return WEATHER_CONSTRAINT_TEXTS[constraint];
 }
 
-/** The text of a line in the mission control log. */
-export function countdownLogText(entry: CountdownLogEntry): string {
+/** The text of a line in the mission control log. Station reports name the person at the station. */
+export function countdownLogText(entry: CountdownLogEntry, crew: StationCrew): string {
   switch (entry.kind) {
     case 'milestone':
       return MILESTONE_TEXTS[entry.milestone];
-    case 'poll':
+    case 'poll': {
+      const station = STATION_LABELS[entry.station];
+      const name = crew[entry.station].name;
       return entry.verdict === 'go'
-        ? $localize`:@@launch.log.pollGo:${STATION_LABELS[entry.station]}:station:: Go`
-        : $localize`:@@launch.log.pollNoGo:${STATION_LABELS[entry.station]}:station:: No Go`;
+        ? $localize`:@@launch.log.pollGo:${station}:station: (${name}:name:): Go`
+        : $localize`:@@launch.log.pollNoGo:${station}:station: (${name}:name:): No Go`;
+    }
     case 'issue':
       return $localize`:@@launch.log.issue:Problem: ${ISSUE_TITLES[entry.issue]}:issue:`;
     case 'decision':

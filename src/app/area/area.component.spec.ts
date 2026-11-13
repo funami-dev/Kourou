@@ -4,7 +4,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { provideStore } from '@ngxs/store';
 
-import { BuildingsState, ClockState, CrewState, GuiState } from '../../store';
+import { BuildingsState, ClockState, StaffState, GuiState } from '../../store';
 import { AreaComponent } from './area.component';
 
 describe('AreaComponent', () => {
@@ -18,7 +18,7 @@ describe('AreaComponent', () => {
         provideRouter([]),
         provideHttpClient(),
         provideHttpClientTesting(),
-        provideStore([BuildingsState, ClockState, CrewState, GuiState])
+        provideStore([BuildingsState, ClockState, StaffState, GuiState])
       ]
     }).compileComponents();
 

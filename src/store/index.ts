@@ -1,6 +1,5 @@
 export * from './game.actions';
 export * from './gui/index';
-export * from './crew/index';
 export * from './clock/index';
 export * from './finance/index';
 export * from './contracts/index';
@@ -10,3 +9,4 @@ export * from './reputation/index';
 export * from './buildings/index';
 export * from './research/index';
 export * from './research-contracts/index';
+export * from './staff/index';

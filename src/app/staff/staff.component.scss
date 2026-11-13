@@ -1,0 +1,113 @@
+.staff__hint,
+.staff__secondary {
+  opacity: 0.7;
+}
+
+.staff__secondary {
+  display: block;
+  font-size: 0.85rem;
+}
+
+.staff__warning {
+  color: #ffd68a;
+
+  strong {
+    margin-left: 8px;
+  }
+}
+
+.figures {
+  display: flex;
+  gap: 48px;
+  margin: 0 0 16px;
+
+  dt {
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  dd {
+    margin: 4px 0 0;
+    font-size: 1.25rem;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.staff__team {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 8px 4px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  th {
+    font-weight: normal;
+    opacity: 0.7;
+  }
+}
+
+.staff__number {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.staff__reserve td {
+  opacity: 0.75;
+}
+
+.candidates {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.candidate {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+
+  h3 {
+    margin: 0;
+  }
+
+  p {
+    margin: 4px 0;
+  }
+
+  button {
+    margin-top: auto;
+  }
+}
+
+.candidate__terms {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 12px;
+  margin: 12px 0 16px;
+
+  dt {
+    opacity: 0.7;
+  }
+
+  dd {
+    margin: 0;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}

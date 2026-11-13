@@ -4,9 +4,9 @@ import { NEW_GAME_RESEARCH_PROGRESS } from '../game/research/research';
 import { NEW_GAME_RESEARCH_CONTRACT_MARKET } from '../game/research/research-contracts';
 import { STARTING_REPUTATION } from '../game/reputation/reputation';
 import { NEW_GAME_ROCKET_FLEET } from '../game/rockets/rocket-fleet';
+import { NEW_GAME_STAFF } from '../game/staff/staff';
 import { NEW_GAME_BUILDINGS } from './buildings/buildings.state';
 import { NEW_GAME_CLOCK } from './clock/clock.state';
-import { NEW_GAME_CREW } from './crew/crew.state';
 import { NEW_GAME_LAUNCH } from './launch/launch.state';
 
 /** New-game values of the persisted game states, by state name. */
@@ -14,13 +14,13 @@ const NEW_GAME_STATES: Record<string, object> = {
   buildings: NEW_GAME_BUILDINGS,
   clock: NEW_GAME_CLOCK,
   contracts: NEW_GAME_CONTRACT_MARKET,
-  crew: NEW_GAME_CREW,
   finance: NEW_GAME_LEDGER,
   launch: NEW_GAME_LAUNCH,
   reputation: { points: STARTING_REPUTATION },
   research: NEW_GAME_RESEARCH_PROGRESS,
   researchContracts: NEW_GAME_RESEARCH_CONTRACT_MARKET,
-  rockets: NEW_GAME_ROCKET_FLEET
+  rockets: NEW_GAME_ROCKET_FLEET,
+  staff: NEW_GAME_STAFF
 };
 
 /**

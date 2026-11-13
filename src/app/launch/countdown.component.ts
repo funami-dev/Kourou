@@ -6,16 +6,17 @@ import { dispatch, select } from '@ngxs/store';
 
 import { availableDecisions, holdDurationMs, successChance } from '../../game/launch/countdown';
 import { SCRUB_COSTS } from '../../game/launch/launch.constants';
-import type { CountdownDecision, Station } from '../../game/launch/launch.model';
+import type { CountdownDecision } from '../../game/launch/launch.model';
 import { LiveConditionsService } from '../../game/live-conditions/live-conditions.service';
 import { ROCKET_MODELS } from '../../game/rockets/rockets.constants';
+import { CREW_ROLES } from '../../game/staff/staff.constants';
 import { CloseCountdown, DecideOnCountdownIssue, LaunchState } from '../../store';
 import { weatherConditionLabel } from '../live-conditions/weather-condition-display';
 import { EurosPipe } from '../shared/euros.pipe';
-import { countdownLogText, issueDescription, issueTitle, outcomeText, stationLabel } from './launch-texts';
+import { roleLabel } from '../staff/staff-texts';
+import { countdownLogText, issueDescription, issueTitle, outcomeText } from './launch-texts';
 import { MissionTimePipe } from './mission-time.pipe';
 
-const STATIONS: readonly Station[] = ['propulsion', 'guidance', 'range', 'weather', 'flightDynamics'];
 const MS_PER_SECOND = 1000;
 
 /** Mission control during the countdown and flight, and the result once it is over. */
@@ -34,10 +35,9 @@ export class CountdownComponent {
   protected readonly countdown = select(LaunchState.countdown);
   protected readonly result = select(LaunchState.lastResult);
   protected readonly weather = this.liveConditions.weather;
-  protected readonly stations = STATIONS;
   protected readonly scrubCosts = SCRUB_COSTS;
 
-  protected readonly stationLabel = stationLabel;
+  protected readonly roleLabel = roleLabel;
   protected readonly issueTitle = issueTitle;
   protected readonly issueDescription = issueDescription;
   protected readonly outcomeText = outcomeText;
@@ -52,6 +52,19 @@ export class CountdownComponent {
   protected readonly successChance = computed(() => {
     const countdown = this.countdown();
     return countdown ? successChance(countdown) : 0;
+  });
+
+  /** Everyone in mission control with the verdict of their station; the flight director gives no verdict. */
+  protected readonly positions = computed(() => {
+    const countdown = this.countdown();
+    if (!countdown) {
+      return [];
+    }
+    return CREW_ROLES.map((role) => ({
+      role,
+      member: countdown.mission.crew[role],
+      verdict: role === 'flightDirector' ? null : (countdown.pollResults[role] ?? null)
+    }));
   });
 
   protected readonly decisions = computed(() => {

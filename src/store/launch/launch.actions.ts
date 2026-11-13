@@ -1,4 +1,4 @@
-import type { CountdownDecision, LaunchCampaign, LaunchOutcome } from '../../game/launch/launch.model';
+import type { CountdownDecision, LaunchMission, LaunchOutcome } from '../../game/launch/launch.model';
 
 /** Brings an assembled rocket to the launch pad to launch the payload of a contract. */
 export class MoveRocketToPad {
@@ -43,7 +43,6 @@ export class LaunchCompleted {
 
   constructor(
     public readonly outcome: LaunchOutcome,
-    public readonly campaign: LaunchCampaign,
-    public readonly rideshareContractIds: number[]
+    public readonly mission: LaunchMission
   ) {}
 }

@@ -22,6 +22,10 @@ export const areaRoutes: Routes = [
     loadComponent: () => import('../launch/countdown.component').then((m) => m.CountdownComponent)
   },
   {
+    path: 'staff',
+    loadComponent: () => import('../staff/staff.component').then((m) => m.StaffComponent)
+  },
+  {
     path: 'research',
     loadComponent: () => import('../research/research.component').then((m) => m.ResearchComponent)
   },

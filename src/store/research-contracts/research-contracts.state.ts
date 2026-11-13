@@ -67,13 +67,13 @@ export class ResearchContractsState {
 
   /** Experiments on board are delivered with a successful launch and lost with a failed one. */
   @Action(LaunchCompleted)
-  settleRideshare(ctx: StateContext<ResearchContractMarket>, { outcome, rideshareContractIds }: LaunchCompleted): void {
+  settleRideshare(ctx: StateContext<ResearchContractMarket>, { outcome, mission }: LaunchCompleted): void {
     if (outcome === 'scrubbed') {
       return;
     }
     const { market, completedContracts } = settleRideshareExperiments(
       ctx.getState(),
-      rideshareContractIds,
+      mission.rideshareContractIds,
       outcome === 'success'
     );
     ctx.setState(market);

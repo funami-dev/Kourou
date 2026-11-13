@@ -14,7 +14,9 @@ export type TransactionCategory =
   | 'construction'
   | 'buildingUpkeep'
   | 'research'
-  | 'researchContractPayment';
+  | 'researchContractPayment'
+  | 'salaries'
+  | 'recruiting';
 
 export interface Transaction {
   id: number;

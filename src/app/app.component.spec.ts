@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { provideStore } from '@ngxs/store';
 
-import { CrewState, GuiState } from '../store';
+import { StaffState, GuiState } from '../store';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -12,7 +12,7 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [provideRouter([]), provideStore([CrewState, GuiState])]
+      providers: [provideRouter([]), provideStore([StaffState, GuiState])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);

@@ -154,11 +154,17 @@ Zwei Wege, die sich ergänzen und über **Forschungspunkte (FP)** verbunden sind
 Stufe 1 kostet 30 FP, 2 Mio. € und 4 Tage; Stufe 2 kostet 60 FP, 4 Mio. € und 6 Tage.
 
 ### Personal
-- Einstellbare Mitarbeiter mit Rolle (z. B. Flight Director, Wetter, Antrieb, Range Safety)
-  und Eigenschaften (erfahren, vorsichtig, risikofreudig …).
-- Personal besetzt die Stationen im Countdown. Erfahrung beeinflusst, wie gut Störungen erkannt
-  und gelöst werden.
-- Bestehender Ansatz im Code: `crew`-State.
+- **Positionen im Kontrollzentrum**: Flugleitung plus je eine Fachkraft für Antrieb, Lenkung,
+  Sperrgebiet, Wetter und Flugdynamik. Ohne vollständige Besetzung startet kein Countdown.
+  Ein neues Spiel beginnt mit einem kompletten, aber unerfahrenen Team.
+- An jeder Position sitzt automatisch die **erfahrenste Person** ihres Fachs; weitere sind Vertretung.
+- **Erfahrung** (Stufe 1–5) wächst mit jedem Countdown. Sie verkürzt Holds an der eigenen Station,
+  senkt das Risiko beim Weitermachen trotz Problem und erhöht – bei der Flugleitung – die Erfolgschance.
+- **Eigenschaften**: *Ruhig* (kürzere Holds), *Gründlich* (geringeres Risiko), *Lernt schnell*
+  (doppelte Erfahrung).
+- **Bewerbungen** kommen täglich herein und bleiben eine Woche offen. Einstellen kostet einmalig
+  Einstellungskosten; jede Person kostet täglich Gehalt (steigt mit der Erfahrung).
+- Die Teamgröße ist begrenzt; **Unterkünfte** erweitern sie.
 
 ### Startrampe & Countdown
 **Vorbereitung (Startrampe)**

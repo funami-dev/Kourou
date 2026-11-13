@@ -2,10 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { Store, provideStore } from '@ngxs/store';
 
-import { NO_TECHNOLOGY_BONUSES } from '../../game/research/research';
+import { testMission } from '../../game/launch/launch-mission.testing';
 import { createCountdown } from '../../game/launch/countdown';
 import type { Countdown } from '../../game/launch/launch.model';
-import { GuiState, LaunchState, NEW_GAME_LAUNCH } from '../../store';
+import { GuiState, LaunchState, NEW_GAME_LAUNCH, StaffState } from '../../store';
 import type { LaunchResult } from '../../store';
 import { CountdownComponent } from './countdown.component';
 import { provideCalmMorningInKourou } from './launch.testing';
@@ -18,17 +18,7 @@ describe('CountdownComponent', () => {
   const buttonWithText = (label: string): HTMLButtonElement | undefined =>
     Array.from(element().querySelectorAll('button')).find((button) => button.textContent!.includes(label));
 
-  const freshCountdown = (): Countdown =>
-    createCountdown(
-      {
-        campaign: { contractId: 1, rocketId: 1 },
-        rocketModelId: 'ibis',
-        targetOrbit: 'leo',
-        bonuses: NO_TECHNOLOGY_BONUSES,
-        rideshareContractIds: []
-      },
-      () => 0
-    );
+  const freshCountdown = (): Countdown => createCountdown(testMission(), () => 0);
 
   async function showCountdown(countdown: Countdown, lastResult: LaunchResult | null = null): Promise<void> {
     store.reset({ ...store.snapshot(), launch: { ...NEW_GAME_LAUNCH, countdown, lastResult } });
@@ -38,7 +28,7 @@ describe('CountdownComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CountdownComponent],
-      providers: [provideRouter([]), provideStore([GuiState, LaunchState]), provideCalmMorningInKourou()]
+      providers: [provideRouter([]), provideStore([GuiState, LaunchState, StaffState]), provideCalmMorningInKourou()]
     }).compileComponents();
 
     store = TestBed.inject(Store);

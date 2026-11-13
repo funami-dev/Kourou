@@ -20,6 +20,7 @@ import { GuiState } from '../gui';
 import { ReputationState } from '../reputation';
 import { ResearchState } from '../research';
 import { AcceptResearchOffer, ResearchContractsState } from '../research-contracts';
+import { DismissCrewMember, StaffState } from '../staff';
 import { OrderRocket, RocketsState } from '../rockets';
 import {
   AdvanceCountdown,
@@ -71,7 +72,8 @@ describe('LaunchState', () => {
           ReputationState,
           ResearchContractsState,
           ResearchState,
-          RocketsState
+          RocketsState,
+          StaffState
         ]),
         // Lowest random numbers: one issue (a boat in the range zone) and a successful flight.
         { provide: RandomSource, useValue: { next: () => 0 } },
@@ -120,6 +122,16 @@ describe('LaunchState', () => {
       STARTING_REPUTATION + REPUTATION_CHANGE_BY_OUTCOME.success
     );
     expect(store.selectSnapshot(LaunchState.campaign)).toBeNull();
+    // Everyone in mission control gained experience.
+    expect(store.selectSnapshot(StaffState.members).every((member) => member.experiencePoints > 0)).toBe(true);
+  });
+
+  it('cannot start a countdown while a position in mission control is empty', () => {
+    prepareLaunch();
+    store.dispatch(new DismissCrewMember(1));
+    store.dispatch(new StartCountdown());
+
+    expect(launch().countdown).toBeNull();
   });
 
   it('keeps the countdown screen open until the player closes it', () => {

@@ -17,14 +17,14 @@ import {
   BuildingsState,
   ClockState,
   ContractsState,
-  CrewState,
   FinanceState,
   GuiState,
   LaunchState,
   ReputationState,
   ResearchContractsState,
   ResearchState,
-  RocketsState
+  RocketsState,
+  StaffState
 } from '../store';
 import { completeSavedGame } from '../store/saved-game';
 import { routes } from './app.routes';
@@ -40,14 +40,14 @@ export const appConfig: ApplicationConfig = {
         BuildingsState,
         ClockState,
         ContractsState,
-        CrewState,
         FinanceState,
         GuiState,
         LaunchState,
         ReputationState,
         ResearchContractsState,
         ResearchState,
-        RocketsState
+        RocketsState,
+        StaffState
       ],
       { developmentMode: !environment.production },
       withNgxsStoragePlugin({ keys: '*', afterDeserialize: completeSavedGame }),

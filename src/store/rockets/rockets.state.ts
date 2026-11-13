@@ -46,9 +46,9 @@ export class RocketsState {
 
   /** A launched rocket is used up, whether it reached orbit or not. */
   @Action(LaunchCompleted)
-  removeLaunchedRocket(ctx: StateContext<RocketFleet>, { outcome, campaign }: LaunchCompleted): void {
+  removeLaunchedRocket(ctx: StateContext<RocketFleet>, { outcome, mission }: LaunchCompleted): void {
     if (outcome !== 'scrubbed') {
-      ctx.setState(removeRocket(ctx.getState(), campaign.rocketId));
+      ctx.setState(removeRocket(ctx.getState(), mission.campaign.rocketId));
     }
   }
 

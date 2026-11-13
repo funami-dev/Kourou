@@ -124,10 +124,15 @@
       <section aria-labelledby="stations-title">
         <h2 id="stations-title" i18n="@@countdown.stations.title">Stationen</h2>
         <ul class="stations">
-          @for (station of stations; track station) {
+          @for (position of positions(); track position.role) {
             <li class="stations__entry">
-              <span>{{ stationLabel(station) }}</span>
-              @switch (countdown.pollResults[station]) {
+              <span>
+                {{ roleLabel(position.role) }}
+                <span class="stations__person" i18n="@@countdown.stations.person">
+                  {{ position.member.name }} · Stufe {{ position.member.level }}
+                </span>
+              </span>
+              @switch (position.verdict) {
                 @case ('go') {
                   <span class="verdict verdict--go">GO</span>
                 }
@@ -158,7 +163,7 @@
           @for (entry of newestLogEntriesFirst(); track $index) {
             <li class="log__entry log__entry--{{ entry.kind }}">
               <span class="log__time">{{ entry.missionTimeMs | missionTime }}</span>
-              <span>{{ logText(entry) }}</span>
+              <span>{{ logText(entry, countdown.mission.crew) }}</span>
             </li>
           }
         </ol>

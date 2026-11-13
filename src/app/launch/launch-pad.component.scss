@@ -101,3 +101,16 @@
     margin: 4px 0;
   }
 }
+
+.launch-pad__warning {
+  color: #ffd68a;
+
+  strong,
+  a {
+    margin-left: 8px;
+  }
+
+  a {
+    color: inherit;
+  }
+}

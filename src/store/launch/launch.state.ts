@@ -18,6 +18,7 @@ import { REPUTATION_CHANGE_BY_OUTCOME } from '../../game/reputation/reputation';
 import type { Rocket } from '../../game/rockets/rocket.model';
 import { rocketDisplayName } from '../../game/rockets/rocket-fleet';
 import { ROCKET_MODELS } from '../../game/rockets/rockets.constants';
+import { assembleStationCrew } from '../../game/staff/staff';
 import { ClockState, GameDayStarted } from '../clock';
 import { ContractDeadlinesMissed, ContractsState } from '../contracts';
 import { BookTransaction } from '../finance';
@@ -25,6 +26,7 @@ import { StartNewGame } from '../game.actions';
 import { ResearchState } from '../research';
 import { ResearchContractsState } from '../research-contracts/research-contracts.state';
 import { RocketsState } from '../rockets';
+import { StaffState } from '../staff/staff.state';
 import {
   AdvanceCountdown,
   CloseCountdown,
@@ -100,7 +102,8 @@ export class LaunchState {
     const { campaign, countdown } = ctx.getState();
     const contract = campaign && this.findContract(campaign.contractId);
     const rocket = campaign && this.findRocket(campaign.rocketId);
-    if (countdown !== null || !campaign || !contract || !rocket) {
+    const crew = assembleStationCrew(this.store.selectSnapshot(StaffState.members));
+    if (countdown !== null || !campaign || !contract || !rocket || !crew) {
       return;
     }
 
@@ -115,7 +118,8 @@ export class LaunchState {
       rocketModelId: rocket.modelId,
       targetOrbit: contract.payload.targetOrbit,
       bonuses: this.store.selectSnapshot(ResearchState.bonuses),
-      rideshareContractIds: rideshareExperiments.map(({ id }) => id)
+      rideshareContractIds: rideshareExperiments.map(({ id }) => id),
+      crew
     };
     ctx.patchState({ countdown: createCountdown(mission, this.randomSource.next), lastResult: null });
   }
@@ -207,7 +211,7 @@ export class LaunchState {
         rideshareExperiments: rideshareContractIds.length
       }
     });
-    ctx.dispatch(new LaunchCompleted(outcome, campaign, rideshareContractIds));
+    ctx.dispatch(new LaunchCompleted(outcome, mission));
   }
 
   private launchConditions(): LaunchConditions {

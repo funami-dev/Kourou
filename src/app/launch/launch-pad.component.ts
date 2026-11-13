@@ -17,6 +17,7 @@ import { LiveConditionsService } from '../../game/live-conditions/live-condition
 import { selectRideshareExperiments } from '../../game/research/research-contracts';
 import { rocketDisplayName } from '../../game/rockets/rocket-fleet';
 import { ROCKET_MODELS } from '../../game/rockets/rockets.constants';
+import { unstaffedRoles } from '../../game/staff/staff';
 import {
   ClockState,
   ContractsState,
@@ -25,12 +26,14 @@ import {
   RemoveRocketFromPad,
   ResearchContractsState,
   RocketsState,
+  StaffState,
   StartCountdown
 } from '../../store';
 import { orbitLabel, payloadTypeLabel } from '../contracts/contract-labels';
 import { EurosPipe } from '../shared/euros.pipe';
 import { SiteLocalTimePipe } from '../shared/site-local-time.pipe';
 import { researchTopicName } from '../research/research-texts';
+import { roleLabel } from '../staff/staff-texts';
 import { weatherConstraintText } from './launch-texts';
 
 /** Prepares launches: brings a rocket to the pad for a contract and starts the countdown when conditions allow. */
@@ -50,6 +53,10 @@ export class LaunchPadComponent {
   private readonly rockets = select(RocketsState.rockets);
   private readonly gameTimeMs = select(ClockState.gameTimeMs);
   private readonly researchContracts = select(ResearchContractsState.contracts);
+  private readonly staffMembers = select(StaffState.members);
+  /** Positions in mission control nobody covers; the countdown needs all of them. */
+  protected readonly unstaffedRoles = computed(() => unstaffedRoles(this.staffMembers()));
+  protected readonly roleLabel = roleLabel;
   protected readonly campaign = select(LaunchState.campaign);
   protected readonly isCountdownOpen = select(LaunchState.isCountdownOpen);
 

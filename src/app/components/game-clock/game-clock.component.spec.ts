@@ -5,7 +5,7 @@ import { provideRouter } from '@angular/router';
 import { Store, provideStore } from '@ngxs/store';
 
 import { MS_PER_DAY, MS_PER_HOUR, MS_PER_MINUTE } from '../../../game/clock/clock.constants';
-import { ClockState, GuiState, LaunchState, NEW_GAME_CLOCK } from '../../../store';
+import { ClockState, GuiState, LaunchState, NEW_GAME_CLOCK, StaffState } from '../../../store';
 import { GameClockComponent } from './game-clock.component';
 
 describe('GameClockComponent', () => {
@@ -24,7 +24,7 @@ describe('GameClockComponent', () => {
         provideRouter([]),
         provideHttpClient(),
         provideHttpClientTesting(),
-        provideStore([ClockState, GuiState, LaunchState])
+        provideStore([ClockState, GuiState, LaunchState, StaffState])
       ]
     }).compileComponents();
 

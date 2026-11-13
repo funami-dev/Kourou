@@ -1,6 +1,7 @@
 import type { OrbitType } from '../contracts/contract.model';
 import type { TechnologyBonuses } from '../research/technology.model';
 import type { RocketModelId } from '../rockets/rocket.model';
+import type { StationCrew } from '../staff/staff.model';
 
 /** A rocket standing on the launch pad, ready to launch the payload of a contract. */
 export interface LaunchCampaign {
@@ -22,6 +23,8 @@ export interface LaunchMission {
   bonuses: CountdownBonuses;
   /** Research experiments riding along with the main payload. */
   rideshareContractIds: number[];
+  /** Who sits at which position in mission control. */
+  crew: StationCrew;
 }
 
 /** Positions in mission control that report "go" or "no go" in the poll before launch. */

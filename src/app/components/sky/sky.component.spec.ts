@@ -4,7 +4,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { provideStore } from '@ngxs/store';
 
-import { CrewState, GuiState } from '../../../store';
+import { StaffState, GuiState } from '../../../store';
 import { SkyComponent } from './sky.component';
 
 describe('SkyComponent', () => {
@@ -18,7 +18,7 @@ describe('SkyComponent', () => {
         provideRouter([]),
         provideHttpClient(),
         provideHttpClientTesting(),
-        provideStore([CrewState, GuiState])
+        provideStore([StaffState, GuiState])
       ]
     }).compileComponents();
 

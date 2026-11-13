@@ -14,7 +14,8 @@ import {
   OrderRocket,
   ResearchContractsState,
   ResearchState,
-  RocketsState
+  RocketsState,
+  StaffState
 } from '../../store';
 import { LaunchPadComponent } from './launch-pad.component';
 import { provideCalmMorningInKourou } from './launch.testing';
@@ -43,7 +44,8 @@ describe('LaunchPadComponent', () => {
           LaunchState,
           ResearchContractsState,
           ResearchState,
-          RocketsState
+          RocketsState,
+          StaffState
         ]),
         provideCalmMorningInKourou()
       ]

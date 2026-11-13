@@ -2,6 +2,7 @@ import type { LaunchSite } from '../launch-sites/launch-site.model';
 import { pickRandom, randomIntegerBetween } from '../random';
 import type { RandomNumberGenerator } from '../random';
 import { ROCKET_MODELS } from '../rockets/rockets.constants';
+import { crewHoldFactor, crewRiskFactor, flightDirectorReliabilityBonus } from '../staff/staff';
 import type { WeatherReport } from '../weather/weather.model';
 import {
   COUNTDOWN_START_MISSION_TIME_MS,
@@ -176,20 +177,41 @@ export function decideOnIssue(countdown: Countdown, decision: CountdownDecision)
   }
 }
 
-/** How long a hold for the issue lasts. Weather holds are shorter with better forecasts (weather radar). */
+/**
+ * How long a hold for the issue lasts. Weather holds are shorter with better forecasts (weather radar),
+ * and every hold is shorter with an experienced or calm person at the responsible station.
+ */
 export function holdDurationMs(countdown: Countdown, issue: CountdownIssue): number {
   if (issue === 'launchWindowClosed') {
     // A closed launch window cannot be waited out (see availableDecisions).
     return 0;
   }
-  const factor = issue === 'weatherNoGo' ? countdown.mission.bonuses.weatherHoldDurationFactor : 1;
-  return HOLD_DURATION_MS[issue] * factor;
+  const technologyFactor = issue === 'weatherNoGo' ? countdown.mission.bonuses.weatherHoldDurationFactor : 1;
+  return HOLD_DURATION_MS[issue] * technologyFactor * crewHoldFactor(countdown.mission.crew, issue);
 }
 
-/** Chance that the launch succeeds: reliability of the rocket, improved by technologies, minus accepted risks. */
+/** Risk of carrying on despite an issue, or `null` if the issue cannot be ignored. */
+function riskOfContinuing(countdown: Countdown, issue: CountdownIssue): number | null {
+  const baseRisk = RISK_OF_CONTINUING[issue];
+  return baseRisk === undefined ? null : withCrewRiskFactor(countdown, issue, baseRisk);
+}
+
+/** An experienced or meticulous person at the responsible station judges the risk better and keeps it lower. */
+function withCrewRiskFactor(countdown: Countdown, issue: CountdownIssue, baseRisk: number): number {
+  return baseRisk * crewRiskFactor(countdown.mission.crew, issue);
+}
+
+/**
+ * Chance that the launch succeeds: reliability of the rocket, improved by technologies and an experienced
+ * flight director, minus the risks the team accepted.
+ */
 export function successChance(countdown: Countdown): number {
-  const { rocketModelId, bonuses } = countdown.mission;
-  const chance = ROCKET_MODELS[rocketModelId].reliability + bonuses.reliabilityBonus - countdown.acceptedRisk;
+  const { rocketModelId, bonuses, crew } = countdown.mission;
+  const chance =
+    ROCKET_MODELS[rocketModelId].reliability +
+    bonuses.reliabilityBonus +
+    flightDirectorReliabilityBonus(crew) -
+    countdown.acceptedRisk;
   return Math.min(1, Math.max(0, chance));
 }
 
@@ -204,7 +226,7 @@ function handleEvent(
       return handleMilestone(countdown, event.milestone, conditions, random);
     case 'issue':
       return withLog(
-        { ...countdown, status: awaitingDecisionOn(event.issue, RISK_OF_CONTINUING[event.issue] ?? null) },
+        { ...countdown, status: awaitingDecisionOn(event.issue, riskOfContinuing(countdown, event.issue)) },
         { kind: 'issue', issue: event.issue }
       );
     case 'flightPhase':
@@ -255,7 +277,7 @@ function runGoNoGoPoll(countdown: Countdown, conditions: LaunchConditions): Coun
     return withIssue(polled, 'launchWindowClosed', null);
   }
   if (weatherAssessment.verdict === 'noGo') {
-    return withIssue(polled, 'weatherNoGo', weatherAssessment.riskIfIgnored);
+    return withIssue(polled, 'weatherNoGo', withCrewRiskFactor(polled, 'weatherNoGo', weatherAssessment.riskIfIgnored));
   }
   return polled;
 }
@@ -269,7 +291,7 @@ function endHold(countdown: Countdown, issue: CountdownIssue, conditions: Launch
       { kind: 'poll', station: 'weather', verdict: assessment.verdict }
     );
     if (assessment.verdict === 'noGo') {
-      return withIssue(polled, 'weatherNoGo', assessment.riskIfIgnored);
+      return withIssue(polled, 'weatherNoGo', withCrewRiskFactor(polled, 'weatherNoGo', assessment.riskIfIgnored));
     }
     return resumeCounting(polled, issue, conditions);
   }

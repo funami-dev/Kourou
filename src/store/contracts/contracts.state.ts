@@ -69,9 +69,9 @@ export class ContractsState {
   }
 
   @Action(LaunchCompleted)
-  settleAfterLaunch(ctx: StateContext<ContractMarket>, { outcome, campaign }: LaunchCompleted): void {
+  settleAfterLaunch(ctx: StateContext<ContractMarket>, { outcome, mission }: LaunchCompleted): void {
     if (outcome !== 'scrubbed') {
-      ctx.setState(settleContract(ctx.getState(), campaign.contractId, outcome === 'success'));
+      ctx.setState(settleContract(ctx.getState(), mission.campaign.contractId, outcome === 'success'));
     }
   }
 

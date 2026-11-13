@@ -13,7 +13,9 @@ const TRANSACTION_CATEGORY_LABELS: Record<TransactionCategory, string> = {
   construction: $localize`:@@finances.category.construction:Bau`,
   buildingUpkeep: $localize`:@@finances.category.buildingUpkeep:Unterhalt Gebäude`,
   research: $localize`:@@finances.category.research:Forschung`,
-  researchContractPayment: $localize`:@@finances.category.researchContractPayment:Zahlung Forschungsauftrag`
+  researchContractPayment: $localize`:@@finances.category.researchContractPayment:Zahlung Forschungsauftrag`,
+  salaries: $localize`:@@finances.category.salaries:Gehälter`,
+  recruiting: $localize`:@@finances.category.recruiting:Einstellung`
 };
 
 export function transactionCategoryLabel(category: TransactionCategory): string {

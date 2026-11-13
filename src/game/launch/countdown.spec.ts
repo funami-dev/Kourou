@@ -23,6 +23,7 @@ import {
   WEATHER_RISK
 } from './launch.constants';
 import type { Countdown, CountdownIssue, LaunchMission, TimelineEvent } from './launch.model';
+import { testMission } from './launch-mission.testing';
 
 const kourou = LAUNCH_SITES.kourou;
 /** 10:00 local time in Kourou (UTC−3), in the dry season: the LEO launch window is open, the weather calm. */
@@ -38,13 +39,7 @@ const thunderstormConditions: LaunchConditions = {
   weather: { ...calmConditions.weather, condition: 'thunderstorm' }
 };
 
-const leoMission: LaunchMission = {
-  campaign: { contractId: 1, rocketId: 1 },
-  rocketModelId: 'ibis',
-  targetOrbit: 'leo',
-  bonuses: NO_TECHNOLOGY_BONUSES,
-  rideshareContractIds: []
-};
+const leoMission: LaunchMission = testMission();
 
 /** Random numbers that make every roll succeed and pick the first option. */
 const lowestRandom: RandomNumberGenerator = () => 0;
