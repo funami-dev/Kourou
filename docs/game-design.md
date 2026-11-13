@@ -22,6 +22,10 @@ eigene Rekorde und die Spannung jedes einzelnen Starts.
 | Raketen | Beides: fertige Modelle kaufen **und** eigene aus Bauteilen zusammenstellen |
 | Ziel | Offene Sandbox ohne Endziel |
 | Inhalte | Fiktive Kunden, Firmen und Raketenmodelle; reale Orte und Naturdaten |
+| Spieltempo | 1 Spieltag = 60 Minuten Echtzeit (1 Spielstunde = 2,5 Minuten) |
+| Countdown | Eigene Ansicht; die Spielzeit pausiert währenddessen |
+| Bankrott | Nicht möglich: Der Staat springt ein und bewilligt neue Mittel |
+| Startfenster | Vereinfacht modelliert |
 
 ## Kernschleife
 
@@ -41,12 +45,13 @@ Auftrag annehmen
 Zwei Zeitebenen laufen nebeneinander:
 
 **Betriebszeit (beschleunigt)**
-- Bau, Lieferungen, Montage, Gehälter und laufende Kosten laufen in Spielzeit,
-  z. B. 1 Spieltag ≈ wenige Minuten Echtzeit.
+- Bau, Lieferungen, Montage, Gehälter und laufende Kosten laufen in Spielzeit:
+  **1 Spieltag = 60 Minuten Echtzeit** (1 Spielstunde = 2,5 Minuten).
 - Die Spielzeit läuft nur, solange das Spiel geöffnet ist. Pausieren und Tempo ändern sind möglich.
 
 **Startzeit (live)**
 - Sobald eine Rakete startbereit auf der Rampe steht, kann der Countdown beginnen.
+- Der Countdown hat eine **eigene Ansicht**. Währenddessen **pausiert die Spielzeit**.
 - Der Countdown läuft unter den **aktuellen echten Bedingungen** in Kourou:
   Wind, Böen, Niederschlag, Gewitter, Bewölkung und Tag/Nacht.
 - Ist das Wetter schlecht, entscheidest du: **jetzt riskieren, warten oder abbrechen (Scrub)**.
@@ -99,7 +104,8 @@ Isometrische Ansicht rund um das Hauptquartier. Gebäude werden gebaut und ausge
 
 ### Aufträge
 - Fiktive Kunden bieten Nutzlasten an: Ziel-Orbit, Masse, Frist, Bezahlung, Strafe bei Verzug.
-- Startfenster ergeben sich aus dem Ziel-Orbit.
+- Startfenster ergeben sich **vereinfacht** aus dem Ziel-Orbit, z. B. als feste Tageszeit-Spanne
+  je Orbit-Typ statt einer echten Bahnberechnung.
 - Mit steigendem **Ruf** werden größere und lukrativere Aufträge angeboten.
 
 ### Personal
@@ -110,6 +116,7 @@ Isometrische Ansicht rund um das Hauptquartier. Gebäude werden gebaut und ausge
 - Bestehender Ansatz im Code: `crew`-State.
 
 ### Countdown & Start
+- Eigene Ansicht, Spielzeit pausiert.
 - Echtzeit-Phase mit Funkprotokoll-Optik („T-minus 4:00 – Range: Go“).
 - Go/No-Go-Abfrage der Stationen; Live-Wetter gegen die Grenzwerte der Rakete.
 - Zufällige, ortsbezogene Störungen: Sensoranomalie, Boot in der Sperrzone, Ventil, Höhenwind.
@@ -121,6 +128,9 @@ Isometrische Ansicht rund um das Hauptquartier. Gebäude werden gebaut und ausge
 - Einnahmen: Auftragszahlungen.
 - Ausgaben: Raketen und Bauteile, Bau und Ausbau, Gehälter, Treibstoff, Rampengebühren, Scrubs.
 - Alle Balancing-Werte liegen zentral als benannte Konstanten vor.
+- **Kein Bankrott**: Fällt der Kontostand unter null, springt der Staat ein und bewilligt neue Mittel.
+  Damit es trotzdem Konsequenzen hat (Detail offen), sind z. B. denkbar: Ruf-Verlust,
+  Pflicht-Aufträge für den Staat mit geringer Marge oder Auflagen wie ein Ausbau-Stopp auf Zeit.
 
 ### Langzeitmotivation (Sandbox)
 - Freischaltungen über Ruf: neue Gebäudestufen, Bauteile, Auftragsklassen.
@@ -153,8 +163,5 @@ Erst danach folgen Gebäudebau, Personal-Management, eigene Raketen und weitere 
 
 ## Offene Fragen
 
-- Wie schnell läuft die Spielzeit genau (1 Spieltag = ? Minuten)?
-- Läuft die Spielzeit während eines Live-Countdowns weiter oder pausiert sie?
-- Wie stark bestraft ein Fehlstart? Ist ein Bankrott möglich, und was passiert dann?
-- Wie fein werden Startfenster modelliert (realistisch nach Orbit oder vereinfacht)?
-- Optik von Countdown und Telemetrie: eigene Ansicht oder ein Overlay über der Basis?
+- Welche Konsequenzen hat die staatliche Rettung genau?
+- Wie lange dauert ein Countdown in Echtzeit (Vorschlag: 3–5 Minuten)?
