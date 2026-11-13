@@ -38,12 +38,23 @@ describe('orderRocket', () => {
   it('is delivered and assembled faster with technology bonuses', () => {
     const { rocket } = orderRocket(NEW_GAME_ROCKET_FLEET, 'ibis', ORDERED_AT, {
       assemblyDurationFactor: 0.5,
-      shippingDaysSaved: 3
+      shippingDaysSaved: 3,
+      assemblySlots: 1
     });
     const arrivesAt = ORDERED_AT + (SHIP_DELIVERY_DAYS - 3) * MS_PER_DAY;
 
     expect(rocket.arrivesAtMs).toBe(arrivesAt);
     expect(rocket.readyAtMs).toBe(arrivesAt + IBIS_ASSEMBLY / 2);
+  });
+
+  it('assembles several rockets at the same time in a larger assembly hall', () => {
+    const bonuses = { assemblyDurationFactor: 1, shippingDaysSaved: 0, assemblySlots: 2 };
+    const first = orderRocket(NEW_GAME_ROCKET_FLEET, 'ibis', ORDERED_AT, bonuses);
+    const second = orderRocket(first.fleet, 'ibis', ORDERED_AT, bonuses);
+    const third = orderRocket(second.fleet, 'ibis', ORDERED_AT, bonuses);
+
+    expect(second.rocket.assemblyStartsAtMs).toBe(ARRIVES_AT);
+    expect(third.rocket.assemblyStartsAtMs).toBe(first.rocket.readyAtMs);
   });
 
   it('waits with assembly until the assembly hall is free', () => {

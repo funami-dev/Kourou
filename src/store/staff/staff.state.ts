@@ -12,13 +12,13 @@ import {
   totalDailySalaries,
   updateCandidates
 } from '../../game/staff/staff';
-import { BASE_STAFF_CAPACITY } from '../../game/staff/staff.constants';
 import type { Candidate, CrewMember, Staff } from '../../game/staff/staff.model';
 import { GameDayStarted } from '../clock';
 import { BookTransaction } from '../finance/finance.actions';
 import { FinanceState } from '../finance/finance.state';
 import { StartNewGame } from '../game.actions';
 import { LaunchCompleted } from '../launch/launch.actions';
+import { selectStaffCapacity } from '../spaceport.selectors';
 import { DismissCrewMember, HireCandidate } from './staff.actions';
 
 /** The people working at the spaceport, and the people who would like to. */
@@ -41,11 +41,6 @@ export class StaffState {
     return state.candidates;
   }
 
-  /** How many people the spaceport can house. */
-  static staffCapacity(): number {
-    return BASE_STAFF_CAPACITY;
-  }
-
   @Action(HireCandidate)
   hire(ctx: StateContext<Staff>, { candidateId }: HireCandidate): void {
     const candidate = ctx.getState().candidates.find(({ id }) => id === candidateId);
@@ -57,7 +52,7 @@ export class StaffState {
       return;
     }
 
-    const staff = hireCandidate(ctx.getState(), candidateId, StaffState.staffCapacity());
+    const staff = hireCandidate(ctx.getState(), candidateId, this.store.selectSnapshot(selectStaffCapacity));
     if (staff) {
       ctx.setState(staff);
       ctx.dispatch(new BookTransaction(-fee, 'recruiting', candidate.name));

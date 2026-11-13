@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 import { Store, provideStore } from '@ngxs/store';
 
 import { STARTING_CREW } from '../../game/staff/staff.constants';
-import { FinanceState, StaffState } from '../../store';
+import { BuildingsState, ClockState, FinanceState, StaffState } from '../../store';
 import { StaffComponent } from './staff.component';
 
 describe('StaffComponent', () => {
@@ -15,7 +15,7 @@ describe('StaffComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [StaffComponent],
-      providers: [provideRouter([]), provideStore([FinanceState, StaffState])]
+      providers: [provideRouter([]), provideStore([BuildingsState, ClockState, FinanceState, StaffState])]
     }).compileComponents();
 
     store = TestBed.inject(Store);

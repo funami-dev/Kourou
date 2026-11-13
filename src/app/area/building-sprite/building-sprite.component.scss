@@ -2,7 +2,7 @@
   display: block;
 }
 
-.laboratory {
+.building {
   position: relative;
   display: block;
 
@@ -13,15 +13,15 @@
 }
 
 // The first level is not finished yet: show a faint outline of the planned building.
-.laboratory--construction-site svg {
+.building--construction-site svg {
   opacity: 0.45;
 }
 
-.laboratory--night svg {
+.building--night svg {
   filter: brightness(0.35);
 }
 
-.laboratory__sign {
+.building__sign {
   position: absolute;
   top: 30%;
   left: 50%;

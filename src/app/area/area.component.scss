@@ -26,12 +26,44 @@
   position: absolute;
   bottom: 0;
   z-index: 300;
-  display: flex;
-  align-items: flex-end;
+  left: 0;
+  right: 0;
 
-  .laboratory {
-    transform: translate(40px, -110px);
+  // Each building has its own spot on the grounds; the port sits at the water's edge.
+  .building {
+    position: absolute;
     width: 120px;
+  }
+
+  .building--controlCenter {
+    left: 160px;
+    bottom: 120px;
+  }
+
+  .building--laboratory {
+    left: 300px;
+    bottom: 110px;
+  }
+
+  .building--assemblyHall {
+    left: 440px;
+    bottom: 95px;
+    width: 150px;
+  }
+
+  .building--weatherStation {
+    left: 240px;
+    bottom: 20px;
+  }
+
+  .building--accommodation {
+    left: 60px;
+    bottom: 10px;
+  }
+
+  .building--port {
+    left: 650px;
+    bottom: 40px;
   }
 
   .headquarter {

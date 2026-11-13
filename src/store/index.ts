@@ -10,3 +10,4 @@ export * from './buildings/index';
 export * from './research/index';
 export * from './research-contracts/index';
 export * from './staff/index';
+export * from './spaceport.selectors';

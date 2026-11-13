@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { dispatch, select } from '@ngxs/store';
 
-import { buildingLevel, constructionInProgress, findBuilding, nextLevelPlan } from '../../game/buildings/buildings';
+import { buildingLevel, constructionInProgress, nextLevelPlan } from '../../game/buildings/buildings';
 import {
   LAB_SLOTS_PER_LEVEL,
   RESEARCH_POINTS_PER_FREE_LAB_SLOT_PER_DAY,
@@ -59,8 +59,7 @@ export class ResearchComponent {
   protected readonly branchName = branchName;
 
   protected readonly laboratory = computed(() => {
-    const laboratory = findBuilding(this.buildings(), 'laboratory');
-    const level = buildingLevel(laboratory, this.today());
+    const level = buildingLevel(this.buildings(), 'laboratory', this.today());
     const slots = level * LAB_SLOTS_PER_LEVEL;
     const occupiedSlots = studiesInLabOn(this.researchMarket().contracts, this.today());
     const nextLevel = nextLevelPlan(this.buildings(), 'laboratory', this.today());
@@ -71,7 +70,7 @@ export class ResearchComponent {
       occupiedSlots,
       researchPointsPerDay: Math.max(0, slots - occupiedSlots) * RESEARCH_POINTS_PER_FREE_LAB_SLOT_PER_DAY,
       upkeepPerDay: level * UPKEEP_PER_LEVEL_PER_DAY.laboratory,
-      construction: constructionInProgress(laboratory, this.today()),
+      construction: constructionInProgress(this.buildings(), 'laboratory', this.today()),
       nextLevel,
       canAffordNextLevel: nextLevel !== null && this.balance() >= nextLevel.cost
     };

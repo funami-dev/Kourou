@@ -1,20 +1,260 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="de">
   <file id="ngi18n" original="ng.template">
-    <unit id="area.laboratory.label">
+    <unit id="area.building.construction">
       <notes>
-        <note category="location">src/app/area/laboratory-building/laboratory-building.component.html:6,7</note>
-      </notes>
-      <segment>
-        <source>Labor – zur Forschung</source>
-      </segment>
-    </unit>
-    <unit id="area.laboratory.construction">
-      <notes>
-        <note category="location">src/app/area/laboratory-building/laboratory-building.component.html:27,30</note>
+        <note category="location">src/app/area/building-sprite/building-sprite.component.html:81,84</note>
       </notes>
       <segment>
         <source>Baustelle</source>
+      </segment>
+    </unit>
+    <unit id="area.building.label">
+      <notes>
+        <note category="location">src/app/area/building-sprite/building-sprite.component.ts:23</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="building" disp="buildingName(this.type())"/>, Stufe <ph id="1" equiv="level" disp="this.level()"/></source>
+      </segment>
+    </unit>
+    <unit id="buildings.name.assemblyHall">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:7</note>
+      </notes>
+      <segment>
+        <source>Montagehalle</source>
+      </segment>
+    </unit>
+    <unit id="buildings.name.port">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:8</note>
+      </notes>
+      <segment>
+        <source>Hafen</source>
+      </segment>
+    </unit>
+    <unit id="buildings.name.controlCenter">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:9</note>
+      </notes>
+      <segment>
+        <source>Kontrollzentrum</source>
+      </segment>
+    </unit>
+    <unit id="buildings.name.laboratory">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:10</note>
+      </notes>
+      <segment>
+        <source>Labor</source>
+      </segment>
+    </unit>
+    <unit id="buildings.name.weatherStation">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:11</note>
+      </notes>
+      <segment>
+        <source>Wetterstation</source>
+      </segment>
+    </unit>
+    <unit id="buildings.name.accommodation">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:12</note>
+      </notes>
+      <segment>
+        <source>Unterkünfte</source>
+      </segment>
+    </unit>
+    <unit id="buildings.description.assemblyHall">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:16</note>
+      </notes>
+      <segment>
+        <source>Hier werden angelieferte Raketen zusammengebaut. Jede Stufe bringt eine weitere Montagebucht.</source>
+      </segment>
+    </unit>
+    <unit id="buildings.description.port">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:17</note>
+      </notes>
+      <segment>
+        <source>Raketenteile kommen per Schiff aus Europa. Ein größerer Kai und eigene Kräne beschleunigen die Lieferung.</source>
+      </segment>
+    </unit>
+    <unit id="buildings.description.controlCenter">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:18</note>
+      </notes>
+      <segment>
+        <source>Von hier aus wird gestartet. Simulatoren und Trainingsräume machen das Personal im Countdown besser.</source>
+      </segment>
+    </unit>
+    <unit id="buildings.description.laboratory">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:19</note>
+      </notes>
+      <segment>
+        <source>Laborplätze erzeugen Forschungspunkte oder werden für Studien von Kunden genutzt.</source>
+      </segment>
+    </unit>
+    <unit id="buildings.description.weatherStation">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:20</note>
+      </notes>
+      <segment>
+        <source>Eigene Messungen vor Ort: Bei schlechtem Wetter weiß das Team schneller, ob Warten sich lohnt.</source>
+      </segment>
+    </unit>
+    <unit id="buildings.description.accommodation">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:21</note>
+      </notes>
+      <segment>
+        <source>Wohnungen für das Personal. Mehr Unterkünfte erlauben ein größeres Team.</source>
+      </segment>
+    </unit>
+    <unit id="buildings.effect.assemblyHall">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:37</note>
+      </notes>
+      <segment>
+        <source>Raketen gleichzeitig in Montage: <ph id="0" equiv="count" disp="effect"/></source>
+      </segment>
+    </unit>
+    <unit id="buildings.effect.port.standard">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:40</note>
+      </notes>
+      <segment>
+        <source>Normale Lieferzeit</source>
+      </segment>
+    </unit>
+    <unit id="buildings.effect.port">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:41</note>
+      </notes>
+      <segment>
+        <source>Lieferung <ph id="0" equiv="days" disp="effect"/> Tage schneller</source>
+      </segment>
+    </unit>
+    <unit id="buildings.effect.controlCenter.standard">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:44</note>
+      </notes>
+      <segment>
+        <source>Kein Trainingsbonus</source>
+      </segment>
+    </unit>
+    <unit id="buildings.effect.controlCenter">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:45</note>
+      </notes>
+      <segment>
+        <source>Trainingsbonus im Countdown: +<ph id="0" equiv="levels" disp="effect"/> Erfahrungsstufe</source>
+      </segment>
+    </unit>
+    <unit id="buildings.effect.laboratory">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:47</note>
+      </notes>
+      <segment>
+        <source>Laborplätze: <ph id="0" equiv="count" disp="effect"/></source>
+      </segment>
+    </unit>
+    <unit id="buildings.effect.weatherStation">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:49</note>
+      </notes>
+      <segment>
+        <source>Wetter-Holds <ph id="0" equiv="percent" disp="Math.round(effect * 100)"/> % kürzer</source>
+      </segment>
+    </unit>
+    <unit id="buildings.effect.accommodation">
+      <notes>
+        <note category="location">src/app/buildings/building-texts.ts:51</note>
+      </notes>
+      <segment>
+        <source>+<ph id="0" equiv="count" disp="effect"/> Plätze im Team</source>
+      </segment>
+    </unit>
+    <unit id="buildings.title">
+      <notes>
+        <note category="location">src/app/buildings/buildings.component.html:2,3</note>
+      </notes>
+      <segment>
+        <source>Gebäude</source>
+      </segment>
+    </unit>
+    <unit id="buildings.explanation">
+      <notes>
+        <note category="location">src/app/buildings/buildings.component.html:4,8</note>
+      </notes>
+      <segment>
+        <source> Bauen und Ausbauen kostet eigenes Geld und dauert einige Tage. Während eines Ausbaus arbeitet das Gebäude auf der bisherigen Stufe weiter. Gebaute Stufen kosten täglich Unterhalt. </source>
+      </segment>
+    </unit>
+    <unit id="buildings.level">
+      <notes>
+        <note category="location">src/app/buildings/buildings.component.html:14,16</note>
+      </notes>
+      <segment>
+        <source> Stufe <ph id="0" equiv="INTERPOLATION" disp="{{ building.level }}"/> / <ph id="1" equiv="INTERPOLATION_1" disp="{{ building.maxLevel }}"/> </source>
+      </segment>
+    </unit>
+    <unit id="buildings.currentEffect">
+      <notes>
+        <note category="location">src/app/buildings/buildings.component.html:21,22</note>
+      </notes>
+      <segment>
+        <source>Jetzt</source>
+      </segment>
+    </unit>
+    <unit id="buildings.nextEffect">
+      <notes>
+        <note category="location">src/app/buildings/buildings.component.html:25,26</note>
+      </notes>
+      <segment>
+        <source>Stufe <ph id="0" equiv="INTERPOLATION" disp="{{ nextLevel.level }}"/></source>
+      </segment>
+    </unit>
+    <unit id="buildings.upkeep">
+      <notes>
+        <note category="location">src/app/buildings/buildings.component.html:29,30</note>
+      </notes>
+      <segment>
+        <source>Unterhalt pro Tag</source>
+      </segment>
+    </unit>
+    <unit id="buildings.underConstruction">
+      <notes>
+        <note category="location">src/app/buildings/buildings.component.html:36,38</note>
+      </notes>
+      <segment>
+        <source> Stufe <ph id="0" equiv="INTERPOLATION" disp="{{ construction.level }}"/> ist im Bau und ab Tag <ph id="1" equiv="INTERPOLATION_1" disp="{{ construction.completesOnDay }}"/> in Betrieb. </source>
+      </segment>
+    </unit>
+    <unit id="buildings.build">
+      <notes>
+        <note category="location">src/app/buildings/buildings.component.html:47,48</note>
+      </notes>
+      <segment>
+        <source> Bauen (<ph id="0" equiv="INTERPOLATION" disp="{{ nextLevel.cost | euros }}"/>, <ph id="1" equiv="INTERPOLATION_1" disp="{{ nextLevel.constructionDays }}"/> Tage) </source>
+      </segment>
+    </unit>
+    <unit id="buildings.upgrade">
+      <notes>
+        <note category="location">src/app/buildings/buildings.component.html:51,52</note>
+      </notes>
+      <segment>
+        <source> Ausbauen (<ph id="0" equiv="INTERPOLATION" disp="{{ nextLevel.cost | euros }}"/>, <ph id="1" equiv="INTERPOLATION_1" disp="{{ nextLevel.constructionDays }}"/> Tage) </source>
+      </segment>
+    </unit>
+    <unit id="buildings.maxLevel">
+      <notes>
+        <note category="location">src/app/buildings/buildings.component.html:56,60</note>
+      </notes>
+      <segment>
+        <source>Höchste Stufe erreicht.</source>
       </segment>
     </unit>
     <unit id="gameClock.label">
@@ -1336,9 +1576,17 @@
         <source>Startrampe</source>
       </segment>
     </unit>
-    <unit id="layout.menu.staff">
+    <unit id="layout.menu.buildings">
       <notes>
         <note category="location">src/app/layout/layout.component.html:31,33</note>
+      </notes>
+      <segment>
+        <source>Gebäude</source>
+      </segment>
+    </unit>
+    <unit id="layout.menu.staff">
+      <notes>
+        <note category="location">src/app/layout/layout.component.html:35,37</note>
       </notes>
       <segment>
         <source>Personal</source>
@@ -1346,7 +1594,7 @@
     </unit>
     <unit id="layout.menu.research">
       <notes>
-        <note category="location">src/app/layout/layout.component.html:35,37</note>
+        <note category="location">src/app/layout/layout.component.html:39,41</note>
       </notes>
       <segment>
         <source>Forschung</source>
@@ -1354,7 +1602,7 @@
     </unit>
     <unit id="layout.menu.finances">
       <notes>
-        <note category="location">src/app/layout/layout.component.html:39,41</note>
+        <note category="location">src/app/layout/layout.component.html:43,45</note>
       </notes>
       <segment>
         <source>Finanzen</source>
@@ -1362,7 +1610,7 @@
     </unit>
     <unit id="layout.menu.weather">
       <notes>
-        <note category="location">src/app/layout/layout.component.html:43,45</note>
+        <note category="location">src/app/layout/layout.component.html:47,49</note>
       </notes>
       <segment>
         <source>Wetter</source>
@@ -1370,7 +1618,7 @@
     </unit>
     <unit id="layout.menu.settings">
       <notes>
-        <note category="location">src/app/layout/layout.component.html:47,49</note>
+        <note category="location">src/app/layout/layout.component.html:51,53</note>
       </notes>
       <segment>
         <source>Einstellungen</source>
@@ -1378,7 +1626,7 @@
     </unit>
     <unit id="layout.countdown.label">
       <notes>
-        <note category="location">src/app/layout/layout.component.html:56,57</note>
+        <note category="location">src/app/layout/layout.component.html:60,61</note>
       </notes>
       <segment>
         <source>Zum laufenden Countdown</source>
@@ -1386,7 +1634,7 @@
     </unit>
     <unit id="layout.balance.label">
       <notes>
-        <note category="location">src/app/layout/layout.component.html:67,68</note>
+        <note category="location">src/app/layout/layout.component.html:71,72</note>
       </notes>
       <segment>
         <source>Kontostand – zu den Finanzen</source>

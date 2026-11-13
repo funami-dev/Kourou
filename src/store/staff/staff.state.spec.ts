@@ -7,6 +7,7 @@ import { STARTING_BALANCE } from '../../game/economy/economy.constants';
 import { RandomSource } from '../../game/random';
 import { recruitingFee, totalDailySalaries } from '../../game/staff/staff';
 import { STARTING_CREW } from '../../game/staff/staff.constants';
+import { BuildingsState } from '../buildings';
 import { AdvanceClock, ClockState } from '../clock';
 import { FinanceState } from '../finance';
 import { GuiState } from '../gui';
@@ -25,7 +26,7 @@ describe('StaffState', () => {
     TestBed.configureTestingModule({
       providers: [
         provideRouter([]),
-        provideStore([ClockState, FinanceState, GuiState, StaffState]),
+        provideStore([BuildingsState, ClockState, FinanceState, GuiState, StaffState]),
         { provide: RandomSource, useValue: { next: () => 0 } }
       ]
     });

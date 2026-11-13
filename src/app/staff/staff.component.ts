@@ -12,7 +12,7 @@ import {
 } from '../../game/staff/staff';
 import { CREW_ROLES, EXPERIENCE_LEVEL_THRESHOLDS } from '../../game/staff/staff.constants';
 import type { Candidate, CrewMember } from '../../game/staff/staff.model';
-import { DismissCrewMember, FinanceState, HireCandidate, StaffState } from '../../store';
+import { DismissCrewMember, FinanceState, HireCandidate, StaffState, selectStaffCapacity } from '../../store';
 import { EurosPipe } from '../shared/euros.pipe';
 import { roleLabel, traitDescription, traitLabel } from './staff-texts';
 
@@ -29,7 +29,7 @@ export class StaffComponent {
   private readonly members = select(StaffState.members);
   private readonly balance = select(FinanceState.balance);
   protected readonly candidates = select(StaffState.candidates);
-  protected readonly staffCapacity = StaffState.staffCapacity();
+  protected readonly staffCapacity = select(selectStaffCapacity);
 
   protected readonly roleLabel = roleLabel;
   protected readonly traitLabel = traitLabel;
@@ -39,7 +39,7 @@ export class StaffComponent {
   protected readonly experienceLevel = experienceLevel;
 
   protected readonly teamSize = computed(() => this.members().length);
-  protected readonly isFull = computed(() => this.teamSize() >= this.staffCapacity);
+  protected readonly isFull = computed(() => this.teamSize() >= this.staffCapacity());
   protected readonly dailySalaries = computed(() => totalDailySalaries(this.members()));
   protected readonly unstaffedRoles = computed(() => unstaffedRoles(this.members()));
 

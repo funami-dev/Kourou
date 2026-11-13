@@ -1,0 +1,61 @@
+<section class="buildings game-panel" aria-labelledby="buildings-title">
+  <h1 id="buildings-title" i18n="@@buildings.title">Gebäude</h1>
+  <p class="buildings__hint" i18n="@@buildings.explanation">
+    Bauen und Ausbauen kostet eigenes Geld und dauert einige Tage. Während eines Ausbaus arbeitet das Gebäude auf der
+    bisherigen Stufe weiter. Gebaute Stufen kosten täglich Unterhalt.
+  </p>
+
+  <ul class="buildings__list">
+    @for (building of overview(); track building.type) {
+      <li class="building-card" [class.building-card--missing]="building.level === 0">
+        <header class="building-card__header">
+          <h2>{{ buildingName(building.type) }}</h2>
+          <span class="building-card__level" i18n="@@buildings.level">
+            Stufe {{ building.level }} / {{ building.maxLevel }}
+          </span>
+        </header>
+        <p>{{ buildingDescription(building.type) }}</p>
+
+        <dl class="building-card__facts">
+          @if (building.level > 0) {
+            <dt i18n="@@buildings.currentEffect">Jetzt</dt>
+            <dd>{{ buildingEffectText(building.type, building.level) }}</dd>
+          }
+          @if (building.nextLevel; as nextLevel) {
+            <dt i18n="@@buildings.nextEffect">Stufe {{ nextLevel.level }}</dt>
+            <dd>{{ buildingEffectText(building.type, nextLevel.level) }}</dd>
+          }
+          @if (building.upkeepPerDay > 0) {
+            <dt i18n="@@buildings.upkeep">Unterhalt pro Tag</dt>
+            <dd>{{ building.upkeepPerDay | euros }}</dd>
+          }
+        </dl>
+
+        @if (building.construction; as construction) {
+          <p class="buildings__notice" i18n="@@buildings.underConstruction">
+            Stufe {{ construction.level }} ist im Bau und ab Tag {{ construction.completesOnDay }} in Betrieb.
+          </p>
+        } @else if (building.nextLevel; as nextLevel) {
+          <button
+            mat-flat-button
+            type="button"
+            [disabled]="!building.canAffordNextLevel"
+            (click)="build(building.type)"
+          >
+            @if (building.level === 0) {
+              <ng-container i18n="@@buildings.build">
+                Bauen ({{ nextLevel.cost | euros }}, {{ nextLevel.constructionDays }} Tage)
+              </ng-container>
+            } @else {
+              <ng-container i18n="@@buildings.upgrade">
+                Ausbauen ({{ nextLevel.cost | euros }}, {{ nextLevel.constructionDays }} Tage)
+              </ng-container>
+            }
+          </button>
+        } @else {
+          <p class="buildings__hint" i18n="@@buildings.maxLevel">Höchste Stufe erreicht.</p>
+        }
+      </li>
+    }
+  </ul>
+</section>

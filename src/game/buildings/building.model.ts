@@ -1,7 +1,13 @@
 import type { Euros } from '../economy/economy.constants';
 
-/** Kinds of buildings on the spaceport grounds. More will follow (see docs/game-design.md, "Basis & Gebäude"). */
-export type BuildingType = 'laboratory';
+/** Kinds of buildings on the spaceport grounds (see docs/game-design.md, "Basis & Gebäude"). */
+export type BuildingType =
+  | 'assemblyHall'
+  | 'port'
+  | 'controlCenter'
+  | 'laboratory'
+  | 'weatherStation'
+  | 'accommodation';
 
 /** One construction project that brings a building to the next level. */
 export interface Construction {
@@ -25,4 +31,15 @@ export interface BuildingLevelPlan {
   level: number;
   cost: Euros;
   constructionDays: number;
+}
+
+/** What all buildings together provide. */
+export interface BuildingEffects {
+  assemblySlots: number;
+  shippingDaysSaved: number;
+  /** Extra experience levels of the staff during countdowns, thanks to training in the control center. */
+  crewLevelBonus: number;
+  weatherHoldDurationFactor: number;
+  staffCapacityBonus: number;
+  laboratorySlots: number;
 }

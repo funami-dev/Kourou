@@ -9,10 +9,13 @@ export interface RocketFleet {
   nextId: number;
 }
 
-/** Technology bonuses that speed up delivery and assembly. */
-export type OrderBonuses = Pick<TechnologyBonuses, 'assemblyDurationFactor' | 'shippingDaysSaved'>;
+/** What affects delivery and assembly: technologies, the port and the size of the assembly hall. */
+export type OrderBonuses = Pick<TechnologyBonuses, 'assemblyDurationFactor' | 'shippingDaysSaved'> & {
+  /** Rockets the assembly hall can assemble at the same time. */
+  assemblySlots: number;
+};
 
-const NO_ORDER_BONUSES: OrderBonuses = { assemblyDurationFactor: 1, shippingDaysSaved: 0 };
+const NO_ORDER_BONUSES: OrderBonuses = { assemblyDurationFactor: 1, shippingDaysSaved: 0, assemblySlots: 1 };
 
 export const NEW_GAME_ROCKET_FLEET: RocketFleet = {
   rockets: [],
@@ -21,7 +24,7 @@ export const NEW_GAME_ROCKET_FLEET: RocketFleet = {
 
 /**
  * Orders a rocket and plans its schedule: shipping first, then assembly.
- * The assembly hall works on one rocket at a time, so assembly waits until the hall is free.
+ * The assembly hall has a limited number of bays, so assembly may have to wait until one is free.
  */
 export function orderRocket(
   fleet: RocketFleet,
@@ -31,7 +34,7 @@ export function orderRocket(
 ): { fleet: RocketFleet; rocket: Rocket } {
   const model = ROCKET_MODELS[modelId];
   const arrivesAtMs = orderedAtMs + (SHIP_DELIVERY_DAYS - bonuses.shippingDaysSaved) * MS_PER_DAY;
-  const assemblyStartsAtMs = Math.max(arrivesAtMs, assemblyHallFreeAtMs(fleet));
+  const assemblyStartsAtMs = Math.max(arrivesAtMs, nextFreeAssemblyBayAtMs(fleet, bonuses.assemblySlots));
 
   const rocket: Rocket = {
     id: fleet.nextId,
@@ -59,9 +62,13 @@ export function removeRocket(fleet: RocketFleet, rocketId: number): RocketFleet 
   return { ...fleet, rockets: fleet.rockets.filter((rocket) => rocket.id !== rocketId) };
 }
 
-/** The moment the last planned assembly is finished. */
-function assemblyHallFreeAtMs(fleet: RocketFleet): number {
-  return Math.max(0, ...fleet.rockets.map((rocket) => rocket.readyAtMs));
+/**
+ * The moment the next assembly bay becomes free.
+ * With n bays, a new rocket has to wait for the n-th latest planned assembly to finish.
+ */
+function nextFreeAssemblyBayAtMs(fleet: RocketFleet, assemblySlots: number): number {
+  const latestFirst = fleet.rockets.map((rocket) => rocket.readyAtMs).sort((first, second) => second - first);
+  return latestFirst[Math.max(1, assemblySlots) - 1] ?? 0;
 }
 
 /** Serial names count per model, e.g. the third Ibis is "IB-03". */

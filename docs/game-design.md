@@ -86,18 +86,21 @@ Aktualisiert wird alle 15 Minuten – so oft, wie Open-Meteo neue aktuelle Werte
 ## Systeme
 
 ### Basis & Gebäude
-Isometrische Ansicht rund um das Hauptquartier. Gebäude werden gebaut und ausgebaut.
+Isometrische Ansicht rund um das Hauptquartier. Gebäude werden auf einer eigenen Seite gebaut und
+ausgebaut; Bau kostet eigenes Geld und dauert Tage, gebaute Stufen kosten Unterhalt. Während eines
+Ausbaus arbeitet das Gebäude auf der bisherigen Stufe weiter.
 
-| Gebäude | Wirkung |
-|---|---|
-| Hauptquartier | Aufträge, Finanzen, Verwaltung |
-| Hafen | Anlieferung von Raketen und Bauteilen; Ausbau = schnellere/größere Lieferungen |
-| Montagehalle | Montage; Ausbau = mehr Raketen gleichzeitig, schnellere Montage |
-| Startrampe | Startet Raketen; Ausbau = größere Raketen; mehrere Rampen möglich |
-| Tanklager | Treibstoffvorrat, Betankungsdauer |
-| Wetterstation | Bessere und frühere Prognosen im Countdown |
-| Kontrollzentrum | Crew-Plätze im Countdown, schnellere Reaktion auf Störungen |
-| Unterkünfte | Maximale Personalgröße |
+| Gebäude | Start | Stufen | Wirkung |
+|---|---|---|---|
+| Hauptquartier | vorhanden | – | Aufträge, Finanzen, Verwaltung |
+| Montagehalle | Stufe 1 | bis 3 | Jede Stufe = eine Montagebucht, also eine Rakete mehr gleichzeitig in Montage |
+| Hafen | Stufe 1 | bis 3 | Ab Stufe 2 je Stufe 2 Tage schnellere Lieferung |
+| Kontrollzentrum | Stufe 1 | bis 3 | Training: ab Stufe 2 zählt das Personal im Countdown je Stufe eine Erfahrungsstufe höher |
+| Labor | – | bis 3 | Laborplätze für Forschung und Studien |
+| Wetterstation | – | bis 2 | Je Stufe 20 % kürzere Wetter-Holds (zusätzlich zum Wetterradar) |
+| Unterkünfte | – | bis 3 | Je Stufe 4 Plätze mehr im Team |
+
+Später denkbar: weitere Startrampen, Tanklager.
 
 ### Raketen
 - Erste fertige Modelle (fiktiv, Hersteller „Orbitalwerk“): **Ibis** (klein, kein GTO) und

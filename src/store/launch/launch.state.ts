@@ -23,9 +23,9 @@ import { ClockState, GameDayStarted } from '../clock';
 import { ContractDeadlinesMissed, ContractsState } from '../contracts';
 import { BookTransaction } from '../finance';
 import { StartNewGame } from '../game.actions';
-import { ResearchState } from '../research';
 import { ResearchContractsState } from '../research-contracts/research-contracts.state';
 import { RocketsState } from '../rockets';
+import { selectBuildingEffects, selectCountdownBonuses } from '../spaceport.selectors';
 import { StaffState } from '../staff/staff.state';
 import {
   AdvanceCountdown,
@@ -102,7 +102,8 @@ export class LaunchState {
     const { campaign, countdown } = ctx.getState();
     const contract = campaign && this.findContract(campaign.contractId);
     const rocket = campaign && this.findRocket(campaign.rocketId);
-    const crew = assembleStationCrew(this.store.selectSnapshot(StaffState.members));
+    const crewLevelBonus = this.store.selectSnapshot(selectBuildingEffects).crewLevelBonus;
+    const crew = assembleStationCrew(this.store.selectSnapshot(StaffState.members), crewLevelBonus);
     if (countdown !== null || !campaign || !contract || !rocket || !crew) {
       return;
     }
@@ -117,7 +118,7 @@ export class LaunchState {
       campaign,
       rocketModelId: rocket.modelId,
       targetOrbit: contract.payload.targetOrbit,
-      bonuses: this.store.selectSnapshot(ResearchState.bonuses),
+      bonuses: this.store.selectSnapshot(selectCountdownBonuses),
       rideshareContractIds: rideshareExperiments.map(({ id }) => id),
       crew
     };

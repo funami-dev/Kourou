@@ -127,11 +127,12 @@
         </svg>
       }
     </div>
-    @if (laboratory(); as laboratory) {
-      <app-laboratory-building
-        class="laboratory"
-        [level]="laboratory.level"
-        [isUnderConstruction]="laboratory.isUnderConstruction"
+    @for (building of buildingsOnGrounds(); track building.type) {
+      <app-building-sprite
+        class="building building--{{ building.type }}"
+        [type]="building.type"
+        [level]="building.level"
+        [isUnderConstruction]="building.isUnderConstruction"
         [isDaylight]="isDaylight()"
       />
     }
