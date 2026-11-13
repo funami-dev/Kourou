@@ -105,10 +105,23 @@ Isometrische Ansicht rund um das Hauptquartier. Gebäude werden gebaut und ausge
 - Zuverlässigkeit steigt mit Erfahrung, also mit erfolgreichen Starts eines Modells oder Designs.
 
 ### Aufträge
-- Fiktive Kunden bieten Nutzlasten an: Ziel-Orbit, Masse, Frist, Bezahlung, Strafe bei Verzug.
+- Fiktive Kunden bieten Nutzlasten an: Ziel-Orbit, Masse, Frist und Bezahlung.
+- Angebote gelten nur einige Tage; täglich kommen neue hinzu.
+- Bei Annahme gibt es eine **Anzahlung**, der Rest wird nach erfolgreichem Start bezahlt.
+- Wird die Frist verpasst, verfällt der Auftrag: Der Rest wird nicht bezahlt, die Anzahlung darf
+  man behalten. Später kostet ein verpasster Auftrag zusätzlich Ruf.
 - Startfenster ergeben sich **vereinfacht** aus dem Ziel-Orbit, z. B. als feste Tageszeit-Spanne
   je Orbit-Typ statt einer echten Bahnberechnung.
 - Mit steigendem **Ruf** werden größere und lukrativere Aufträge angeboten.
+
+### Forschung
+Zwei Wege, die sich ergänzen:
+- **Forschungsaufträge (Auftragsforschung)**: Institute, Behörden und Firmen beauftragen
+  Forschung – etwa Experimente, Studien oder Technologie-Erprobungen. Sie bringen Geld und Ruf.
+- **Eigene Forschung**: Du entwickelst selbst neue Technologien (z. B. bessere Triebwerke,
+  Wettervorhersage, Wiederverwendbarkeit) und schaltest damit Neues frei.
+
+Details folgen in einem eigenen Schritt (offene Fragen siehe unten).
 
 ### Personal
 - Einstellbare Mitarbeiter mit Rolle (z. B. Flight Director, Wetter, Antrieb, Range Safety)
@@ -163,8 +176,12 @@ Ziel: **ein kompletter Durchlauf der Kernschleife** in Kourou.
 6. **Countdown** mit Go/No-Go gegen die Wetter-Grenzwerte und 1–2 Zufallsereignissen.
 7. **Ergebnis**: Erfolg, Scrub oder Fehlstart → Geld und Ruf.
 
-Erst danach folgen Gebäudebau, Personal-Management, eigene Raketen und weitere Standorte.
+Erst danach folgen Forschung (Auftrags- und eigene Forschung), Gebäudebau, Personal-Management,
+eigene Raketen und weitere Standorte.
 
 ## Offene Fragen
 
-- Derzeit keine. Neue Fragen werden hier gesammelt.
+- **Forschung**: Wie läuft ein Forschungsauftrag ab – braucht er einen Start (Experiment im Orbit),
+  Personal, Gebäude (Labor) oder nur Zeit? Wie ist die eigene Forschung aufgebaut (Technologiebaum,
+  Forschungspunkte, Kosten)? Wie hängen beide zusammen (bringen Aufträge Fortschritt für die eigene
+  Forschung)?
