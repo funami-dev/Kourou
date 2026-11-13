@@ -3,6 +3,7 @@ import { provideRouter } from '@angular/router';
 import { Store, provideStore } from '@ngxs/store';
 
 import { STARTING_BALANCE } from '../../game/economy/economy.constants';
+import { designPerformance } from '../../game/rockets/rocket-design';
 import { ROCKET_MODELS } from '../../game/rockets/rockets.constants';
 import { BuildingsState } from '../buildings';
 import { ClockState } from '../clock';
@@ -11,7 +12,7 @@ import { StartNewGame } from '../game.actions';
 import { GuiState } from '../gui';
 import { ResearchContractsState } from '../research-contracts';
 import { ResearchState } from '../research';
-import { OrderRocket } from './rockets.actions';
+import { OrderRocket, SaveRocketDesign } from './rockets.actions';
 import { RocketsState } from './rockets.state';
 
 describe('RocketsState', () => {
@@ -65,5 +66,19 @@ describe('RocketsState', () => {
     store.dispatch(new StartNewGame());
 
     expect(rockets()).toEqual([]);
+  });
+
+  it('orders a rocket of an own design', () => {
+    const parts = {
+      coreStage: 'coreLight',
+      boosterCount: 2,
+      upperStage: 'upperBasic',
+      fairing: 'fairingSmall'
+    } as const;
+    store.dispatch(new SaveRocketDesign('Kolibri', parts));
+    store.dispatch(new OrderRocket('design-1'));
+
+    expect(rockets()[0]).toMatchObject({ modelId: 'design-1', serialName: 'E1-01' });
+    expect(balance()).toBe(STARTING_BALANCE - designPerformance(parts).price);
   });
 });

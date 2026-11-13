@@ -6,7 +6,7 @@ import type { RocketModel, RocketModelId } from './rocket.model';
  * Rockets that can be bought ready-made.
  * Both are named after birds of French Guiana; the scarlet ibis is a well-known sight near Kourou.
  */
-export const ROCKET_MODELS: Record<RocketModelId, RocketModel> = {
+export const ROCKET_MODELS: Record<RocketModelId, RocketModel & { id: RocketModelId }> = {
   ibis: {
     id: 'ibis',
     name: 'Ibis',

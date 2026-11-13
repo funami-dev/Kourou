@@ -1,6 +1,8 @@
 import { MS_PER_DAY } from '../clock/clock.constants';
 import {
   NEW_GAME_ROCKET_FLEET,
+  recordSuccessfulLaunch,
+  saveDesign,
   endOfCurrentStepMs,
   orderRocket,
   progressOfCurrentStep,
@@ -14,7 +16,7 @@ const IBIS_ASSEMBLY = ROCKET_MODELS.ibis.assemblyDays * MS_PER_DAY;
 
 describe('orderRocket', () => {
   it('plans shipping and assembly', () => {
-    const { rocket } = orderRocket(NEW_GAME_ROCKET_FLEET, 'ibis', ORDERED_AT);
+    const { rocket } = orderRocket(NEW_GAME_ROCKET_FLEET, ROCKET_MODELS.ibis, ORDERED_AT);
 
     expect(rocket).toEqual({
       id: 1,
@@ -28,15 +30,15 @@ describe('orderRocket', () => {
   });
 
   it('numbers rockets per model', () => {
-    let fleet = orderRocket(NEW_GAME_ROCKET_FLEET, 'ibis', ORDERED_AT).fleet;
-    fleet = orderRocket(fleet, 'albatros', ORDERED_AT).fleet;
-    fleet = orderRocket(fleet, 'ibis', ORDERED_AT).fleet;
+    let fleet = orderRocket(NEW_GAME_ROCKET_FLEET, ROCKET_MODELS.ibis, ORDERED_AT).fleet;
+    fleet = orderRocket(fleet, ROCKET_MODELS.albatros, ORDERED_AT).fleet;
+    fleet = orderRocket(fleet, ROCKET_MODELS.ibis, ORDERED_AT).fleet;
 
     expect(fleet.rockets.map((rocket) => rocket.serialName)).toEqual(['IB-01', 'AL-01', 'IB-02']);
   });
 
   it('is delivered and assembled faster with technology bonuses', () => {
-    const { rocket } = orderRocket(NEW_GAME_ROCKET_FLEET, 'ibis', ORDERED_AT, {
+    const { rocket } = orderRocket(NEW_GAME_ROCKET_FLEET, ROCKET_MODELS.ibis, ORDERED_AT, {
       assemblyDurationFactor: 0.5,
       shippingDaysSaved: 3,
       assemblySlots: 1
@@ -49,17 +51,17 @@ describe('orderRocket', () => {
 
   it('assembles several rockets at the same time in a larger assembly hall', () => {
     const bonuses = { assemblyDurationFactor: 1, shippingDaysSaved: 0, assemblySlots: 2 };
-    const first = orderRocket(NEW_GAME_ROCKET_FLEET, 'ibis', ORDERED_AT, bonuses);
-    const second = orderRocket(first.fleet, 'ibis', ORDERED_AT, bonuses);
-    const third = orderRocket(second.fleet, 'ibis', ORDERED_AT, bonuses);
+    const first = orderRocket(NEW_GAME_ROCKET_FLEET, ROCKET_MODELS.ibis, ORDERED_AT, bonuses);
+    const second = orderRocket(first.fleet, ROCKET_MODELS.ibis, ORDERED_AT, bonuses);
+    const third = orderRocket(second.fleet, ROCKET_MODELS.ibis, ORDERED_AT, bonuses);
 
     expect(second.rocket.assemblyStartsAtMs).toBe(ARRIVES_AT);
     expect(third.rocket.assemblyStartsAtMs).toBe(first.rocket.readyAtMs);
   });
 
   it('waits with assembly until the assembly hall is free', () => {
-    const first = orderRocket(NEW_GAME_ROCKET_FLEET, 'ibis', ORDERED_AT);
-    const { rocket: second } = orderRocket(first.fleet, 'ibis', ORDERED_AT);
+    const first = orderRocket(NEW_GAME_ROCKET_FLEET, ROCKET_MODELS.ibis, ORDERED_AT);
+    const { rocket: second } = orderRocket(first.fleet, ROCKET_MODELS.ibis, ORDERED_AT);
 
     expect(second.arrivesAtMs).toBe(ARRIVES_AT);
     expect(second.assemblyStartsAtMs).toBe(first.rocket.readyAtMs);
@@ -68,8 +70,8 @@ describe('orderRocket', () => {
 });
 
 describe('rocketStatus and progress', () => {
-  const first = orderRocket(NEW_GAME_ROCKET_FLEET, 'ibis', ORDERED_AT);
-  const { rocket: waitingRocket } = orderRocket(first.fleet, 'ibis', ORDERED_AT);
+  const first = orderRocket(NEW_GAME_ROCKET_FLEET, ROCKET_MODELS.ibis, ORDERED_AT);
+  const { rocket: waitingRocket } = orderRocket(first.fleet, ROCKET_MODELS.ibis, ORDERED_AT);
   const rocket = first.rocket;
 
   it('is in transit until the ship arrives', () => {
@@ -94,5 +96,26 @@ describe('rocketStatus and progress', () => {
     expect(rocketStatus(rocket, rocket.readyAtMs)).toBe('ready');
     expect(progressOfCurrentStep(rocket, rocket.readyAtMs + MS_PER_DAY)).toBe(1);
     expect(endOfCurrentStepMs(rocket, rocket.readyAtMs)).toBeNull();
+  });
+});
+
+describe('designs and experience', () => {
+  const parts = { coreStage: 'coreLight', boosterCount: 0, upperStage: 'upperBasic', fairing: 'fairingSmall' } as const;
+
+  it('saves a design under the given name', () => {
+    const fleet = saveDesign(NEW_GAME_ROCKET_FLEET, ' Kolibri ', parts)!;
+
+    expect(fleet.designs).toEqual([{ id: 1, name: 'Kolibri', ...parts }]);
+    expect(fleet.nextDesignId).toBe(2);
+  });
+
+  it('refuses a design without a name', () => {
+    expect(saveDesign(NEW_GAME_ROCKET_FLEET, '  ', parts)).toBeNull();
+  });
+
+  it('counts successful launches per model or design', () => {
+    const fleet = recordSuccessfulLaunch(recordSuccessfulLaunch(NEW_GAME_ROCKET_FLEET, 'ibis'), 'ibis');
+
+    expect(fleet.launchExperience).toEqual({ ibis: 2 });
   });
 });

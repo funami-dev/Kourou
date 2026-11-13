@@ -1,4 +1,5 @@
 import { NO_TECHNOLOGY_BONUSES } from '../research/research';
+import { ROCKET_MODELS } from '../rockets/rockets.constants';
 import { assembleStationCrew } from '../staff/staff';
 import { STARTING_CREW } from '../staff/staff.constants';
 import type { LaunchMission } from './launch.model';
@@ -7,7 +8,12 @@ import type { LaunchMission } from './launch.model';
 export function testMission(overrides: Partial<LaunchMission> = {}): LaunchMission {
   return {
     campaign: { contractId: 1, rocketId: 1 },
-    rocketModelId: 'ibis',
+    vehicle: {
+      blueprintId: 'ibis',
+      name: ROCKET_MODELS.ibis.name,
+      reliability: ROCKET_MODELS.ibis.reliability,
+      maxWindGustsMetersPerSecond: ROCKET_MODELS.ibis.maxWindGustsMetersPerSecond
+    },
     targetOrbit: 'leo',
     bonuses: NO_TECHNOLOGY_BONUSES,
     rideshareContractIds: [],

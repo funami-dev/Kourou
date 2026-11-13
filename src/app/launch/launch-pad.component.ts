@@ -16,7 +16,7 @@ import { assessLaunchWeather } from '../../game/launch/launch-weather';
 import { LiveConditionsService } from '../../game/live-conditions/live-conditions.service';
 import { selectRideshareExperiments } from '../../game/research/research-contracts';
 import { rocketDisplayName } from '../../game/rockets/rocket-fleet';
-import { ROCKET_MODELS } from '../../game/rockets/rockets.constants';
+import type { Rocket } from '../../game/rockets/rocket.model';
 import { unstaffedRoles } from '../../game/staff/staff';
 import {
   ClockState,
@@ -64,7 +64,7 @@ export class LaunchPadComponent {
   protected readonly padFeePerDay = PAD_FEE_PER_DAY;
   protected readonly orbitLabel = orbitLabel;
   protected readonly payloadTypeLabel = payloadTypeLabel;
-  protected readonly rocketDisplayName = rocketDisplayName;
+  protected readonly blueprints = select(RocketsState.blueprints);
   protected readonly weatherConstraintText = weatherConstraintText;
   protected readonly researchTopicName = researchTopicName;
 
@@ -74,7 +74,13 @@ export class LaunchPadComponent {
       .filter((contract) => contract.status === 'inProgress' && contract.id !== this.campaign()?.contractId)
       .map((contract) => ({
         contract,
-        availableRockets: rocketsAvailableFor(contract, this.rockets(), this.campaign(), this.gameTimeMs())
+        availableRockets: rocketsAvailableFor(
+          contract,
+          this.rockets(),
+          this.campaign(),
+          this.gameTimeMs(),
+          this.blueprints()
+        )
       }))
   );
 
@@ -89,7 +95,10 @@ export class LaunchPadComponent {
 
     const orbit = contract.payload.targetOrbit;
     const nowMs = this.liveConditions.nowMs();
-    const rocketModel = ROCKET_MODELS[rocket.modelId];
+    const rocketModel = this.blueprints()[rocket.modelId];
+    if (!rocketModel) {
+      return null;
+    }
     const spareCapacityKg = rocketModel.payloadCapacityKg[orbit] - contract.payload.massKg;
     return {
       contract,
@@ -109,6 +118,10 @@ export class LaunchPadComponent {
   protected readonly moveRocketToPad = dispatch(MoveRocketToPad);
   protected readonly removeRocketFromPad = dispatch(RemoveRocketFromPad);
   private readonly dispatchStartCountdown = dispatch(StartCountdown);
+
+  protected rocketDisplayName(rocket: Rocket): string {
+    return rocketDisplayName(rocket, this.blueprints());
+  }
 
   protected startCountdown(): void {
     this.dispatchStartCountdown().subscribe(() => void this.router.navigate(['/game/countdown']));

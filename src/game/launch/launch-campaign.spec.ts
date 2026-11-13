@@ -24,23 +24,29 @@ describe('canCarry', () => {
 });
 
 describe('rocketsAvailableFor', () => {
-  let fleet = orderRocket(NEW_GAME_ROCKET_FLEET, 'ibis', 0).fleet;
-  fleet = orderRocket(fleet, 'albatros', 0).fleet;
+  let fleet = orderRocket(NEW_GAME_ROCKET_FLEET, ROCKET_MODELS.ibis, 0).fleet;
+  fleet = orderRocket(fleet, ROCKET_MODELS.albatros, 0).fleet;
   const muchLater = 100 * MS_PER_DAY;
 
   it('offers only assembled rockets', () => {
-    expect(rocketsAvailableFor(contractFor(0), fleet.rockets, null, 0)).toEqual([]);
-    expect(rocketsAvailableFor(contractFor(0), fleet.rockets, null, muchLater)).toHaveLength(2);
+    expect(rocketsAvailableFor(contractFor(0), fleet.rockets, null, 0, ROCKET_MODELS)).toEqual([]);
+    expect(rocketsAvailableFor(contractFor(0), fleet.rockets, null, muchLater, ROCKET_MODELS)).toHaveLength(2);
   });
 
   it('offers only rockets that can carry the payload', () => {
-    const available = rocketsAvailableFor(contractFor(2), fleet.rockets, null, muchLater);
+    const available = rocketsAvailableFor(contractFor(2), fleet.rockets, null, muchLater, ROCKET_MODELS);
 
     expect(available.map((rocket) => rocket.modelId)).toEqual(['albatros']);
   });
 
   it('does not offer the rocket that is already on the launch pad', () => {
-    const available = rocketsAvailableFor(contractFor(0), fleet.rockets, { contractId: 9, rocketId: 1 }, muchLater);
+    const available = rocketsAvailableFor(
+      contractFor(0),
+      fleet.rockets,
+      { contractId: 9, rocketId: 1 },
+      muchLater,
+      ROCKET_MODELS
+    );
 
     expect(available.map((rocket) => rocket.id)).toEqual([2]);
   });

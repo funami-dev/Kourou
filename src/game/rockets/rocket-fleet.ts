@@ -1,12 +1,18 @@
 import { MS_PER_DAY } from '../clock/clock.constants';
 import type { TechnologyBonuses } from '../research/technology.model';
-import type { RocketModelId, Rocket, RocketStatus } from './rocket.model';
-import { ROCKET_MODELS, SHIP_DELIVERY_DAYS } from './rockets.constants';
+import { normalizeDesignName } from './rocket-design';
+import type { LaunchExperience } from './rocket-design';
+import type { RocketDesign, RocketDesignParts } from './rocket-design.model';
+import type { Rocket, RocketBlueprintId, RocketBlueprints, RocketModel, RocketStatus } from './rocket.model';
+import { SHIP_DELIVERY_DAYS } from './rockets.constants';
 
-/** All rockets the player owns. */
+/** All rockets the player owns, the player's own designs and the experience with each type of rocket. */
 export interface RocketFleet {
   rockets: Rocket[];
   nextId: number;
+  designs: RocketDesign[];
+  nextDesignId: number;
+  launchExperience: LaunchExperience;
 }
 
 /** What affects delivery and assembly: technologies, the port and the size of the assembly hall. */
@@ -19,7 +25,10 @@ const NO_ORDER_BONUSES: OrderBonuses = { assemblyDurationFactor: 1, shippingDays
 
 export const NEW_GAME_ROCKET_FLEET: RocketFleet = {
   rockets: [],
-  nextId: 1
+  nextId: 1,
+  designs: [],
+  nextDesignId: 1,
+  launchExperience: {}
 };
 
 /**
@@ -28,18 +37,17 @@ export const NEW_GAME_ROCKET_FLEET: RocketFleet = {
  */
 export function orderRocket(
   fleet: RocketFleet,
-  modelId: RocketModelId,
+  model: RocketModel,
   orderedAtMs: number,
   bonuses: OrderBonuses = NO_ORDER_BONUSES
 ): { fleet: RocketFleet; rocket: Rocket } {
-  const model = ROCKET_MODELS[modelId];
   const arrivesAtMs = orderedAtMs + (SHIP_DELIVERY_DAYS - bonuses.shippingDaysSaved) * MS_PER_DAY;
   const assemblyStartsAtMs = Math.max(arrivesAtMs, nextFreeAssemblyBayAtMs(fleet, bonuses.assemblySlots));
 
   const rocket: Rocket = {
     id: fleet.nextId,
-    modelId,
-    serialName: nextSerialName(fleet, modelId),
+    modelId: model.id,
+    serialName: nextSerialName(fleet, model),
     orderedAtMs,
     arrivesAtMs,
     assemblyStartsAtMs,
@@ -47,14 +55,30 @@ export function orderRocket(
   };
 
   return {
-    fleet: { rockets: [...fleet.rockets, rocket], nextId: fleet.nextId + 1 },
+    fleet: { ...fleet, rockets: [...fleet.rockets, rocket], nextId: fleet.nextId + 1 },
     rocket
   };
 }
 
 /** Full name of a rocket for display, e.g. "Ibis IB-01". */
-export function rocketDisplayName(rocket: Rocket): string {
-  return `${ROCKET_MODELS[rocket.modelId].name} ${rocket.serialName}`;
+export function rocketDisplayName(rocket: Rocket, blueprints: RocketBlueprints): string {
+  return `${blueprints[rocket.modelId]?.name ?? ''} ${rocket.serialName}`.trim();
+}
+
+/** Saves a new design. Returns `null` if the name is empty. */
+export function saveDesign(fleet: RocketFleet, name: string, parts: RocketDesignParts): RocketFleet | null {
+  const designName = normalizeDesignName(name);
+  if (!designName) {
+    return null;
+  }
+  const design: RocketDesign = { id: fleet.nextDesignId, name: designName, ...parts };
+  return { ...fleet, designs: [...fleet.designs, design], nextDesignId: fleet.nextDesignId + 1 };
+}
+
+/** Counts a successful launch of the model or design, which makes the next ones more reliable. */
+export function recordSuccessfulLaunch(fleet: RocketFleet, blueprintId: RocketBlueprintId): RocketFleet {
+  const successfulLaunches = (fleet.launchExperience[blueprintId] ?? 0) + 1;
+  return { ...fleet, launchExperience: { ...fleet.launchExperience, [blueprintId]: successfulLaunches } };
 }
 
 /** Removes a rocket from the fleet, e.g. after it has been launched. */
@@ -72,9 +96,9 @@ function nextFreeAssemblyBayAtMs(fleet: RocketFleet, assemblySlots: number): num
 }
 
 /** Serial names count per model, e.g. the third Ibis is "IB-03". */
-function nextSerialName(fleet: RocketFleet, modelId: RocketModelId): string {
-  const numberOfThisModel = fleet.rockets.filter((rocket) => rocket.modelId === modelId).length + 1;
-  return `${ROCKET_MODELS[modelId].serialPrefix}-${numberOfThisModel.toString().padStart(2, '0')}`;
+function nextSerialName(fleet: RocketFleet, model: RocketModel): string {
+  const numberOfThisModel = fleet.rockets.filter((rocket) => rocket.modelId === model.id).length + 1;
+  return `${model.serialPrefix}-${numberOfThisModel.toString().padStart(2, '0')}`;
 }
 
 export function rocketStatus(rocket: Rocket, nowMs: number): RocketStatus {

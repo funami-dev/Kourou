@@ -1,15 +1,25 @@
 import type { OrbitType } from '../contracts/contract.model';
 import type { Euros } from '../economy/economy.constants';
 
+/** Ready-made rocket models from the catalogue. */
 export type RocketModelId = 'ibis' | 'albatros';
 
-/** A ready-made rocket type that can be bought from a manufacturer. */
+/** Rockets the player has designed from parts are identified as `design-<number>`. */
+export type RocketDesignBlueprintId = `design-${number}`;
+
+/** Anything a rocket can be built from: a catalogue model or an own design. */
+export type RocketBlueprintId = RocketModelId | RocketDesignBlueprintId;
+
+/** Catalogue models and own designs by id. Lookups can miss, e.g. for a design that no longer exists. */
+export type RocketBlueprints = Partial<Record<RocketBlueprintId, RocketModel>>;
+
+/** Everything needed to order, assemble and launch a type of rocket. */
 export interface RocketModel {
-  id: RocketModelId;
+  id: RocketBlueprintId;
   /** Proper name, not translated. */
   name: string;
-  /** Fictional manufacturer, not translated. */
-  manufacturer: string;
+  /** Fictional manufacturer, not translated; `null` for the spaceport's own designs. */
+  manufacturer: string | null;
   /** Prefix for the serial names of individual rockets, e.g. "IB" for "IB-01". */
   serialPrefix: string;
   /** Maximum payload mass per orbit when launched from Kourou. 0 means the orbit is out of reach. */
@@ -29,7 +39,8 @@ export interface RocketModel {
  */
 export interface Rocket {
   id: number;
-  modelId: RocketModelId;
+  /** The catalogue model or own design the rocket was built from. */
+  modelId: RocketBlueprintId;
   /** Unique name of this rocket, e.g. "IB-01". */
   serialName: string;
   orderedAtMs: number;

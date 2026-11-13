@@ -8,7 +8,6 @@ import { availableDecisions, holdDurationMs, successChance } from '../../game/la
 import { SCRUB_COSTS } from '../../game/launch/launch.constants';
 import type { CountdownDecision } from '../../game/launch/launch.model';
 import { LiveConditionsService } from '../../game/live-conditions/live-conditions.service';
-import { ROCKET_MODELS } from '../../game/rockets/rockets.constants';
 import { CREW_ROLES } from '../../game/staff/staff.constants';
 import { CloseCountdown, DecideOnCountdownIssue, LaunchState } from '../../store';
 import { weatherConditionLabel } from '../live-conditions/weather-condition-display';
@@ -44,10 +43,7 @@ export class CountdownComponent {
   protected readonly logText = countdownLogText;
   protected readonly weatherConditionLabel = weatherConditionLabel;
 
-  protected readonly rocketModel = computed(() => {
-    const countdown = this.countdown();
-    return countdown ? ROCKET_MODELS[countdown.mission.rocketModelId] : null;
-  });
+  protected readonly rocketModel = computed(() => this.countdown()?.mission.vehicle ?? null);
 
   protected readonly successChance = computed(() => {
     const countdown = this.countdown();

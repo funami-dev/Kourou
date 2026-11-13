@@ -941,7 +941,7 @@
         <note category="location">src/app/launch/countdown.component.html:155,158</note>
       </notes>
       <segment>
-        <source> Böen <ph id="0" equiv="INTERPOLATION" disp="{{ weather().windGustsMetersPerSecond | number: &apos;1.0-1&apos; }}"/> m/s (Grenze <ph id="1" equiv="INTERPOLATION_1" disp="{{ rocketModel()?.maxWindGustsMetersPerSecond }}"/> m/s) </source>
+        <source> Böen <ph id="0" equiv="INTERPOLATION" disp="{{ weather().windGustsMetersPerSecond | number: &apos;1.0-1&apos; }}"/> m/s (Grenze <ph id="1" equiv="INTERPOLATION_1" disp="{{ rocketModel()?.maxWindGustsMetersPerSecond | number: &apos;1.0-1&apos; }}"/> m/s) </source>
       </segment>
     </unit>
     <unit id="countdown.log.title">
@@ -1045,7 +1045,7 @@
         <note category="location">src/app/launch/launch-pad.component.html:42,45</note>
       </notes>
       <segment>
-        <source> Böen <ph id="0" equiv="INTERPOLATION" disp="{{ pad.weather.windGustsMetersPerSecond | number: &apos;1.0-1&apos; }}"/> m/s (Grenze <ph id="1" equiv="INTERPOLATION_1" disp="{{ pad.rocketModel.maxWindGustsMetersPerSecond }}"/> m/s) </source>
+        <source> Böen <ph id="0" equiv="INTERPOLATION" disp="{{ pad.weather.windGustsMetersPerSecond | number: &apos;1.0-1&apos; }}"/> m/s (Grenze <ph id="1" equiv="INTERPOLATION_1" disp="{{ pad.rocketModel.maxWindGustsMetersPerSecond | number: &apos;1.0-1&apos; }}"/> m/s) </source>
       </segment>
     </unit>
     <unit id="launchPad.weather.go">
@@ -2337,6 +2337,251 @@
         <source> Wartet auf einen Start (<ph id="0" equiv="INTERPOLATION" disp="{{ contract.assignment.massKg }}"/> kg), Frist Tag <ph id="1" equiv="INTERPOLATION_1" disp="{{ contract.assignment.deadlineDay }}"/> </source>
       </segment>
     </unit>
+    <unit id="rockets.designer.coreStage">
+      <notes>
+        <note category="location">src/app/rockets/rocket-designer/rocket-designer.component.html:4,5</note>
+      </notes>
+      <segment>
+        <source>Kernstufe</source>
+      </segment>
+    </unit>
+    <unit id="rockets.designer.boosters">
+      <notes>
+        <note category="location">src/app/rockets/rocket-designer/rocket-designer.component.html:13,14</note>
+      </notes>
+      <segment>
+        <source>Booster</source>
+      </segment>
+    </unit>
+    <unit id="rockets.designer.upperStage">
+      <notes>
+        <note category="location">src/app/rockets/rocket-designer/rocket-designer.component.html:22,23</note>
+      </notes>
+      <segment>
+        <source>Oberstufe</source>
+      </segment>
+    </unit>
+    <unit id="rockets.designer.fairing">
+      <notes>
+        <note category="location">src/app/rockets/rocket-designer/rocket-designer.component.html:31,32</note>
+      </notes>
+      <segment>
+        <source>Nutzlastverkleidung</source>
+      </segment>
+    </unit>
+    <unit id="rockets.designer.name">
+      <notes>
+        <note category="location">src/app/rockets/rocket-designer/rocket-designer.component.html:40,42</note>
+      </notes>
+      <segment>
+        <source>Name</source>
+      </segment>
+    </unit>
+    <unit id="rockets.designer.hint">
+      <notes>
+        <note category="location">src/app/rockets/rocket-designer/rocket-designer.component.html:51,55</note>
+      </notes>
+      <segment>
+        <source> Neue Konstruktionen sind günstiger als Katalogmodelle, aber noch nicht erprobt: Jeder erfolgreiche Start macht sie zuverlässiger. </source>
+      </segment>
+    </unit>
+    <unit id="rockets.designer.save">
+      <notes>
+        <note category="location">src/app/rockets/rocket-designer/rocket-designer.component.html:55,58</note>
+      </notes>
+      <segment>
+        <source>Konstruktion speichern</source>
+      </segment>
+    </unit>
+    <unit id="rockets.designer.preview">
+      <notes>
+        <note category="location">src/app/rockets/rocket-designer/rocket-designer.component.html:59,60</note>
+      </notes>
+      <segment>
+        <source>Vorschau</source>
+      </segment>
+    </unit>
+    <unit id="rockets.designer.suggestedName">
+      <notes>
+        <note category="location">src/app/rockets/rocket-designer/rocket-designer.component.ts:72</note>
+      </notes>
+      <segment>
+        <source>Eigenbau <ph id="0" equiv="number" disp="this.designs().length + 1"/></source>
+      </segment>
+    </unit>
+    <unit id="rockets.ownDesign">
+      <notes>
+        <note category="location">src/app/rockets/rocket-model-card/rocket-model-card.component.html:7,11</note>
+      </notes>
+      <segment>
+        <source>Eigene Konstruktion</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.capacity">
+      <notes>
+        <note category="location">src/app/rockets/rocket-model-card/rocket-model-card.component.html:13,16</note>
+      </notes>
+      <segment>
+        <source> Maximale Nutzlast </source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.unreachable">
+      <notes>
+        <note category="location">src/app/rockets/rocket-model-card/rocket-model-card.component.html:23,26</note>
+      </notes>
+      <segment>
+        <source>nicht erreichbar</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.price">
+      <notes>
+        <note category="location">src/app/rockets/rocket-model-card/rocket-model-card.component.html:32,34</note>
+      </notes>
+      <segment>
+        <source>Preis</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.assembly">
+      <notes>
+        <note category="location">src/app/rockets/rocket-model-card/rocket-model-card.component.html:37,38</note>
+      </notes>
+      <segment>
+        <source>Montage</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.assemblyDays">
+      <notes>
+        <note category="location">src/app/rockets/rocket-model-card/rocket-model-card.component.html:38,40</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="INTERPOLATION" disp="{{ model().assemblyDays | number: &apos;1.0-1&apos; }}"/> Tage</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.reliability">
+      <notes>
+        <note category="location">src/app/rockets/rocket-model-card/rocket-model-card.component.html:40,42</note>
+      </notes>
+      <segment>
+        <source>Zuverlässigkeit</source>
+      </segment>
+    </unit>
+    <unit id="rockets.design.successfulLaunches">
+      <notes>
+        <note category="location">src/app/rockets/rocket-model-card/rocket-model-card.component.html:45,53</note>
+      </notes>
+      <segment>
+        <source> (<ph id="0" equiv="ICU" disp="{successfulLaunches(), plural,
+            =0 {noch nie gestartet}
+            =1 {1 erfolgreicher Start}
+            other {{{ successfulLaunches() }} erfolgreiche Starts}
+
+          }" subFlows="4464208176316692433"/>) </source>
+      </segment>
+    </unit>
+    <unit id="4627339251694608518">
+      <notes>
+        <note category="location">src/app/rockets/rocket-model-card/rocket-model-card.component.html:45,48</note>
+      </notes>
+      <segment>
+        <source>{VAR_PLURAL, plural, =0 {noch nie gestartet} =1 {1 erfolgreicher Start} other {<ph id="0" equiv="INTERPOLATION"/> erfolgreiche Starts}}</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.windLimit">
+      <notes>
+        <note category="location">src/app/rockets/rocket-model-card/rocket-model-card.component.html:55,56</note>
+      </notes>
+      <segment>
+        <source>Böen bis</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.order">
+      <notes>
+        <note category="location">src/app/rockets/rocket-model-card/rocket-model-card.component.html:61,63</note>
+      </notes>
+      <segment>
+        <source>Bestellen</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.notEnoughMoney">
+      <notes>
+        <note category="location">src/app/rockets/rocket-model-card/rocket-model-card.component.html:63,67</note>
+      </notes>
+      <segment>
+        <source>Nicht genug Geld</source>
+      </segment>
+    </unit>
+    <unit id="rockets.part.coreLight">
+      <notes>
+        <note category="location">src/app/rockets/rocket-part-texts.ts:6</note>
+      </notes>
+      <segment>
+        <source>Kernstufe K1 (leicht)</source>
+      </segment>
+    </unit>
+    <unit id="rockets.part.coreMedium">
+      <notes>
+        <note category="location">src/app/rockets/rocket-part-texts.ts:7</note>
+      </notes>
+      <segment>
+        <source>Kernstufe K2 (mittel)</source>
+      </segment>
+    </unit>
+    <unit id="rockets.part.coreHeavy">
+      <notes>
+        <note category="location">src/app/rockets/rocket-part-texts.ts:8</note>
+      </notes>
+      <segment>
+        <source>Kernstufe K3 (schwer)</source>
+      </segment>
+    </unit>
+    <unit id="rockets.part.upperBasic">
+      <notes>
+        <note category="location">src/app/rockets/rocket-part-texts.ts:12</note>
+      </notes>
+      <segment>
+        <source>Oberstufe O1 (einfach, kein GTO)</source>
+      </segment>
+    </unit>
+    <unit id="rockets.part.upperCryogenic">
+      <notes>
+        <note category="location">src/app/rockets/rocket-part-texts.ts:13</note>
+      </notes>
+      <segment>
+        <source>Oberstufe O2 (kryogen, GTO-fähig)</source>
+      </segment>
+    </unit>
+    <unit id="rockets.part.fairingSmall">
+      <notes>
+        <note category="location">src/app/rockets/rocket-part-texts.ts:17</note>
+      </notes>
+      <segment>
+        <source>Verkleidung klein (bis 2,5 t)</source>
+      </segment>
+    </unit>
+    <unit id="rockets.part.fairingLarge">
+      <notes>
+        <note category="location">src/app/rockets/rocket-part-texts.ts:18</note>
+      </notes>
+      <segment>
+        <source>Verkleidung groß (bis 15 t)</source>
+      </segment>
+    </unit>
+    <unit id="rockets.part.noBoosters">
+      <notes>
+        <note category="location">src/app/rockets/rocket-part-texts.ts:35</note>
+      </notes>
+      <segment>
+        <source>Keine Booster</source>
+      </segment>
+    </unit>
+    <unit id="rockets.part.boosters">
+      <notes>
+        <note category="location">src/app/rockets/rocket-part-texts.ts:36</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="count" disp="count"/> Feststoff-Booster</source>
+      </segment>
+    </unit>
     <unit id="rockets.status.inTransit">
       <notes>
         <note category="location">src/app/rockets/rocket-status-label.ts:4</note>
@@ -2377,97 +2622,41 @@
         <source>Raketen</source>
       </segment>
     </unit>
+    <unit id="rockets.delivery">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:5,9</note>
+      </notes>
+      <segment>
+        <source> Bestellte Raketen kommen in Einzelteilen per Schiff aus Europa (<ph id="0" equiv="INTERPOLATION" disp="{{ shipDeliveryDays() }}"/> Tage) und werden danach in der Montagehalle zusammengebaut. Montagebuchten: <ph id="1" equiv="INTERPOLATION_1" disp="{{ assemblySlots() }}"/> – weitere Raketen warten, bis eine frei wird. </source>
+      </segment>
+    </unit>
     <unit id="rockets.catalogue.title">
       <notes>
-        <note category="location">src/app/rockets/rockets.component.html:4,5</note>
+        <note category="location">src/app/rockets/rockets.component.html:9,10</note>
       </notes>
       <segment>
         <source>Katalog</source>
       </segment>
     </unit>
-    <unit id="rockets.catalogue.delivery">
+    <unit id="rockets.designs.title">
       <notes>
-        <note category="location">src/app/rockets/rockets.component.html:6,10</note>
+        <note category="location">src/app/rockets/rockets.component.html:18,19</note>
       </notes>
       <segment>
-        <source> Bestellte Raketen kommen in Einzelteilen per Schiff aus Europa (<ph id="0" equiv="INTERPOLATION" disp="{{ shipDeliveryDays }}"/> Tage) und werden danach in der Montagehalle zusammengebaut – eine Rakete nach der anderen. </source>
+        <source>Eigene Konstruktionen</source>
       </segment>
     </unit>
-    <unit id="rockets.catalogue.capacity">
+    <unit id="rockets.designer.title">
       <notes>
-        <note category="location">src/app/rockets/rockets.component.html:18,20</note>
+        <note category="location">src/app/rockets/rockets.component.html:35,36</note>
       </notes>
       <segment>
-        <source> Maximale Nutzlast </source>
-      </segment>
-    </unit>
-    <unit id="rockets.catalogue.unreachable">
-      <notes>
-        <note category="location">src/app/rockets/rockets.component.html:28,30</note>
-      </notes>
-      <segment>
-        <source>nicht erreichbar</source>
-      </segment>
-    </unit>
-    <unit id="rockets.catalogue.price">
-      <notes>
-        <note category="location">src/app/rockets/rockets.component.html:37,39</note>
-      </notes>
-      <segment>
-        <source>Preis</source>
-      </segment>
-    </unit>
-    <unit id="rockets.catalogue.assembly">
-      <notes>
-        <note category="location">src/app/rockets/rockets.component.html:42,43</note>
-      </notes>
-      <segment>
-        <source>Montage</source>
-      </segment>
-    </unit>
-    <unit id="rockets.catalogue.assemblyDays">
-      <notes>
-        <note category="location">src/app/rockets/rockets.component.html:44,47</note>
-      </notes>
-      <segment>
-        <source> <ph id="0" equiv="ICU" disp="{model.assemblyDays, plural, =1 {1 Tag} other {{{ model.assemblyDays }} Tage}}" subFlows="142556807115285842"/> </source>
-      </segment>
-    </unit>
-    <unit id="7100558348811913443">
-      <notes>
-        <note category="location">src/app/rockets/rockets.component.html:44</note>
-      </notes>
-      <segment>
-        <source>{VAR_PLURAL, plural, =1 {1 Tag} other {<ph id="0" equiv="INTERPOLATION"/> Tage}}</source>
-      </segment>
-    </unit>
-    <unit id="rockets.catalogue.reliability">
-      <notes>
-        <note category="location">src/app/rockets/rockets.component.html:47,48</note>
-      </notes>
-      <segment>
-        <source>Zuverlässigkeit</source>
-      </segment>
-    </unit>
-    <unit id="rockets.catalogue.order">
-      <notes>
-        <note category="location">src/app/rockets/rockets.component.html:53,55</note>
-      </notes>
-      <segment>
-        <source>Bestellen</source>
-      </segment>
-    </unit>
-    <unit id="rockets.catalogue.notEnoughMoney">
-      <notes>
-        <note category="location">src/app/rockets/rockets.component.html:55,58</note>
-      </notes>
-      <segment>
-        <source>Nicht genug Geld</source>
+        <source>Neue Rakete konstruieren</source>
       </segment>
     </unit>
     <unit id="rockets.fleet.title">
       <notes>
-        <note category="location">src/app/rockets/rockets.component.html:62,63</note>
+        <note category="location">src/app/rockets/rockets.component.html:39,40</note>
       </notes>
       <segment>
         <source>Eigene Raketen</source>
@@ -2475,7 +2664,7 @@
     </unit>
     <unit id="rockets.fleet.stepEnds">
       <notes>
-        <note category="location">src/app/rockets/rockets.component.html:78,79</note>
+        <note category="location">src/app/rockets/rockets.component.html:55,56</note>
       </notes>
       <segment>
         <source> bis <ph id="0" equiv="INTERPOLATION" disp="{{ entry.currentStepEndsAtMs | gameDateTime }}"/> </source>
@@ -2483,7 +2672,7 @@
     </unit>
     <unit id="rockets.fleet.empty">
       <notes>
-        <note category="location">src/app/rockets/rockets.component.html:85,88</note>
+        <note category="location">src/app/rockets/rockets.component.html:62,65</note>
       </notes>
       <segment>
         <source>Du besitzt noch keine Rakete.</source>

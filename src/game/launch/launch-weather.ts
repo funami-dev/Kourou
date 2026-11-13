@@ -12,7 +12,10 @@ export type LaunchWeatherAssessment =
  * The weather officer's verdict: no launch in a thunderstorm (lightning can strike the rocket)
  * or in gusts stronger than the rocket is built for. Rain alone is acceptable.
  */
-export function assessLaunchWeather(weather: WeatherReport, rocket: RocketModel): LaunchWeatherAssessment {
+export function assessLaunchWeather(
+  weather: WeatherReport,
+  rocket: Pick<RocketModel, 'maxWindGustsMetersPerSecond'>
+): LaunchWeatherAssessment {
   const violatedConstraints: WeatherConstraint[] = [];
   if (weather.condition === 'thunderstorm') {
     violatedConstraints.push('thunderstorm');

@@ -19,7 +19,8 @@ describe('RocketsComponent', () => {
   let store: Store;
 
   const element = (): HTMLElement => fixture.nativeElement;
-  const orderButtons = (): HTMLButtonElement[] => Array.from(element().querySelectorAll('.rocket-model button'));
+  const orderButtons = (): HTMLButtonElement[] =>
+    Array.from(element().querySelectorAll('.rockets__catalogue .rocket-model button'));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -44,7 +45,7 @@ describe('RocketsComponent', () => {
   });
 
   it('shows the rocket catalogue', () => {
-    expect(element().querySelectorAll('.rocket-model')).toHaveLength(2);
+    expect(element().querySelectorAll('.rockets__catalogue .rocket-model')).toHaveLength(2);
     expect(element().textContent).toContain('Ibis');
     expect(element().textContent).toContain('Albatros');
   });
@@ -64,5 +65,17 @@ describe('RocketsComponent', () => {
 
     expect(orderButtons().every((button) => button.disabled)).toBe(true);
     expect(element().textContent).toContain('Nicht genug Geld');
+  });
+
+  it('saves an own design that can then be ordered', async () => {
+    const nameInput = element().querySelector<HTMLInputElement>('.designer input')!;
+    nameInput.value = 'Kolibri';
+    nameInput.dispatchEvent(new Event('input'));
+    element().querySelector<HTMLButtonElement>('.designer button[type="submit"]')!.click();
+    await fixture.whenStable();
+
+    expect(store.selectSnapshot(RocketsState.designs)).toEqual([expect.objectContaining({ id: 1, name: 'Kolibri' })]);
+    expect(element().textContent).toContain('Eigene Konstruktion');
+    expect(element().querySelectorAll('.rockets__catalogue .rocket-model')).toHaveLength(3);
   });
 });

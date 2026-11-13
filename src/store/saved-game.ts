@@ -36,7 +36,21 @@ export function completeSavedGame(savedGame: unknown): Record<string, unknown> {
     const savedState = saved[stateName];
     completed[stateName] = isPlainObject(savedState) ? { ...newGameValue, ...savedState } : newGameValue;
   }
-  return completed;
+  return discardOutdatedCountdown(completed);
+}
+
+/**
+ * A countdown saved by an older version lacks details the countdown needs today (e.g. the rocket on the pad).
+ * It is dropped; the rocket stays on the pad and the countdown can simply be started again.
+ */
+function discardOutdatedCountdown(game: Record<string, unknown>): Record<string, unknown> {
+  const launch = game['launch'];
+  if (!isPlainObject(launch) || !isPlainObject(launch['countdown'])) {
+    return game;
+  }
+  const mission = launch['countdown']['mission'];
+  const isComplete = isPlainObject(mission) && isPlainObject(mission['vehicle']) && isPlainObject(mission['crew']);
+  return isComplete ? game : { ...game, launch: { ...launch, countdown: null } };
 }
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {

@@ -1,7 +1,6 @@
 import type { LaunchSite } from '../launch-sites/launch-site.model';
 import { pickRandom, randomIntegerBetween } from '../random';
 import type { RandomNumberGenerator } from '../random';
-import { ROCKET_MODELS } from '../rockets/rockets.constants';
 import { crewHoldFactor, crewRiskFactor, flightDirectorReliabilityBonus } from '../staff/staff';
 import type { WeatherReport } from '../weather/weather.model';
 import {
@@ -206,12 +205,9 @@ function withCrewRiskFactor(countdown: Countdown, issue: CountdownIssue, baseRis
  * flight director, minus the risks the team accepted.
  */
 export function successChance(countdown: Countdown): number {
-  const { rocketModelId, bonuses, crew } = countdown.mission;
+  const { vehicle, bonuses, crew } = countdown.mission;
   const chance =
-    ROCKET_MODELS[rocketModelId].reliability +
-    bonuses.reliabilityBonus +
-    flightDirectorReliabilityBonus(crew) -
-    countdown.acceptedRisk;
+    vehicle.reliability + bonuses.reliabilityBonus + flightDirectorReliabilityBonus(crew) - countdown.acceptedRisk;
   return Math.min(1, Math.max(0, chance));
 }
 
@@ -257,7 +253,7 @@ function handleMilestone(
  * so they report "go"; weather and flight dynamics check the live conditions.
  */
 function runGoNoGoPoll(countdown: Countdown, conditions: LaunchConditions): Countdown {
-  const weatherAssessment = assessLaunchWeather(conditions.weather, ROCKET_MODELS[countdown.mission.rocketModelId]);
+  const weatherAssessment = assessLaunchWeather(conditions.weather, countdown.mission.vehicle);
   const isWindowOpenAtLiftoff = isWindowOpenAtLiftoffFor(countdown, conditions);
 
   const verdicts: Record<Station, Verdict> = {
@@ -285,7 +281,7 @@ function runGoNoGoPoll(countdown: Countdown, conditions: LaunchConditions): Coun
 /** After a hold: the weather is checked again, other issues are resolved. */
 function endHold(countdown: Countdown, issue: CountdownIssue, conditions: LaunchConditions): Countdown {
   if (issue === 'weatherNoGo') {
-    const assessment = assessLaunchWeather(conditions.weather, ROCKET_MODELS[countdown.mission.rocketModelId]);
+    const assessment = assessLaunchWeather(conditions.weather, countdown.mission.vehicle);
     const polled = withLog(
       { ...countdown, pollResults: { ...countdown.pollResults, weather: assessment.verdict } },
       { kind: 'poll', station: 'weather', verdict: assessment.verdict }

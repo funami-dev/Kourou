@@ -17,7 +17,6 @@ import { selectRideshareExperiments } from '../../game/research/research-contrac
 import { REPUTATION_CHANGE_BY_OUTCOME } from '../../game/reputation/reputation';
 import type { Rocket } from '../../game/rockets/rocket.model';
 import { rocketDisplayName } from '../../game/rockets/rocket-fleet';
-import { ROCKET_MODELS } from '../../game/rockets/rockets.constants';
 import { assembleStationCrew } from '../../game/staff/staff';
 import { ClockState, GameDayStarted } from '../clock';
 import { ContractDeadlinesMissed, ContractsState } from '../contracts';
@@ -84,7 +83,10 @@ export class LaunchState {
 
     const nowMs = this.store.selectSnapshot(ClockState.gameTimeMs);
     const rockets = this.store.selectSnapshot(RocketsState.rockets);
-    const isRocketAvailable = rocketsAvailableFor(contract, rockets, null, nowMs).some(({ id }) => id === rocketId);
+    const blueprints = this.store.selectSnapshot(RocketsState.blueprints);
+    const isRocketAvailable = rocketsAvailableFor(contract, rockets, null, nowMs, blueprints).some(
+      ({ id }) => id === rocketId
+    );
     if (isRocketAvailable) {
       ctx.patchState({ campaign: { contractId, rocketId } });
     }
@@ -108,7 +110,10 @@ export class LaunchState {
       return;
     }
 
-    const rocketModel = ROCKET_MODELS[rocket.modelId];
+    const rocketModel = this.store.selectSnapshot(RocketsState.blueprints)[rocket.modelId];
+    if (!rocketModel) {
+      return;
+    }
     const spareCapacityKg = rocketModel.payloadCapacityKg[contract.payload.targetOrbit] - contract.payload.massKg;
     const rideshareExperiments = selectRideshareExperiments(
       this.store.selectSnapshot(ResearchContractsState.contracts),
@@ -116,7 +121,12 @@ export class LaunchState {
     );
     const mission = {
       campaign,
-      rocketModelId: rocket.modelId,
+      vehicle: {
+        blueprintId: rocketModel.id,
+        name: rocketModel.name,
+        reliability: rocketModel.reliability,
+        maxWindGustsMetersPerSecond: rocketModel.maxWindGustsMetersPerSecond
+      },
       targetOrbit: contract.payload.targetOrbit,
       bonuses: this.store.selectSnapshot(selectCountdownBonuses),
       rideshareContractIds: rideshareExperiments.map(({ id }) => id),
@@ -205,7 +215,7 @@ export class LaunchState {
         outcome,
         customer: contract.customer,
         payloadName: contract.payload.name,
-        rocketName: rocketDisplayName(rocket),
+        rocketName: rocketDisplayName(rocket, this.store.selectSnapshot(RocketsState.blueprints)),
         income: Math.max(0, booking.amount),
         costs: Math.max(0, -booking.amount),
         reputationChange: REPUTATION_CHANGE_BY_OUTCOME[outcome],

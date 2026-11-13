@@ -40,7 +40,7 @@
           <h3 i18n="@@launchPad.weather.title">Wetter jetzt</h3>
           <p i18n="@@launchPad.weather.gusts">
             Böen {{ pad.weather.windGustsMetersPerSecond | number: '1.0-1' }} m/s (Grenze
-            {{ pad.rocketModel.maxWindGustsMetersPerSecond }} m/s)
+            {{ pad.rocketModel.maxWindGustsMetersPerSecond | number: '1.0-1' }} m/s)
           </p>
           @if (pad.weatherAssessment.verdict === 'go') {
             <p class="check__go" i18n="@@launchPad.weather.go">Go</p>

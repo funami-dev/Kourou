@@ -118,6 +118,7 @@ describe('LaunchState', () => {
     expect(balance()).toBe(balanceBeforeLaunch + remainingPayment);
     expect(contract.status).toBe('completed');
     expect(store.selectSnapshot(RocketsState.rockets)).toEqual([]);
+    expect(store.selectSnapshot(RocketsState.launchExperience)).toEqual({ ibis: 1 });
     expect(store.selectSnapshot(ReputationState.points)).toBe(
       STARTING_REPUTATION + REPUTATION_CHANGE_BY_OUTCOME.success
     );

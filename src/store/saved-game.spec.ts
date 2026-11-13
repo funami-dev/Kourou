@@ -19,4 +19,12 @@ describe('completeSavedGame', () => {
   it('starts a new game from an unreadable save', () => {
     expect(completeSavedGame('nonsense')['research']).toEqual(NEW_GAME_RESEARCH_PROGRESS);
   });
+
+  it('drops a countdown saved by an older version', () => {
+    const completed = completeSavedGame({
+      launch: { campaign: { contractId: 1, rocketId: 1 }, countdown: { mission: { rocketModelId: 'ibis' } } }
+    });
+
+    expect(completed['launch']).toMatchObject({ campaign: { contractId: 1, rocketId: 1 }, countdown: null });
+  });
 });

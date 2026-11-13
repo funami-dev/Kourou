@@ -103,16 +103,28 @@ Ausbaus arbeitet das Gebäude auf der bisherigen Stufe weiter.
 Später denkbar: weitere Startrampen, Tanklager.
 
 ### Raketen
-- Erste fertige Modelle (fiktiv, Hersteller „Orbitalwerk“): **Ibis** (klein, kein GTO) und
-  **Albatros** (schwer, auch GTO). Bezahlt wird bei Bestellung – nur mit eigenem Geld, die
-  staatliche Förderung deckt keine Raketenkäufe.
-- Lieferung per Schiff (10 Tage), danach Montage; die Montagehalle baut eine Rakete nach der anderen.
-- **Fertige Modelle** (fiktiv) werden gekauft und angeliefert: einfach, zuverlässig und teuer.
-- **Eigene Raketen** werden aus Bauteilen zusammengestellt: Stufen, Triebwerke, Tanks,
-  Nutzlastverkleidung. Das ist günstiger und flexibler, aber mit eigener Zuverlässigkeit und eigenem Risiko.
-- Kennwerte: Nutzlast pro Orbit, Zuverlässigkeit, Kosten, Montagedauer, Wetter-Grenzwerte
-  (z. B. maximaler Bodenwind).
-- Zuverlässigkeit steigt mit Erfahrung, also mit erfolgreichen Starts eines Modells oder Designs.
+**Fertige Modelle** (fiktiv, Hersteller „Orbitalwerk“): **Ibis** (klein, kein GTO) und **Albatros**
+(schwer, auch GTO) – teuer, aber erprobt und zuverlässig.
+
+**Eigene Konstruktionen** aus Bauteilen:
+| Bauteil | Auswahl | Wirkung |
+|---|---|---|
+| Kernstufe | K1 leicht, K2 mittel, K3 schwer | Grundlast in den LEO, Wind-Grenzwert |
+| Booster | 0, 2 oder 4 Feststoff-Booster | mehr Nutzlast, je Paar etwas stabiler im Wind |
+| Oberstufe | O1 einfach, O2 kryogen | O1 erreicht keinen GTO; O2 bringt 35 % der LEO-Nutzlast in den GTO |
+| Verkleidung | klein (bis 2,5 t), groß (bis 15 t) | begrenzt die Nutzlast |
+
+- SSO-Nutzlast = 75 % der LEO-Nutzlast (polare Bahn, keine Hilfe durch die Erdrotation).
+- Preis und Montagedauer ergeben sich aus den Teilen; Zuverlässigkeit = Produkt der Teile minus
+  8 Prozentpunkte für eine unerprobte Konstruktion.
+- **Erfahrung**: Jeder erfolgreiche Start erhöht die Zuverlässigkeit um 1 Prozentpunkt – bei eigenen
+  Konstruktionen bis die 8 Punkte aufgeholt sind, bei Katalogmodellen um höchstens 2 Punkte.
+
+**Für alle Raketen**
+- Bezahlt wird bei Bestellung – nur mit eigenem Geld.
+- Lieferung per Schiff (10 Tage, schneller mit Hafen-Ausbau und Hafenlogistik), danach Montage in der
+  Montagehalle (eine Rakete je Montagebucht gleichzeitig).
+- Kennwerte: Nutzlast pro Orbit, Zuverlässigkeit, Preis, Montagedauer, Böen-Grenzwert.
 
 ### Aufträge
 - Fiktive Kunden bieten Nutzlasten an: Ziel-Orbit, Masse, Frist und Bezahlung.
@@ -245,7 +257,9 @@ Ziel: **ein kompletter Durchlauf der Kernschleife** in Kourou.
 
 Danach umgesetzt: ✅ Forschung mit Labor, Technologiebaum und Forschungsaufträgen.
 
-Als Nächstes: weiterer Gebäudebau, Personal-Management, eigene Raketen und weitere Standorte.
+Ebenfalls umgesetzt: ✅ Personal, ✅ weitere Gebäude, ✅ eigene Raketen aus Bauteilen.
+
+Als Nächstes: weitere Startplätze auf der Weltkarte.
 
 ## Offene Fragen
 

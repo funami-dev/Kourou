@@ -1,6 +1,6 @@
 import type { OrbitType } from '../contracts/contract.model';
 import type { TechnologyBonuses } from '../research/technology.model';
-import type { RocketModelId } from '../rockets/rocket.model';
+import type { RocketBlueprintId } from '../rockets/rocket.model';
 import type { StationCrew } from '../staff/staff.model';
 
 /** A rocket standing on the launch pad, ready to launch the payload of a contract. */
@@ -15,10 +15,20 @@ export type CountdownBonuses = Pick<
   'weatherHoldDurationFactor' | 'preventedCountdownIssues' | 'reliabilityBonus'
 >;
 
+/** The rocket on the pad, as far as the countdown needs to know it. */
+export interface LaunchVehicle {
+  blueprintId: RocketBlueprintId;
+  /** Name of the model or design, e.g. "Ibis". */
+  name: string;
+  /** Reliability including the spaceport's experience with this model or design. */
+  reliability: number;
+  maxWindGustsMetersPerSecond: number;
+}
+
 /** Facts about the launch the countdown needs, copied when the countdown starts. */
 export interface LaunchMission {
   campaign: LaunchCampaign;
-  rocketModelId: RocketModelId;
+  vehicle: LaunchVehicle;
   targetOrbit: OrbitType;
   bonuses: CountdownBonuses;
   /** Research experiments riding along with the main payload. */
