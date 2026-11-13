@@ -1,8 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { provideStore } from '@ngxs/store';
 
-import { CrewState, GuiState } from '../../../store';
+import { StaffState, GuiState } from '../../../store';
 import { SkyComponent } from './sky.component';
 
 describe('SkyComponent', () => {
@@ -12,7 +14,12 @@ describe('SkyComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SkyComponent],
-      providers: [provideRouter([]), provideStore([CrewState, GuiState])]
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideStore([StaffState, GuiState])
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SkyComponent);

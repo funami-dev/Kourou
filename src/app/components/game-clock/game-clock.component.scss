@@ -1,0 +1,25 @@
+.game-clock {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.game-clock__time {
+  min-width: 9ch;
+  margin-right: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.game-clock__time--paused {
+  opacity: 0.6;
+}
+
+.game-clock__speed {
+  min-width: 40px;
+  opacity: 0.6;
+}
+
+.game-clock__speed--active {
+  opacity: 1;
+  font-weight: bold;
+}

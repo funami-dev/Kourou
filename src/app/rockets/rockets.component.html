@@ -1,0 +1,64 @@
+<section class="rockets game-panel" aria-labelledby="rockets-title">
+  <h1 id="rockets-title" i18n="@@rockets.title">Raketen</h1>
+
+  <p class="rockets__hint" i18n="@@rockets.delivery">
+    Bestellte Raketen kommen in Einzelteilen per Schiff aus Europa ({{ shipDeliveryDays() }} Tage) und werden danach in
+    der Montagehalle zusammengebaut. Montagebuchten: {{ assemblySlots() }} – weitere Raketen warten, bis eine frei wird.
+  </p>
+
+  <h2 i18n="@@rockets.catalogue.title">Katalog</h2>
+  <ul class="rockets__catalogue">
+    @for (model of catalogue(); track model.id) {
+      <li>
+        <app-rocket-model-card [model]="model" [canAfford]="canAfford(model)" (order)="order($event)" />
+      </li>
+    }
+  </ul>
+
+  <h2 i18n="@@rockets.designs.title">Eigene Konstruktionen</h2>
+  @if (ownDesigns().length > 0) {
+    <ul class="rockets__catalogue">
+      @for (model of ownDesigns(); track model.id) {
+        <li>
+          <app-rocket-model-card
+            [model]="model"
+            [canAfford]="canAfford(model)"
+            [successfulLaunches]="launchExperience()[model.id] ?? 0"
+            (order)="order($event)"
+          />
+        </li>
+      }
+    </ul>
+  }
+
+  <details class="rockets__designer" [open]="ownDesigns().length === 0">
+    <summary i18n="@@rockets.designer.title">Neue Rakete konstruieren</summary>
+    <app-rocket-designer />
+  </details>
+
+  <h2 i18n="@@rockets.fleet.title">Eigene Raketen</h2>
+  @if (fleet().length > 0) {
+    <ul class="rockets__fleet">
+      @for (entry of fleet(); track entry.rocket.id) {
+        <li class="fleet-entry" [class.fleet-entry--ready]="entry.status === 'ready'">
+          <div class="fleet-entry__header">
+            <span class="fleet-entry__name">{{ entry.name }}</span>
+            <span class="fleet-entry__status">{{ entry.statusLabel }}</span>
+          </div>
+          @if (entry.currentStepEndsAtMs !== null) {
+            <mat-progress-bar
+              mode="determinate"
+              [value]="entry.progressPercent"
+              [attr.aria-label]="entry.statusLabel"
+            ></mat-progress-bar>
+            <span class="rockets__muted" i18n="@@rockets.fleet.stepEnds">
+              bis {{ entry.currentStepEndsAtMs | gameDateTime }}
+            </span>
+          }
+        </li>
+      }
+    </ul>
+  } @else {
+    <p class="rockets__hint" i18n="@@rockets.fleet.empty">Du besitzt noch keine Rakete.</p>
+  }
+</section>

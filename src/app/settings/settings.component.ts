@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { dispatch } from '@ngxs/store';
 
-import { SetCurrentLocation } from '../../store';
+import { StartNewGame } from '../../store';
 
 @Component({
   selector: 'app-settings',
@@ -9,9 +9,15 @@ import { SetCurrentLocation } from '../../store';
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent {
-  private readonly setCurrentLocation = dispatch(SetCurrentLocation);
+  private readonly dispatchStartNewGame = dispatch(StartNewGame);
 
-  resetLocation(): void {
-    this.setCurrentLocation(null);
+  startNewGame(): void {
+    const isConfirmed = confirm(
+      $localize`:@@settings.newGame.confirm:Neues Spiel starten? Der aktuelle Spielstand geht dabei verloren.`
+    );
+
+    if (isConfirmed) {
+      this.dispatchStartNewGame();
+    }
   }
 }

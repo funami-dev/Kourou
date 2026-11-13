@@ -1,0 +1,154 @@
+<section class="launch-pad game-panel" aria-labelledby="launch-pad-title">
+  <h1 id="launch-pad-title" i18n="@@launchPad.title">Startrampe</h1>
+
+  @if (isCountdownOpen()) {
+    <p class="launch-pad__notice">
+      <span i18n="@@launchPad.countdownRunning">Ein Countdown läuft.</span>
+      <a mat-flat-button routerLink="/game/countdown" i18n="@@launchPad.toCountdown">Zum Countdown</a>
+    </p>
+  }
+
+  @if (pad(); as pad) {
+    <article class="on-pad">
+      <h2 i18n="@@launchPad.onPad.title">Auf der Rampe</h2>
+      <p class="on-pad__rocket">{{ rocketDisplayName(pad.rocket) }}</p>
+      <p>
+        {{ pad.contract.customer }} · {{ payloadTypeLabel(pad.contract.payload.type) }}
+        {{ pad.contract.payload.name }} · {{ pad.contract.payload.massKg | number }} kg ·
+        {{ orbitLabel(pad.contract.payload.targetOrbit) }}
+      </p>
+
+      <div class="on-pad__checks">
+        <div class="check">
+          <h3 i18n="@@launchPad.window.title">Startfenster</h3>
+          <p i18n="@@launchPad.window.span">
+            {{ formatHour(pad.launchWindow.opensAtLocalHour) }}–{{ formatHour(pad.launchWindow.closesAtLocalHour) }} Uhr
+            Ortszeit
+          </p>
+          @if (pad.windowClosesAtMs !== null) {
+            <p class="check__go" i18n="@@launchPad.window.open">
+              Offen bis {{ pad.windowClosesAtMs | siteLocalTime: site().timeZone }} Uhr
+            </p>
+          } @else if (pad.windowOpensAtMs !== null) {
+            <p class="check__no-go" i18n="@@launchPad.window.closed">
+              Geschlossen – öffnet um {{ pad.windowOpensAtMs | siteLocalTime: site().timeZone }} Uhr
+            </p>
+          }
+        </div>
+
+        <div class="check">
+          <h3 i18n="@@launchPad.weather.title">Wetter jetzt</h3>
+          <p i18n="@@launchPad.weather.gusts">
+            Böen {{ pad.weather.windGustsMetersPerSecond | number: '1.0-1' }} m/s (Grenze
+            {{ pad.rocketModel.maxWindGustsMetersPerSecond | number: '1.0-1' }} m/s)
+          </p>
+          @if (pad.weatherAssessment.verdict === 'go') {
+            <p class="check__go" i18n="@@launchPad.weather.go">Go</p>
+          } @else {
+            <p class="check__no-go">
+              <ng-container i18n="@@launchPad.weather.noGo">No Go:</ng-container>
+              @for (constraint of pad.weatherAssessment.violatedConstraints; track constraint) {
+                {{ weatherConstraintText(constraint) }}
+              }
+            </p>
+          }
+        </div>
+      </div>
+
+      <div class="rideshare">
+        <h3 i18n="@@launchPad.rideshare.title">Mitfluglasten</h3>
+        @for (experiment of pad.rideshareExperiments; track experiment.id) {
+          <p>
+            {{ experiment.terms.client }} · {{ researchTopicName(experiment.terms.topic) }}
+            @if (experiment.assignment.kind === 'flightExperiment') {
+              ({{ experiment.assignment.massKg }} kg)
+            }
+          </p>
+        } @empty {
+          <p class="launch-pad__hint" i18n="@@launchPad.rideshare.none">
+            Keine Experimente an Bord. Freie Kapazität: {{ pad.spareCapacityKg | number }} kg.
+          </p>
+        }
+      </div>
+
+      <p class="launch-pad__hint" i18n="@@launchPad.padFee">
+        Solange die Rakete auf der Rampe steht, kostet das {{ padFeePerDay | euros }} pro Tag.
+      </p>
+
+      <div class="on-pad__actions">
+        <button
+          mat-flat-button
+          type="button"
+          [disabled]="!pad.canStartCountdown || isCountdownOpen() || unstaffedRoles().length > 0"
+          (click)="startCountdown()"
+          i18n="@@launchPad.startCountdown"
+        >
+          Countdown starten
+        </button>
+        <button
+          mat-button
+          type="button"
+          [disabled]="isCountdownOpen()"
+          (click)="removeRocketFromPad()"
+          i18n="@@launchPad.removeRocket"
+        >
+          Von der Rampe nehmen
+        </button>
+      </div>
+      @if (unstaffedRoles().length > 0) {
+        <p class="launch-pad__warning">
+          <ng-container i18n="@@launchPad.unstaffed">Im Kontrollzentrum fehlt Personal:</ng-container>
+          @for (role of unstaffedRoles(); track role) {
+            <strong>{{ roleLabel(role) }}</strong>
+          }
+          <a routerLink="/game/staff" i18n="@@launchPad.toStaff">Zum Personal</a>
+        </p>
+      }
+      @if (!pad.canStartCountdown) {
+        <p class="launch-pad__hint" i18n="@@launchPad.windowTooLate">
+          Der Start wäre zehn Minuten nach Beginn des Countdowns – dann muss das Startfenster offen sein.
+        </p>
+      }
+    </article>
+  } @else {
+    <p class="launch-pad__hint" i18n="@@launchPad.empty">
+      Die Rampe ist frei. Bring eine montierte Rakete für einen angenommenen Auftrag auf die Rampe.
+    </p>
+  }
+
+  <h2 i18n="@@launchPad.waiting.title">Aufträge, die auf ihren Start warten</h2>
+  @if (contractsWaitingForLaunch().length > 0) {
+    <ul class="launch-pad__contracts">
+      @for (entry of contractsWaitingForLaunch(); track entry.contract.id) {
+        <li class="waiting-contract">
+          <div>
+            <strong>{{ entry.contract.customer }} · {{ entry.contract.payload.name }}</strong>
+            <span class="launch-pad__secondary" i18n="@@launchPad.waiting.payload">
+              {{ entry.contract.payload.massKg | number }} kg · {{ orbitLabel(entry.contract.payload.targetOrbit) }} ·
+              Startfrist Tag {{ entry.contract.deadlineDay }}
+            </span>
+          </div>
+          <div class="waiting-contract__rockets">
+            @for (rocket of entry.availableRockets; track rocket.id) {
+              <button
+                mat-flat-button
+                type="button"
+                [disabled]="campaign() !== null"
+                (click)="moveRocketToPad(entry.contract.id, rocket.id)"
+                i18n="@@launchPad.moveToPad"
+              >
+                {{ rocketDisplayName(rocket) }} auf die Rampe
+              </button>
+            } @empty {
+              <span class="launch-pad__secondary" i18n="@@launchPad.noRocket">
+                Keine montierte Rakete, die diese Nutzlast tragen kann.
+              </span>
+            }
+          </div>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p class="launch-pad__hint" i18n="@@launchPad.waiting.empty">Kein angenommener Auftrag wartet auf einen Start.</p>
+  }
+</section>

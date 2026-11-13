@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { Action, Selector, State } from '@ngxs/store';
 import type { StateContext } from '@ngxs/store';
 
+import type { LaunchSiteId } from '../../game/launch-sites/launch-site.model';
 import type { GuiStateModel } from './gui.model';
+import { StartNewGame } from '../game.actions';
 import { SetCurrentLocation } from './gui.actions';
 
 @State<GuiStateModel>({
@@ -15,7 +17,7 @@ import { SetCurrentLocation } from './gui.actions';
 @Injectable()
 export class GuiState {
   @Selector()
-  static getCurrentLocation(state: GuiStateModel): string | null {
+  static getCurrentLocation(state: GuiStateModel): LaunchSiteId | null {
     return state.currentLocation;
   }
 
@@ -25,5 +27,11 @@ export class GuiState {
   setCurrentLocation(ctx: StateContext<GuiStateModel>, { id }: SetCurrentLocation): void {
     ctx.patchState({ currentLocation: id });
     void this.router.navigate([id ? '/game/area' : '/']);
+  }
+
+  /** A new game starts on the world map, where the player chooses a launch site. */
+  @Action(StartNewGame)
+  reset(ctx: StateContext<GuiStateModel>): void {
+    ctx.dispatch(new SetCurrentLocation(null));
   }
 }

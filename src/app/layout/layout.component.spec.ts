@@ -1,8 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { provideStore } from '@ngxs/store';
 
-import { CrewState, GuiState } from '../../store';
+import {
+  BuildingsState,
+  ClockState,
+  ContractsState,
+  StaffState,
+  FinanceState,
+  GuiState,
+  LaunchState,
+  ReputationState,
+  ResearchContractsState,
+  ResearchState,
+  RocketsState
+} from '../../store';
 import { LayoutComponent } from './layout.component';
 
 describe('LayoutComponent', () => {
@@ -12,7 +26,24 @@ describe('LayoutComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [LayoutComponent],
-      providers: [provideRouter([]), provideStore([CrewState, GuiState])]
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideStore([
+          BuildingsState,
+          ClockState,
+          ContractsState,
+          StaffState,
+          FinanceState,
+          GuiState,
+          LaunchState,
+          ReputationState,
+          ResearchContractsState,
+          ResearchState,
+          RocketsState
+        ])
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(LayoutComponent);

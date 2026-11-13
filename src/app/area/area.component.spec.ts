@@ -1,8 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { provideStore } from '@ngxs/store';
 
-import { CrewState, GuiState } from '../../store';
+import { BuildingsState, ClockState, StaffState, GuiState } from '../../store';
 import { AreaComponent } from './area.component';
 
 describe('AreaComponent', () => {
@@ -12,7 +14,12 @@ describe('AreaComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AreaComponent],
-      providers: [provideRouter([]), provideStore([CrewState, GuiState])]
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideStore([BuildingsState, ClockState, StaffState, GuiState])
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AreaComponent);

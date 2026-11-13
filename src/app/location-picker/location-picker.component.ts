@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { dispatch, select } from '@ngxs/store';
 
+import type { LaunchSiteId } from '../../game/launch-sites/launch-site.model';
 import { GuiState, SetCurrentLocation } from '../../store';
 
 @Component({
@@ -13,7 +14,7 @@ export class LocationPickerComponent {
 
   private readonly setCurrentLocation = dispatch(SetCurrentLocation);
 
-  selectLocation(id: string): void {
+  selectLocation(id: LaunchSiteId): void {
     this.setCurrentLocation(id);
   }
 }

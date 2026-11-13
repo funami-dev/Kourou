@@ -1,0 +1,154 @@
+.research__hint {
+  opacity: 0.7;
+}
+
+.research__notice {
+  color: #ffd68a;
+}
+
+.research__points {
+  font-size: 1.25rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.figures {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 0 0 16px;
+
+  dt {
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  dd {
+    margin: 4px 0 0;
+    font-size: 1.25rem;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.tree {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.tree__branch {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  h3 {
+    margin: 0;
+    opacity: 0.8;
+  }
+}
+
+.technology {
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+
+  h4 {
+    margin: 0 0 6px;
+  }
+
+  p {
+    margin: 6px 0;
+  }
+}
+
+.technology--unlocked {
+  border-color: #7ee08a;
+}
+
+.technology--inProgress {
+  border-color: #ffd68a;
+}
+
+.technology--locked {
+  opacity: 0.55;
+}
+
+.technology__status {
+  font-weight: bold;
+}
+
+.technology__status--done {
+  color: #7ee08a;
+}
+
+.technology__cost {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.research-offers {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.research-offer {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+
+  h3 {
+    margin: 0;
+  }
+
+  button {
+    margin-top: auto;
+  }
+}
+
+.research-offer__topic {
+  margin: 4px 0 12px;
+  opacity: 0.8;
+}
+
+.research-offer__terms {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 12px;
+  margin: 0 0 16px;
+
+  dt {
+    opacity: 0.7;
+  }
+
+  dd {
+    margin: 0;
+  }
+}
+
+.research-contracts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.research-contract {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.research-contract--done {
+  opacity: 0.6;
+}
+
+.research-contract__state {
+  text-align: right;
+  opacity: 0.85;
+}

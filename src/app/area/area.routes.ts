@@ -3,10 +3,46 @@ import { Routes } from '@angular/router';
 export const areaRoutes: Routes = [
   {
     path: 'area',
-    loadComponent: () => import('./area.component').then(m => m.AreaComponent)
+    loadComponent: () => import('./area.component').then((m) => m.AreaComponent)
+  },
+  {
+    path: 'contracts',
+    loadComponent: () => import('../contracts/contracts.component').then((m) => m.ContractsComponent)
+  },
+  {
+    path: 'rockets',
+    loadComponent: () => import('../rockets/rockets.component').then((m) => m.RocketsComponent)
+  },
+  {
+    path: 'launch-pad',
+    loadComponent: () => import('../launch/launch-pad.component').then((m) => m.LaunchPadComponent)
+  },
+  {
+    path: 'countdown',
+    loadComponent: () => import('../launch/countdown.component').then((m) => m.CountdownComponent)
+  },
+  {
+    path: 'buildings',
+    loadComponent: () => import('../buildings/buildings.component').then((m) => m.BuildingsComponent)
+  },
+  {
+    path: 'staff',
+    loadComponent: () => import('../staff/staff.component').then((m) => m.StaffComponent)
+  },
+  {
+    path: 'research',
+    loadComponent: () => import('../research/research.component').then((m) => m.ResearchComponent)
+  },
+  {
+    path: 'weather',
+    loadComponent: () => import('../live-conditions/weather.component').then((m) => m.WeatherComponent)
+  },
+  {
+    path: 'finances',
+    loadComponent: () => import('../finances/finances.component').then((m) => m.FinancesComponent)
   },
   {
     path: 'ground',
-    loadComponent: () => import('./ground/ground.component').then(m => m.GroundComponent)
+    loadComponent: () => import('./ground/ground.component').then((m) => m.GroundComponent)
   }
 ];

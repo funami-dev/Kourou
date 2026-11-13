@@ -1,0 +1,66 @@
+<article class="rocket-model">
+  <h3 class="rocket-model__name">{{ model().name }}</h3>
+  <p class="rocket-model__manufacturer">
+    @if (model().manufacturer; as manufacturer) {
+      {{ manufacturer }}
+    } @else {
+      <ng-container i18n="@@rockets.ownDesign">Eigene Konstruktion</ng-container>
+    }
+  </p>
+
+  <table class="rocket-model__capacity">
+    <caption i18n="@@rockets.catalogue.capacity">
+      Maximale Nutzlast
+    </caption>
+    <tbody>
+      @for (orbit of orbits; track orbit) {
+        <tr>
+          <th scope="row">{{ orbitShortLabel(orbit) }}</th>
+          <td>
+            @if (model().payloadCapacityKg[orbit] > 0) {
+              {{ model().payloadCapacityKg[orbit] | number }} kg
+            } @else {
+              <span class="rocket-model__muted" i18n="@@rockets.catalogue.unreachable">nicht erreichbar</span>
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <dl class="rocket-model__facts">
+    <dt i18n="@@rockets.catalogue.price">Preis</dt>
+    <dd>
+      <strong>{{ model().price | euros }}</strong>
+    </dd>
+
+    <dt i18n="@@rockets.catalogue.assembly">Montage</dt>
+    <dd i18n="@@rockets.catalogue.assemblyDays">{{ model().assemblyDays | number: '1.0-1' }} Tage</dd>
+
+    <dt i18n="@@rockets.catalogue.reliability">Zuverlässigkeit</dt>
+    <dd>
+      {{ model().reliability | percent: '1.0-1' }}
+      @if (model().manufacturer === null) {
+        <span class="rocket-model__muted" i18n="@@rockets.design.successfulLaunches">
+          ({successfulLaunches(), plural,
+            =0 {noch nie gestartet}
+            =1 {1 erfolgreicher Start}
+            other {{{ successfulLaunches() }} erfolgreiche Starts}
+
+          })
+        </span>
+      }
+    </dd>
+
+    <dt i18n="@@rockets.catalogue.windLimit">Böen bis</dt>
+    <dd>{{ model().maxWindGustsMetersPerSecond | number: '1.0-1' }} m/s</dd>
+  </dl>
+
+  <button mat-flat-button type="button" [disabled]="!canAfford()" (click)="order.emit(model())">
+    @if (canAfford()) {
+      <ng-container i18n="@@rockets.catalogue.order">Bestellen</ng-container>
+    } @else {
+      <ng-container i18n="@@rockets.catalogue.notEnoughMoney">Nicht genug Geld</ng-container>
+    }
+  </button>
+</article>

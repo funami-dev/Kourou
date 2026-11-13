@@ -1,0 +1,60 @@
+import { DOCUMENT, DestroyRef, Injectable, inject } from '@angular/core';
+import { Store } from '@ngxs/store';
+
+import { AdvanceClock, AdvanceCountdown, GuiState, LaunchState } from '../store';
+import { CLOCK_TICK_INTERVAL_MS, MAX_REAL_MS_PER_TICK } from './clock/clock.constants';
+
+/**
+ * Drives the game: measures how much real time has passed and lets it pass in the game.
+ *
+ * Normally game time advances. While the countdown screen is open, the countdown runs in real time instead and
+ * game time stands still (see docs/game-design.md, "Zeitmodell").
+ * Nothing happens before a launch site is selected or while the browser tab is hidden.
+ * Elapsed time is measured instead of assuming a fixed tick length, because browsers do not fire timers precisely.
+ */
+@Injectable({ providedIn: 'root' })
+export class GameLoop {
+  private readonly store = inject(Store);
+  private readonly document = inject(DOCUMENT);
+  private readonly destroyRef = inject(DestroyRef);
+
+  private intervalId: ReturnType<typeof setInterval> | null = null;
+  private lastTickAt = 0;
+
+  start(): void {
+    if (this.intervalId !== null) {
+      return;
+    }
+
+    this.lastTickAt = performance.now();
+    this.intervalId = setInterval(() => this.tick(), CLOCK_TICK_INTERVAL_MS);
+    this.destroyRef.onDestroy(() => this.stop());
+  }
+
+  stop(): void {
+    if (this.intervalId !== null) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+    }
+  }
+
+  private tick(): void {
+    const now = performance.now();
+    const realElapsedMs = Math.min(now - this.lastTickAt, MAX_REAL_MS_PER_TICK);
+    this.lastTickAt = now;
+
+    if (!this.isGameRunning() || this.document.hidden) {
+      return;
+    }
+
+    if (this.store.selectSnapshot(LaunchState.isCountdownOpen)) {
+      this.store.dispatch(new AdvanceCountdown(realElapsedMs));
+    } else {
+      this.store.dispatch(new AdvanceClock(realElapsedMs));
+    }
+  }
+
+  private isGameRunning(): boolean {
+    return this.store.selectSnapshot(GuiState.getCurrentLocation) !== null;
+  }
+}

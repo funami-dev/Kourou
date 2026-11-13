@@ -1,0 +1,8 @@
+<a mat-button routerLink="/game/weather" class="live-conditions" [attr.aria-label]="accessibleLabel()">
+  <span class="live-conditions__site">{{ site().name }} {{ nowMs() | siteLocalTime: site().timeZone }}</span>
+  <mat-icon class="live-conditions__icon" aria-hidden="true">{{ icon() }}</mat-icon>
+  <span>{{ weather().temperatureCelsius | number: '1.0-0' }} °C</span>
+  @if (weather().source === 'typical') {
+    <mat-icon class="live-conditions__offline" iconPositionEnd aria-hidden="true">cloud_off</mat-icon>
+  }
+</a>

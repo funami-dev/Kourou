@@ -1,0 +1,151 @@
+.countdown__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  h1 {
+    margin-bottom: 4px;
+  }
+}
+
+.countdown__secondary {
+  margin-top: 0;
+  opacity: 0.7;
+}
+
+.countdown__clock {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+}
+
+.status {
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.status--counting {
+  background: rgba(126, 224, 138, 0.15);
+}
+
+.status--hold {
+  background: rgba(255, 214, 138, 0.2);
+  color: #ffd68a;
+}
+
+.decision,
+.result {
+  margin-bottom: 16px;
+  padding: 16px 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 214, 138, 0.6);
+  background: rgba(255, 214, 138, 0.08);
+
+  h2 {
+    margin-top: 0;
+  }
+}
+
+.decision__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.result--success {
+  border-color: #7ee08a;
+  background: rgba(126, 224, 138, 0.1);
+}
+
+.result--failure {
+  border-color: #ff9a8a;
+  background: rgba(255, 154, 138, 0.1);
+}
+
+.result__figures {
+  display: flex;
+  gap: 32px;
+  margin: 0 0 16px;
+
+  dt {
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  dd {
+    margin: 4px 0 0;
+    font-size: 1.25rem;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.countdown__boards {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+}
+
+.stations {
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.stations__entry {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.verdict {
+  font-weight: bold;
+  opacity: 0.5;
+}
+
+.verdict--go {
+  color: #7ee08a;
+  opacity: 1;
+}
+
+.verdict--no-go {
+  color: #ff9a8a;
+  opacity: 1;
+}
+
+.log {
+  max-height: 360px;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.log__entry {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 12px;
+  padding: 4px 0;
+}
+
+.log__time {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.7;
+}
+
+.log__entry--issue,
+.log__entry--anomaly {
+  color: #ffd68a;
+}
+
+.log__entry--outcome {
+  font-weight: bold;
+}
+
+.stations__person {
+  display: block;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}

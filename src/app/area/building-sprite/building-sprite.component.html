@@ -1,0 +1,83 @@
+<a
+  routerLink="/game/buildings"
+  class="building"
+  [class.building--construction-site]="level() === 0"
+  [class.building--night]="!isDaylight()"
+  [attr.aria-label]="label()"
+  [title]="label()"
+>
+  <svg viewBox="0 0 180 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    @switch (type()) {
+      @case ('laboratory') {
+        <path d="M0 203.6L90 167.3L180 203.4L90 239.7Z" fill="#323332" />
+        <path d="M38 200L90 221V166L38 145Z" fill="#C9D3D9" />
+        <path d="M90 221L142 200V145L90 166Z" fill="#9AA6AD" />
+        <path d="M38 145L90 124L142 145L90 166Z" fill="#6E7B83" />
+        <path d="M47 168L60 173V180L47 175Z" fill="#D3D588" />
+        <path d="M66 175L79 180V187L66 182Z" fill="#D3D588" />
+        <path d="M101 180L114 175V182L101 187Z" fill="#D3D588" />
+        <path d="M120 173L133 168V175L120 180Z" fill="#D3D588" />
+        <ellipse cx="90" cy="145" rx="24" ry="9" fill="#AEB9BF" />
+        <path d="M66 145A24 24 0 0 1 114 145Z" fill="#E6ECEF" />
+        <path d="M88 122H92V145H88Z" fill="#3D4A52" />
+      }
+      @case ('assemblyHall') {
+        <!-- A tall hall where rockets are assembled standing upright, with a high door. -->
+        <path d="M0 203.6L90 167.3L180 203.4L90 239.7Z" fill="#323332" />
+        <path d="M30 200L90 224V70L30 46Z" fill="#D8DDE0" />
+        <path d="M90 224L150 200V46L90 70Z" fill="#A9B2B8" />
+        <path d="M30 46L90 22L150 46L90 70Z" fill="#7C878E" />
+        <path d="M104 218L136 205V82L104 95Z" fill="#5E6A72" />
+        <path d="M30 120L90 144V150L30 126Z" fill="#2F6FB0" />
+      }
+      @case ('port') {
+        <!-- A quay with a crane and containers. -->
+        <path d="M0 203.6L90 167.3L180 203.4L90 239.7Z" fill="#6B5B4B" />
+        <path d="M60 196L80 188V174L60 182Z" fill="#C0392B" />
+        <path d="M80 188L96 194V180L80 174Z" fill="#922B21" />
+        <path d="M60 182L76 176L96 180L80 174Z" fill="#E74C3C" />
+        <path d="M100 205L120 197V183L100 191Z" fill="#2E86C1" />
+        <path d="M120 197L136 203V189L120 183Z" fill="#1F618D" />
+        <path d="M118 120H124V196H118Z" fill="#E1B12C" />
+        <path d="M70 120H160V126H70Z" fill="#E1B12C" />
+        <path d="M80 126H82V150H80Z" fill="#333" />
+      }
+      @case ('controlCenter') {
+        <!-- A low, wide building with a satellite dish. -->
+        <path d="M0 203.6L90 167.3L180 203.4L90 239.7Z" fill="#323332" />
+        <path d="M20 196L90 224V188L20 160Z" fill="#CFD8DC" />
+        <path d="M90 224L160 196V160L90 188Z" fill="#90A4AE" />
+        <path d="M20 160L90 132L160 160L90 188Z" fill="#607D8B" />
+        <path d="M30 178L80 198V204L30 184Z" fill="#D3D588" />
+        <path d="M100 198L150 178V184L100 204Z" fill="#D3D588" />
+        <path d="M108 150V128" stroke="#37474F" stroke-width="3" />
+        <path d="M92 128A18 10 0 0 1 126 120L108 130Z" fill="#ECEFF1" />
+      }
+      @case ('weatherStation') {
+        <!-- A mast with a radar dome and a small hut. -->
+        <path d="M0 203.6L90 167.3L180 203.4L90 239.7Z" fill="#323332" />
+        <path d="M86 196V100H94V196Z" fill="#B0BEC5" />
+        <circle cx="90" cy="90" r="22" fill="#ECEFF1" />
+        <path d="M68 90A22 6 0 0 0 112 90" stroke="#90A4AE" stroke-width="2" />
+        <path d="M110 205L132 214V196L110 187Z" fill="#CFD8DC" />
+        <path d="M132 214L150 207V189L132 196Z" fill="#90A4AE" />
+        <path d="M110 187L128 180L150 189L132 196Z" fill="#78909C" />
+      }
+      @case ('accommodation') {
+        <!-- Two small residential blocks. -->
+        <path d="M0 203.6L90 167.3L180 203.4L90 239.7Z" fill="#323332" />
+        <path d="M30 196L64 210V160L30 146Z" fill="#F5E6CC" />
+        <path d="M64 210L90 200V150L64 160Z" fill="#D9C4A0" />
+        <path d="M30 146L56 136L90 150L64 160Z" fill="#B5651D" />
+        <path d="M90 214L124 228V178L90 164Z" fill="#F5E6CC" />
+        <path d="M124 228L150 218V168L124 178Z" fill="#D9C4A0" />
+        <path d="M90 164L116 154L150 168L124 178Z" fill="#B5651D" />
+        <path d="M38 170L48 174V182L38 178Z" fill="#D3D588" />
+        <path d="M98 188L108 192V200L98 196Z" fill="#D3D588" />
+      }
+    }
+  </svg>
+  @if (isUnderConstruction()) {
+    <span class="building__sign" i18n="@@area.building.construction">Baustelle</span>
+  }
+</a>

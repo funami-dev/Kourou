@@ -1,18 +1,83 @@
 @if (currentLocation()) {
   <mat-toolbar color="primary">
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Open navigation menu">
-      <mat-icon color="primary">more_vert</mat-icon>
+    <button
+      mat-icon-button
+      type="button"
+      [matMenuTriggerFor]="menu"
+      aria-label="Navigationsmenü öffnen"
+      i18n-aria-label="@@layout.menu.open"
+    >
+      <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item routerLink="/game/area">
         <mat-icon>public</mat-icon>
-        <span>Area</span>
+        <span i18n="@@layout.menu.area">Gelände</span>
+      </button>
+      <button mat-menu-item routerLink="/game/contracts">
+        <mat-icon>assignment</mat-icon>
+        <span i18n="@@layout.menu.contracts">Aufträge</span>
+      </button>
+      <button mat-menu-item routerLink="/game/rockets">
+        <mat-icon>rocket_launch</mat-icon>
+        <span i18n="@@layout.menu.rockets">Raketen</span>
+      </button>
+      <button mat-menu-item routerLink="/game/launch-pad">
+        <mat-icon>flight_takeoff</mat-icon>
+        <span i18n="@@layout.menu.launchPad">Startrampe</span>
+      </button>
+      <button mat-menu-item routerLink="/game/buildings">
+        <mat-icon>domain</mat-icon>
+        <span i18n="@@layout.menu.buildings">Gebäude</span>
+      </button>
+      <button mat-menu-item routerLink="/game/staff">
+        <mat-icon>groups</mat-icon>
+        <span i18n="@@layout.menu.staff">Personal</span>
+      </button>
+      <button mat-menu-item routerLink="/game/research">
+        <mat-icon>science</mat-icon>
+        <span i18n="@@layout.menu.research">Forschung</span>
+      </button>
+      <button mat-menu-item routerLink="/game/finances">
+        <mat-icon>account_balance</mat-icon>
+        <span i18n="@@layout.menu.finances">Finanzen</span>
+      </button>
+      <button mat-menu-item routerLink="/game/weather">
+        <mat-icon>wb_cloudy</mat-icon>
+        <span i18n="@@layout.menu.weather">Wetter</span>
       </button>
       <button mat-menu-item routerLink="/settings">
         <mat-icon>settings</mat-icon>
-        <span>Settings</span>
+        <span i18n="@@layout.menu.settings">Einstellungen</span>
       </button>
     </mat-menu>
+    <span class="toolbar-spacer"></span>
+    @if (countdown(); as countdown) {
+      <a
+        mat-flat-button
+        routerLink="/game/countdown"
+        class="toolbar-countdown"
+        aria-label="Zum laufenden Countdown"
+        i18n-aria-label="@@layout.countdown.label"
+      >
+        {{ countdown.missionTimeMs | missionTime }}
+      </a>
+    }
+    <app-live-conditions-indicator />
+    <a
+      mat-button
+      routerLink="/game/finances"
+      class="toolbar-balance"
+      aria-label="Kontostand – zu den Finanzen"
+      i18n-aria-label="@@layout.balance.label"
+    >
+      {{ balance() | euros }}
+    </a>
+    <span class="toolbar-reputation" [attr.aria-label]="reputationLabel()" [title]="reputationLabel()">
+      <mat-icon aria-hidden="true">star</mat-icon>
+      {{ reputation() }}
+    </span>
+    <app-game-clock />
   </mat-toolbar>
 } @else {
   <div class="full-height">
@@ -22,4 +87,3 @@
 
 <router-outlet></router-outlet>
 <app-sky></app-sky>
-<!-- https://codepen.io/amiangie/pen/RRdQAb -->

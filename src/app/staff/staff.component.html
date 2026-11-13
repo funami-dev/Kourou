@@ -1,0 +1,123 @@
+<section class="staff game-panel" aria-labelledby="staff-title">
+  <h1 id="staff-title" i18n="@@staff.title">Personal</h1>
+
+  <dl class="figures">
+    <div>
+      <dt i18n="@@staff.teamSize">Team</dt>
+      <dd>{{ teamSize() }} / {{ staffCapacity() }}</dd>
+    </div>
+    <div>
+      <dt i18n="@@staff.dailySalaries">Gehälter pro Tag</dt>
+      <dd>{{ dailySalaries() | euros }}</dd>
+    </div>
+  </dl>
+
+  <p class="staff__hint" i18n="@@staff.explanation">
+    Im Countdown übernimmt an jeder Position die erfahrenste Person ihres Fachs. Erfahrung verkürzt Holds, senkt das
+    Risiko beim Weitermachen und – bei der Flugleitung – erhöht die Erfolgschance. Nach jedem Countdown gewinnt das Team
+    an Erfahrung.
+  </p>
+
+  @if (unstaffedRoles().length > 0) {
+    <p class="staff__warning" role="alert">
+      <ng-container i18n="@@staff.unstaffed"
+        >Unbesetzt – ohne diese Positionen kann kein Countdown starten:</ng-container
+      >
+      @for (role of unstaffedRoles(); track role) {
+        <strong>{{ roleLabel(role) }}</strong>
+      }
+    </p>
+  }
+
+  <h2 i18n="@@staff.team.title">Team</h2>
+  <table class="staff__team">
+    <thead>
+      <tr>
+        <th scope="col" i18n="@@staff.column.role">Position</th>
+        <th scope="col" i18n="@@staff.column.name">Name</th>
+        <th scope="col" i18n="@@staff.column.experience">Erfahrung</th>
+        <th scope="col" i18n="@@staff.column.trait">Eigenschaft</th>
+        <th scope="col" class="staff__number" i18n="@@staff.column.salary">Gehalt pro Tag</th>
+        <th scope="col"><span class="visually-hidden" i18n="@@staff.column.actions">Aktionen</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (entry of team(); track entry.member.id) {
+        <tr [class.staff__reserve]="!entry.isAtPosition">
+          <td>
+            {{ roleLabel(entry.member.role) }}
+            @if (!entry.isAtPosition) {
+              <span class="staff__secondary" i18n="@@staff.reserve">Vertretung</span>
+            }
+          </td>
+          <td>{{ entry.member.name }}</td>
+          <td>
+            <span i18n="@@staff.level">Stufe {{ experienceLevel(entry.member.experiencePoints) }}</span>
+            @if (entry.nextLevelAt !== null) {
+              <span class="staff__secondary" i18n="@@staff.experienceProgress">
+                {{ entry.member.experiencePoints }} / {{ entry.nextLevelAt }} EP
+              </span>
+            }
+          </td>
+          <td>
+            @if (entry.member.trait; as trait) {
+              <span [title]="traitDescription(trait)">{{ traitLabel(trait) }}</span>
+            } @else {
+              <span class="staff__secondary">–</span>
+            }
+          </td>
+          <td class="staff__number">{{ dailySalary(entry.member) | euros }}</td>
+          <td>
+            <button mat-button type="button" (click)="dismiss(entry.member)" i18n="@@staff.dismiss">Entlassen</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <h2 i18n="@@staff.candidates.title">Bewerbungen</h2>
+  @if (isFull()) {
+    <p class="staff__hint" i18n="@@staff.full">
+      Das Team ist voll. Für mehr Personal braucht es Unterkünfte – oder jemand muss gehen.
+    </p>
+  }
+  @if (candidates().length > 0) {
+    <ul class="candidates">
+      @for (candidate of candidates(); track candidate.id) {
+        <li class="candidate">
+          <h3>{{ candidate.name }}</h3>
+          <p class="staff__secondary">
+            {{ roleLabel(candidate.role) }} ·
+            <ng-container i18n="@@staff.level">Stufe {{ experienceLevel(candidate.experiencePoints) }}</ng-container>
+          </p>
+          @if (candidate.trait; as trait) {
+            <p>
+              <strong>{{ traitLabel(trait) }}:</strong> {{ traitDescription(trait) }}
+            </p>
+          }
+          <dl class="candidate__terms">
+            <dt i18n="@@staff.column.salary">Gehalt pro Tag</dt>
+            <dd>{{ dailySalary(candidate) | euros }}</dd>
+            <dt i18n="@@staff.recruitingFee">Einstellungskosten</dt>
+            <dd>{{ recruitingFee(candidate) | euros }}</dd>
+            <dt i18n="@@staff.availableUntil">Verfügbar bis</dt>
+            <dd i18n="@@staff.availableUntilDay">Tag {{ candidate.availableUntilDay }}</dd>
+          </dl>
+          <button
+            mat-flat-button
+            type="button"
+            [disabled]="!canHire(candidate)"
+            (click)="hire(candidate)"
+            i18n="@@staff.hire"
+          >
+            Einstellen
+          </button>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p class="staff__hint" i18n="@@staff.noCandidates">
+      Gerade liegen keine Bewerbungen vor. Jeden Morgen kann eine neue hereinkommen.
+    </p>
+  }
+</section>

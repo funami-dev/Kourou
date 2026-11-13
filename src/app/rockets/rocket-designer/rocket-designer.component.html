@@ -1,0 +1,62 @@
+<div class="designer">
+  <form class="designer__form" (submit)="$event.preventDefault(); save()">
+    <label class="designer__field">
+      <span i18n="@@rockets.designer.coreStage">Kernstufe</span>
+      <select [value]="parts().coreStage" (change)="selectCoreStage($any($event.target).value)">
+        @for (id of coreStageIds; track id) {
+          <option [value]="id">{{ coreStageName(id) }}</option>
+        }
+      </select>
+    </label>
+
+    <label class="designer__field">
+      <span i18n="@@rockets.designer.boosters">Booster</span>
+      <select [value]="parts().boosterCount" (change)="selectBoosterCount($any($event.target).value)">
+        @for (count of boosterCounts; track count) {
+          <option [value]="count">{{ boosterCountLabel(count) }}</option>
+        }
+      </select>
+    </label>
+
+    <label class="designer__field">
+      <span i18n="@@rockets.designer.upperStage">Oberstufe</span>
+      <select [value]="parts().upperStage" (change)="selectUpperStage($any($event.target).value)">
+        @for (id of upperStageIds; track id) {
+          <option [value]="id">{{ upperStageName(id) }}</option>
+        }
+      </select>
+    </label>
+
+    <label class="designer__field">
+      <span i18n="@@rockets.designer.fairing">Nutzlastverkleidung</span>
+      <select [value]="parts().fairing" (change)="selectFairing($any($event.target).value)">
+        @for (id of fairingIds; track id) {
+          <option [value]="id">{{ fairingName(id) }}</option>
+        }
+      </select>
+    </label>
+
+    <label class="designer__field">
+      <span i18n="@@rockets.designer.name">Name</span>
+      <input
+        type="text"
+        [maxLength]="maxNameLength"
+        [placeholder]="suggestedName()"
+        [value]="name()"
+        (input)="name.set($any($event.target).value)"
+      />
+    </label>
+
+    <p class="designer__hint" i18n="@@rockets.designer.hint">
+      Neue Konstruktionen sind günstiger als Katalogmodelle, aber noch nicht erprobt: Jeder erfolgreiche Start macht sie
+      zuverlässiger.
+    </p>
+
+    <button mat-flat-button type="submit" i18n="@@rockets.designer.save">Konstruktion speichern</button>
+  </form>
+
+  <div class="designer__preview">
+    <p class="designer__preview-title" i18n="@@rockets.designer.preview">Vorschau</p>
+    <app-rocket-model-card [model]="preview()" [canAfford]="false" class="designer__card" />
+  </div>
+</div>
