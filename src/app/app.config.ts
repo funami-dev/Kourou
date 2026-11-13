@@ -14,6 +14,7 @@ import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
 import { environment } from '../environments/environment';
 import { GameLoop } from '../game/game-loop.service';
 import {
+  BuildingsState,
   ClockState,
   ContractsState,
   CrewState,
@@ -21,6 +22,7 @@ import {
   GuiState,
   LaunchState,
   ReputationState,
+  ResearchState,
   RocketsState
 } from '../store';
 import { routes } from './app.routes';
@@ -32,7 +34,18 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withFetch()),
     provideStore(
-      [ClockState, ContractsState, CrewState, FinanceState, GuiState, LaunchState, ReputationState, RocketsState],
+      [
+        BuildingsState,
+        ClockState,
+        ContractsState,
+        CrewState,
+        FinanceState,
+        GuiState,
+        LaunchState,
+        ReputationState,
+        ResearchState,
+        RocketsState
+      ],
       { developmentMode: !environment.production },
       withNgxsStoragePlugin({ keys: '*' }),
       withNgxsReduxDevtoolsPlugin({ disabled: environment.production })

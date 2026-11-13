@@ -1,0 +1,65 @@
+<section class="research game-panel" aria-labelledby="research-title">
+  <h1 id="research-title" i18n="@@research.title">Forschung</h1>
+
+  @let lab = laboratory();
+  <section class="laboratory" aria-labelledby="laboratory-title">
+    <h2 id="laboratory-title" i18n="@@research.laboratory.title">Labor</h2>
+
+    @if (lab.level > 0) {
+      <dl class="figures">
+        <div>
+          <dt i18n="@@research.laboratory.level">Stufe</dt>
+          <dd>{{ lab.level }}</dd>
+        </div>
+        <div>
+          <dt i18n="@@research.laboratory.slots">Laborplätze</dt>
+          <dd>{{ lab.slots }}</dd>
+        </div>
+        <div>
+          <dt i18n="@@research.laboratory.pointsPerDay">Forschungspunkte pro Tag</dt>
+          <dd>{{ lab.researchPointsPerDay }}</dd>
+        </div>
+        <div>
+          <dt i18n="@@research.laboratory.upkeep">Unterhalt pro Tag</dt>
+          <dd>{{ lab.upkeepPerDay | euros }}</dd>
+        </div>
+      </dl>
+    } @else if (!lab.construction) {
+      <p class="research__hint" i18n="@@research.laboratory.none">
+        Ohne Labor keine Forschung. Jede Stufe bringt einen Laborplatz, der Forschungspunkte erzeugt oder für Studien
+        genutzt wird.
+      </p>
+    }
+
+    @if (lab.construction; as construction) {
+      <p class="research__notice" i18n="@@research.laboratory.underConstruction">
+        Stufe {{ construction.level }} ist im Bau und ab Tag {{ construction.completesOnDay }} in Betrieb.
+      </p>
+    }
+
+    @if (lab.nextLevel; as nextLevel) {
+      <button
+        mat-flat-button
+        type="button"
+        [disabled]="!lab.canAffordNextLevel"
+        (click)="buildLaboratory('laboratory')"
+      >
+        @if (nextLevel.level === 1) {
+          <ng-container i18n="@@research.laboratory.build">
+            Labor bauen ({{ nextLevel.cost | euros }}, {{ nextLevel.constructionDays }} Tage)
+          </ng-container>
+        } @else {
+          <ng-container i18n="@@research.laboratory.upgrade">
+            Auf Stufe {{ nextLevel.level }} ausbauen ({{ nextLevel.cost | euros }},
+            {{ nextLevel.constructionDays }} Tage)
+          </ng-container>
+        }
+      </button>
+    }
+  </section>
+
+  <section aria-labelledby="points-title">
+    <h2 id="points-title" i18n="@@research.points.title">Forschungspunkte</h2>
+    <p class="research__points" i18n="@@research.points.available">{{ researchPoints() }} FP verfügbar</p>
+  </section>
+</section>

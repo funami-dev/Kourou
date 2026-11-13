@@ -1,0 +1,29 @@
+<a
+  routerLink="/game/research"
+  class="laboratory"
+  [class.laboratory--construction-site]="level() === 0"
+  [class.laboratory--night]="!isDaylight()"
+  aria-label="Labor – zur Forschung"
+  i18n-aria-label="@@area.laboratory.label"
+>
+  <svg viewBox="0 0 180 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- Plot -->
+    <path d="M0 203.6L90 167.3L180 203.4L90 239.7Z" fill="#323332" />
+    <!-- Main hall: left wall, right wall, roof -->
+    <path d="M38 200L90 221V166L38 145Z" fill="#C9D3D9" />
+    <path d="M90 221L142 200V145L90 166Z" fill="#9AA6AD" />
+    <path d="M38 145L90 124L142 145L90 166Z" fill="#6E7B83" />
+    <!-- Lit windows -->
+    <path d="M47 168L60 173V180L47 175Z" fill="#D3D588" />
+    <path d="M66 175L79 180V187L66 182Z" fill="#D3D588" />
+    <path d="M101 180L114 175V182L101 187Z" fill="#D3D588" />
+    <path d="M120 173L133 168V175L120 180Z" fill="#D3D588" />
+    <!-- Observation dome on the roof -->
+    <ellipse cx="90" cy="145" rx="24" ry="9" fill="#AEB9BF" />
+    <path d="M66 145A24 24 0 0 1 114 145Z" fill="#E6ECEF" />
+    <path d="M88 122H92V145H88Z" fill="#3D4A52" />
+  </svg>
+  @if (isUnderConstruction()) {
+    <span class="laboratory__sign" i18n="@@area.laboratory.construction">Baustelle</span>
+  }
+</a>

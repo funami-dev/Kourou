@@ -1,0 +1,35 @@
+:host {
+  display: block;
+}
+
+.laboratory {
+  position: relative;
+  display: block;
+
+  svg {
+    display: block;
+    width: 100%;
+  }
+}
+
+// The first level is not finished yet: show a faint outline of the planned building.
+.laboratory--construction-site svg {
+  opacity: 0.45;
+}
+
+.laboratory--night svg {
+  filter: brightness(0.35);
+}
+
+.laboratory__sign {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #ffd68a;
+  color: #2b2b2b;
+  font-size: 12px;
+  white-space: nowrap;
+}

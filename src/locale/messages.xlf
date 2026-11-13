@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="de">
   <file id="ngi18n" original="ng.template">
+    <unit id="area.laboratory.label">
+      <notes>
+        <note category="location">src/app/area/laboratory-building/laboratory-building.component.html:6,7</note>
+      </notes>
+      <segment>
+        <source>Labor – zur Forschung</source>
+      </segment>
+    </unit>
+    <unit id="area.laboratory.construction">
+      <notes>
+        <note category="location">src/app/area/laboratory-building/laboratory-building.component.html:27,30</note>
+      </notes>
+      <segment>
+        <source>Baustelle</source>
+      </segment>
+    </unit>
     <unit id="gameClock.label">
       <notes>
         <note category="location">src/app/components/game-clock/game-clock.component.html:1</note>
@@ -463,6 +479,22 @@
       </notes>
       <segment>
         <source>Reparatur Startrampe</source>
+      </segment>
+    </unit>
+    <unit id="finances.category.construction">
+      <notes>
+        <note category="location">src/app/finances/transaction-category-label.ts:13</note>
+      </notes>
+      <segment>
+        <source>Bau</source>
+      </segment>
+    </unit>
+    <unit id="finances.category.buildingUpkeep">
+      <notes>
+        <note category="location">src/app/finances/transaction-category-label.ts:14</note>
+      </notes>
+      <segment>
+        <source>Unterhalt Gebäude</source>
       </segment>
     </unit>
     <unit id="countdown.title">
@@ -1194,9 +1226,17 @@
         <source>Startrampe</source>
       </segment>
     </unit>
-    <unit id="layout.menu.finances">
+    <unit id="layout.menu.research">
       <notes>
         <note category="location">src/app/layout/layout.component.html:31,33</note>
+      </notes>
+      <segment>
+        <source>Forschung</source>
+      </segment>
+    </unit>
+    <unit id="layout.menu.finances">
+      <notes>
+        <note category="location">src/app/layout/layout.component.html:35,37</note>
       </notes>
       <segment>
         <source>Finanzen</source>
@@ -1204,7 +1244,7 @@
     </unit>
     <unit id="layout.menu.weather">
       <notes>
-        <note category="location">src/app/layout/layout.component.html:35,37</note>
+        <note category="location">src/app/layout/layout.component.html:39,41</note>
       </notes>
       <segment>
         <source>Wetter</source>
@@ -1212,7 +1252,7 @@
     </unit>
     <unit id="layout.menu.settings">
       <notes>
-        <note category="location">src/app/layout/layout.component.html:39,41</note>
+        <note category="location">src/app/layout/layout.component.html:43,45</note>
       </notes>
       <segment>
         <source>Einstellungen</source>
@@ -1220,7 +1260,7 @@
     </unit>
     <unit id="layout.countdown.label">
       <notes>
-        <note category="location">src/app/layout/layout.component.html:48,49</note>
+        <note category="location">src/app/layout/layout.component.html:52,53</note>
       </notes>
       <segment>
         <source>Zum laufenden Countdown</source>
@@ -1228,7 +1268,7 @@
     </unit>
     <unit id="layout.balance.label">
       <notes>
-        <note category="location">src/app/layout/layout.component.html:59,60</note>
+        <note category="location">src/app/layout/layout.component.html:63,64</note>
       </notes>
       <segment>
         <source>Kontostand – zu den Finanzen</source>
@@ -1416,6 +1456,102 @@
       </notes>
       <segment>
         <source>Weltkarte – Startplatz Kourou auswählen</source>
+      </segment>
+    </unit>
+    <unit id="research.title">
+      <notes>
+        <note category="location">src/app/research/research.component.html:2,4</note>
+      </notes>
+      <segment>
+        <source>Forschung</source>
+      </segment>
+    </unit>
+    <unit id="research.laboratory.title">
+      <notes>
+        <note category="location">src/app/research/research.component.html:6,9</note>
+      </notes>
+      <segment>
+        <source>Labor</source>
+      </segment>
+    </unit>
+    <unit id="research.laboratory.level">
+      <notes>
+        <note category="location">src/app/research/research.component.html:11,12</note>
+      </notes>
+      <segment>
+        <source>Stufe</source>
+      </segment>
+    </unit>
+    <unit id="research.laboratory.slots">
+      <notes>
+        <note category="location">src/app/research/research.component.html:15,16</note>
+      </notes>
+      <segment>
+        <source>Laborplätze</source>
+      </segment>
+    </unit>
+    <unit id="research.laboratory.pointsPerDay">
+      <notes>
+        <note category="location">src/app/research/research.component.html:19,20</note>
+      </notes>
+      <segment>
+        <source>Forschungspunkte pro Tag</source>
+      </segment>
+    </unit>
+    <unit id="research.laboratory.upkeep">
+      <notes>
+        <note category="location">src/app/research/research.component.html:23,24</note>
+      </notes>
+      <segment>
+        <source>Unterhalt pro Tag</source>
+      </segment>
+    </unit>
+    <unit id="research.laboratory.none">
+      <notes>
+        <note category="location">src/app/research/research.component.html:29,34</note>
+      </notes>
+      <segment>
+        <source> Ohne Labor keine Forschung. Jede Stufe bringt einen Laborplatz, der Forschungspunkte erzeugt oder für Studien genutzt wird. </source>
+      </segment>
+    </unit>
+    <unit id="research.laboratory.underConstruction">
+      <notes>
+        <note category="location">src/app/research/research.component.html:36,40</note>
+      </notes>
+      <segment>
+        <source> Stufe <ph id="0" equiv="INTERPOLATION" disp="{{ construction.level }}"/> ist im Bau und ab Tag <ph id="1" equiv="INTERPOLATION_1" disp="{{ construction.completesOnDay }}"/> in Betrieb. </source>
+      </segment>
+    </unit>
+    <unit id="research.laboratory.build">
+      <notes>
+        <note category="location">src/app/research/research.component.html:49,50</note>
+      </notes>
+      <segment>
+        <source> Labor bauen (<ph id="0" equiv="INTERPOLATION" disp="{{ nextLevel.cost | euros }}"/>, <ph id="1" equiv="INTERPOLATION_1" disp="{{ nextLevel.constructionDays }}"/> Tage) </source>
+      </segment>
+    </unit>
+    <unit id="research.laboratory.upgrade">
+      <notes>
+        <note category="location">src/app/research/research.component.html:53,55</note>
+      </notes>
+      <segment>
+        <source> Auf Stufe <ph id="0" equiv="INTERPOLATION" disp="{{ nextLevel.level }}"/> ausbauen (<ph id="1" equiv="INTERPOLATION_1" disp="{{ nextLevel.cost | euros }}"/>, <ph id="2" equiv="INTERPOLATION_2" disp="{{ nextLevel.constructionDays }}"/> Tage) </source>
+      </segment>
+    </unit>
+    <unit id="research.points.title">
+      <notes>
+        <note category="location">src/app/research/research.component.html:62,63</note>
+      </notes>
+      <segment>
+        <source>Forschungspunkte</source>
+      </segment>
+    </unit>
+    <unit id="research.points.available">
+      <notes>
+        <note category="location">src/app/research/research.component.html:63,64</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="INTERPOLATION" disp="{{ researchPoints() }}"/> FP verfügbar</source>
       </segment>
     </unit>
     <unit id="rockets.status.inTransit">

@@ -26,6 +26,14 @@
   position: absolute;
   bottom: 0;
   z-index: 300;
+  display: flex;
+  align-items: flex-end;
+
+  .laboratory {
+    transform: translate(40px, -110px);
+    width: 120px;
+  }
+
   .headquarter {
     transform: translate(20px, -145px);
     width: 120px;

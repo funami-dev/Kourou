@@ -122,13 +122,27 @@ Isometrische Ansicht rund um das Hauptquartier. Gebäude werden gebaut und ausge
 - Mit steigendem **Ruf** werden größere und lukrativere Aufträge angeboten.
 
 ### Forschung
-Zwei Wege, die sich ergänzen:
-- **Forschungsaufträge (Auftragsforschung)**: Institute, Behörden und Firmen beauftragen
-  Forschung – etwa Experimente, Studien oder Technologie-Erprobungen. Sie bringen Geld und Ruf.
-- **Eigene Forschung**: Du entwickelst selbst neue Technologien (z. B. bessere Triebwerke,
-  Wettervorhersage, Wiederverwendbarkeit) und schaltest damit Neues frei.
+Zwei Wege, die sich ergänzen und über **Forschungspunkte (FP)** verbunden sind.
 
-Details folgen in einem eigenen Schritt (offene Fragen siehe unten).
+**Labor (erstes Gebäude)**
+- Wird auf dem Gelände gebaut und in Stufen ausgebaut (Stufe 1–3). Jede Stufe bringt einen
+  **Laborplatz**; Bau und Ausbau kosten Geld und dauern einige Tage, das Labor kostet Unterhalt pro Tag.
+- Freie Laborplätze erzeugen jeden Tag Forschungspunkte. Studien für Kunden belegen einen Platz –
+  so entsteht die Abwägung: **Geld durch Aufträge oder Punkte für die eigene Forschung**.
+
+**Eigene Forschung (Technologiebaum)**
+- Technologien bauen aufeinander auf. Eine Technologie kostet FP und Geld (beim Start bezahlt) und
+  braucht einige Tage; es läuft immer ein Forschungsprojekt gleichzeitig. Voraussetzung: ein Labor.
+- Jede Technologie hat eine konkrete Wirkung im Spiel, z. B. kürzere Wetter-Holds, keine Boote mehr
+  in der Sperrzone, höhere Zuverlässigkeit, schnellere Montage, geringere Betriebskosten.
+
+**Forschungsaufträge (Auftragsforschung)**
+- Fiktive Institute und Firmen bieten zwei Arten an:
+  - **Studien am Boden**: belegen einen Laborplatz für einige Tage, dann gibt es Geld und FP.
+  - **Experimente im All**: kleine Nutzlasten, die als **Mitfluglast** bei einem Start mitfliegen,
+    wenn die Rakete noch Kapazität frei hat. Erfolgreicher Start → Geld und FP; Fehlstart → Experiment
+    verloren; Frist verpasst → Auftrag verfällt.
+- Mitfluglasten machen auch Starts mit kleiner Hauptnutzlast lohnender.
 
 ### Personal
 - Einstellbare Mitarbeiter mit Rolle (z. B. Flight Director, Wetter, Antrieb, Range Safety)
@@ -211,12 +225,9 @@ Ziel: **ein kompletter Durchlauf der Kernschleife** in Kourou.
 6. ✅ **Countdown** mit Go/No-Go gegen die Wetter-Grenzwerte und 1–2 Zufallsereignissen.
 7. ✅ **Ergebnis**: Erfolg, Scrub oder Fehlstart → Geld und Ruf.
 
-Erst danach folgen Forschung (Auftrags- und eigene Forschung), Gebäudebau, Personal-Management,
+Danach: Forschung mit Labor (in Arbeit), weiterer Gebäudebau, Personal-Management,
 eigene Raketen und weitere Standorte.
 
 ## Offene Fragen
 
-- **Forschung**: Wie läuft ein Forschungsauftrag ab – braucht er einen Start (Experiment im Orbit),
-  Personal, Gebäude (Labor) oder nur Zeit? Wie ist die eigene Forschung aufgebaut (Technologiebaum,
-  Forschungspunkte, Kosten)? Wie hängen beide zusammen (bringen Aufträge Fortschritt für die eigene
-  Forschung)?
+- Derzeit keine. Neue Fragen werden hier gesammelt.

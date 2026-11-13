@@ -127,6 +127,14 @@
         </svg>
       }
     </div>
+    @if (laboratory(); as laboratory) {
+      <app-laboratory-building
+        class="laboratory"
+        [level]="laboratory.level"
+        [isUnderConstruction]="laboratory.isUnderConstruction"
+        [isDaylight]="isDaylight()"
+      />
+    }
   </div>
   <div id="ground" style="mix-blend-mode: multiply">
     <svg

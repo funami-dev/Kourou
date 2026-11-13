@@ -1,0 +1,30 @@
+.research__hint {
+  opacity: 0.7;
+}
+
+.research__notice {
+  color: #ffd68a;
+}
+
+.research__points {
+  font-size: 1.25rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.figures {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 0 0 16px;
+
+  dt {
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  dd {
+    margin: 4px 0 0;
+    font-size: 1.25rem;
+    font-variant-numeric: tabular-nums;
+  }
+}

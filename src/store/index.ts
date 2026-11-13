@@ -7,3 +7,5 @@ export * from './contracts/index';
 export * from './rockets/index';
 export * from './launch/index';
 export * from './reputation/index';
+export * from './buildings/index';
+export * from './research/index';
