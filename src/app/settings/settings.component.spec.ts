@@ -2,7 +2,16 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { provideStore } from '@ngxs/store';
 
-import { ClockState, ContractsState, CrewState, FinanceState, GuiState, RocketsState } from '../../store';
+import {
+  BuildingsState,
+  ClockState,
+  ContractsState,
+  CrewState,
+  FinanceState,
+  GuiState,
+  ResearchState,
+  RocketsState
+} from '../../store';
 import { SettingsComponent } from './settings.component';
 
 describe('SettingsComponent', () => {
@@ -14,7 +23,16 @@ describe('SettingsComponent', () => {
       imports: [SettingsComponent],
       providers: [
         provideRouter([]),
-        provideStore([ClockState, ContractsState, CrewState, FinanceState, GuiState, RocketsState])
+        provideStore([
+          BuildingsState,
+          ClockState,
+          ContractsState,
+          CrewState,
+          FinanceState,
+          GuiState,
+          ResearchState,
+          RocketsState
+        ])
       ]
     }).compileComponents();
 

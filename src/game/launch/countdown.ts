@@ -48,7 +48,7 @@ export function createCountdown(mission: LaunchMission, random: RandomNumberGene
     ...(Object.entries(MILESTONE_TIMES) as [Milestone, number][]).map(
       ([milestone, atMissionTimeMs]): TimelineEvent => ({ kind: 'milestone', milestone, atMissionTimeMs })
     ),
-    ...randomIssues(random),
+    ...randomIssues(random, mission.bonuses.preventedCountdownIssues),
     ...(Object.entries(FLIGHT_PHASE_TIMES) as [FlightPhase, number][]).map(
       ([phase, atMissionTimeMs]): TimelineEvent => ({ kind: 'flightPhase', phase, atMissionTimeMs })
     )
@@ -67,13 +67,17 @@ export function createCountdown(mission: LaunchMission, random: RandomNumberGene
   };
 }
 
-function randomIssues(random: RandomNumberGenerator): TimelineEvent[] {
-  const numberOfIssues = randomIntegerBetween(random, MIN_RANDOM_ISSUES, MAX_RANDOM_ISSUES);
-  const remainingIssues = [...RANDOM_ISSUES];
+/** Picks 1–2 different random issues. Issues prevented by technologies cannot occur. */
+function randomIssues(random: RandomNumberGenerator, preventedIssues: readonly CountdownIssue[]): TimelineEvent[] {
+  const possibleIssues = RANDOM_ISSUES.filter((issue) => !preventedIssues.includes(issue));
+  const numberOfIssues = Math.min(
+    possibleIssues.length,
+    randomIntegerBetween(random, MIN_RANDOM_ISSUES, MAX_RANDOM_ISSUES)
+  );
 
   return Array.from({ length: numberOfIssues }, (): TimelineEvent => {
-    const issue = pickRandom(random, remainingIssues);
-    remainingIssues.splice(remainingIssues.indexOf(issue), 1);
+    const issue = pickRandom(random, possibleIssues);
+    possibleIssues.splice(possibleIssues.indexOf(issue), 1);
     const atMissionTimeMs = randomIntegerBetween(random, RANDOM_ISSUES_EARLIEST_MS, RANDOM_ISSUES_LATEST_MS);
     return { kind: 'issue', issue, atMissionTimeMs };
   });
@@ -159,12 +163,7 @@ export function decideOnIssue(countdown: Countdown, decision: CountdownDecision)
     case 'hold':
       return {
         ...logged,
-        status: {
-          kind: 'holding',
-          issue: status.issue,
-          // A hold is never offered for a closed launch window (see availableDecisions).
-          remainingHoldMs: HOLD_DURATION_MS[status.issue as keyof typeof HOLD_DURATION_MS]
-        }
+        status: { kind: 'holding', issue: status.issue, remainingHoldMs: holdDurationMs(countdown, status.issue) }
       };
     case 'continue':
       return {
@@ -175,6 +174,23 @@ export function decideOnIssue(countdown: Countdown, decision: CountdownDecision)
     case 'scrub':
       return finish(logged, 'scrubbed');
   }
+}
+
+/** How long a hold for the issue lasts. Weather holds are shorter with better forecasts (weather radar). */
+export function holdDurationMs(countdown: Countdown, issue: CountdownIssue): number {
+  if (issue === 'launchWindowClosed') {
+    // A closed launch window cannot be waited out (see availableDecisions).
+    return 0;
+  }
+  const factor = issue === 'weatherNoGo' ? countdown.mission.bonuses.weatherHoldDurationFactor : 1;
+  return HOLD_DURATION_MS[issue] * factor;
+}
+
+/** Chance that the launch succeeds: reliability of the rocket, improved by technologies, minus accepted risks. */
+export function successChance(countdown: Countdown): number {
+  const { rocketModelId, bonuses } = countdown.mission;
+  const chance = ROCKET_MODELS[rocketModelId].reliability + bonuses.reliabilityBonus - countdown.acceptedRisk;
+  return Math.min(1, Math.max(0, chance));
 }
 
 function handleEvent(
@@ -286,8 +302,7 @@ function isWindowOpenAtLiftoffFor(countdown: Countdown, conditions: LaunchCondit
 
 /** Decides at liftoff whether the flight fails, and if so in which phase. */
 function rollForFailure(countdown: Countdown, random: RandomNumberGenerator): FlightPhase | null {
-  const successChance = ROCKET_MODELS[countdown.mission.rocketModelId].reliability - countdown.acceptedRisk;
-  return random() < successChance ? null : pickRandom(random, FLIGHT_PHASES);
+  return random() < successChance(countdown) ? null : pickRandom(random, FLIGHT_PHASES);
 }
 
 function handleFlightPhase(countdown: Countdown, phase: FlightPhase): Countdown {

@@ -497,6 +497,14 @@
         <source>Unterhalt Gebäude</source>
       </segment>
     </unit>
+    <unit id="finances.category.research">
+      <notes>
+        <note category="location">src/app/finances/transaction-category-label.ts:15</note>
+      </notes>
+      <segment>
+        <source>Forschung</source>
+      </segment>
+    </unit>
     <unit id="countdown.title">
       <notes>
         <note category="location">src/app/launch/countdown.component.html:5,6</note>
@@ -1458,6 +1466,126 @@
         <source>Weltkarte – Startplatz Kourou auswählen</source>
       </segment>
     </unit>
+    <unit id="research.technology.weatherRadar">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:6</note>
+      </notes>
+      <segment>
+        <source>Wetterradar</source>
+      </segment>
+    </unit>
+    <unit id="research.technology.rangeSurveillance">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:7</note>
+      </notes>
+      <segment>
+        <source>Sperrzonen-Überwachung</source>
+      </segment>
+    </unit>
+    <unit id="research.technology.qualityAssurance">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:8</note>
+      </notes>
+      <segment>
+        <source>Qualitätssicherung</source>
+      </segment>
+    </unit>
+    <unit id="research.technology.redundantSensors">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:9</note>
+      </notes>
+      <segment>
+        <source>Redundante Sensoren</source>
+      </segment>
+    </unit>
+    <unit id="research.technology.modularAssembly">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:10</note>
+      </notes>
+      <segment>
+        <source>Modulare Montage</source>
+      </segment>
+    </unit>
+    <unit id="research.technology.portLogistics">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:11</note>
+      </notes>
+      <segment>
+        <source>Hafenlogistik</source>
+      </segment>
+    </unit>
+    <unit id="research.technology.weatherRadar.description">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:15</note>
+      </notes>
+      <segment>
+        <source>Bessere Kurzfristprognosen: Wetter-Holds im Countdown dauern nur noch halb so lang.</source>
+      </segment>
+    </unit>
+    <unit id="research.technology.rangeSurveillance.description">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:16</note>
+      </notes>
+      <segment>
+        <source>Das Radar überwacht auch das Meer: Boote in der Sperrzone stoppen keinen Countdown mehr.</source>
+      </segment>
+    </unit>
+    <unit id="research.technology.qualityAssurance.description">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:17</note>
+      </notes>
+      <segment>
+        <source>Strengere Prüfungen bei der Montage: +2 Prozentpunkte Erfolgschance bei jedem Start.</source>
+      </segment>
+    </unit>
+    <unit id="research.technology.redundantSensors.description">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:18</note>
+      </notes>
+      <segment>
+        <source>Jede Messung doppelt: Sensoranomalien stoppen keinen Countdown mehr.</source>
+      </segment>
+    </unit>
+    <unit id="research.technology.modularAssembly.description">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:19</note>
+      </notes>
+      <segment>
+        <source>Vormontierte Baugruppen: Raketen werden 30 % schneller montiert.</source>
+      </segment>
+    </unit>
+    <unit id="research.technology.portLogistics.description">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:20</note>
+      </notes>
+      <segment>
+        <source>Eigener Liegeplatz und Kräne am Hafen: Lieferungen per Schiff kommen 3 Tage früher an.</source>
+      </segment>
+    </unit>
+    <unit id="research.branch.launchOperations">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:24</note>
+      </notes>
+      <segment>
+        <source>Startbetrieb</source>
+      </segment>
+    </unit>
+    <unit id="research.branch.reliability">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:25</note>
+      </notes>
+      <segment>
+        <source>Zuverlässigkeit</source>
+      </segment>
+    </unit>
+    <unit id="research.branch.infrastructure">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:26</note>
+      </notes>
+      <segment>
+        <source>Infrastruktur</source>
+      </segment>
+    </unit>
     <unit id="research.title">
       <notes>
         <note category="location">src/app/research/research.component.html:2,4</note>
@@ -1538,12 +1666,12 @@
         <source> Auf Stufe <ph id="0" equiv="INTERPOLATION" disp="{{ nextLevel.level }}"/> ausbauen (<ph id="1" equiv="INTERPOLATION_1" disp="{{ nextLevel.cost | euros }}"/>, <ph id="2" equiv="INTERPOLATION_2" disp="{{ nextLevel.constructionDays }}"/> Tage) </source>
       </segment>
     </unit>
-    <unit id="research.points.title">
+    <unit id="research.technologies.title">
       <notes>
         <note category="location">src/app/research/research.component.html:62,63</note>
       </notes>
       <segment>
-        <source>Forschungspunkte</source>
+        <source>Technologiebaum</source>
       </segment>
     </unit>
     <unit id="research.points.available">
@@ -1552,6 +1680,62 @@
       </notes>
       <segment>
         <source><ph id="0" equiv="INTERPOLATION" disp="{{ researchPoints() }}"/> FP verfügbar</source>
+      </segment>
+    </unit>
+    <unit id="research.technologies.activeProject">
+      <notes>
+        <note category="location">src/app/research/research.component.html:66,68</note>
+      </notes>
+      <segment>
+        <source> In Forschung: <ph id="0" equiv="INTERPOLATION" disp="{{ technologyName(project.technologyId) }}"/> – fertig ab Tag <ph id="1" equiv="INTERPOLATION_1" disp="{{ project.completesOnDay }}"/>. </source>
+      </segment>
+    </unit>
+    <unit id="research.technologies.needsLaboratory">
+      <notes>
+        <note category="location">src/app/research/research.component.html:70,75</note>
+      </notes>
+      <segment>
+        <source> Für eigene Forschung brauchst du ein Labor. </source>
+      </segment>
+    </unit>
+    <unit id="research.technology.unlocked">
+      <notes>
+        <note category="location">src/app/research/research.component.html:85,87</note>
+      </notes>
+      <segment>
+        <source> Erforscht </source>
+      </segment>
+    </unit>
+    <unit id="research.technology.inProgress">
+      <notes>
+        <note category="location">src/app/research/research.component.html:89,91</note>
+      </notes>
+      <segment>
+        <source>In Forschung</source>
+      </segment>
+    </unit>
+    <unit id="research.technology.locked">
+      <notes>
+        <note category="location">src/app/research/research.component.html:93,94</note>
+      </notes>
+      <segment>
+        <source> Benötigt: <ph id="0" equiv="INTERPOLATION" disp="{{ technologyName(entry.technology.prerequisites[0]!) }}"/> </source>
+      </segment>
+    </unit>
+    <unit id="research.technology.cost">
+      <notes>
+        <note category="location">src/app/research/research.component.html:98,100</note>
+      </notes>
+      <segment>
+        <source> <ph id="0" equiv="INTERPOLATION" disp="{{ entry.technology.researchPointCost }}"/> FP · <ph id="1" equiv="INTERPOLATION_1" disp="{{ entry.technology.cost | euros }}"/> · <ph id="2" equiv="INTERPOLATION_2" disp="{{ entry.technology.researchDays }}"/> Tage </source>
+      </segment>
+    </unit>
+    <unit id="research.technology.start">
+      <notes>
+        <note category="location">src/app/research/research.component.html:108,109</note>
+      </notes>
+      <segment>
+        <source> Erforschen </source>
       </segment>
     </unit>
     <unit id="rockets.status.inTransit">

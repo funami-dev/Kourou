@@ -11,11 +11,13 @@ import { LiveConditionsService } from '../../game/live-conditions/live-condition
 import { RandomSource } from '../../game/random';
 import { REPUTATION_CHANGE_BY_OUTCOME, STARTING_REPUTATION } from '../../game/reputation/reputation';
 import { typicalWeather } from '../../game/weather/typical-weather';
+import { BuildingsState } from '../buildings';
 import { AdvanceClock, ClockState } from '../clock';
 import { AcceptContractOffer, ContractsState } from '../contracts';
 import { FinanceState } from '../finance';
 import { GuiState } from '../gui';
 import { ReputationState } from '../reputation';
+import { ResearchState } from '../research';
 import { OrderRocket, RocketsState } from '../rockets';
 import {
   AdvanceCountdown,
@@ -57,7 +59,17 @@ describe('LaunchState', () => {
     TestBed.configureTestingModule({
       providers: [
         provideRouter([]),
-        provideStore([ClockState, ContractsState, FinanceState, GuiState, LaunchState, ReputationState, RocketsState]),
+        provideStore([
+          BuildingsState,
+          ClockState,
+          ContractsState,
+          FinanceState,
+          GuiState,
+          LaunchState,
+          ReputationState,
+          ResearchState,
+          RocketsState
+        ]),
         // Lowest random numbers: one issue (a boat in the range zone) and a successful flight.
         { provide: RandomSource, useValue: { next: () => 0 } },
         {

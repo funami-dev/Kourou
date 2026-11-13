@@ -1,8 +1,18 @@
 import { MS_PER_MINUTE } from '../clock/clock.constants';
 import { LAUNCH_SITES } from '../launch-sites/launch-sites.constants';
+import { NO_TECHNOLOGY_BONUSES } from '../research/research';
+import { ROCKET_MODELS } from '../rockets/rockets.constants';
 import { typicalWeather } from '../weather/typical-weather';
 import type { RandomNumberGenerator } from '../random';
-import { advanceCountdown, availableDecisions, createCountdown, decideOnIssue, isCountdownFinished } from './countdown';
+import {
+  advanceCountdown,
+  availableDecisions,
+  createCountdown,
+  decideOnIssue,
+  holdDurationMs,
+  isCountdownFinished,
+  successChance
+} from './countdown';
 import type { LaunchConditions } from './countdown';
 import {
   FLIGHT_PHASE_TIMES,
@@ -31,7 +41,8 @@ const thunderstormConditions: LaunchConditions = {
 const leoMission: LaunchMission = {
   campaign: { contractId: 1, rocketId: 1 },
   rocketModelId: 'ibis',
-  targetOrbit: 'leo'
+  targetOrbit: 'leo',
+  bonuses: NO_TECHNOLOGY_BONUSES
 };
 
 /** Random numbers that make every roll succeed and pick the first option. */
@@ -201,5 +212,34 @@ describe('go/no-go poll', () => {
     expect(countdown.status).toMatchObject({ kind: 'awaitingDecision', issue: 'launchWindowClosed' });
     expect(availableDecisions(countdown.status)).toEqual(['scrub']);
     expect(countdown.pollResults.flightDynamics).toBe('noGo');
+  });
+});
+
+describe('technology bonuses', () => {
+  const withBonuses = (bonuses: Partial<LaunchMission['bonuses']>): LaunchMission => ({
+    ...leoMission,
+    bonuses: { ...NO_TECHNOLOGY_BONUSES, ...bonuses }
+  });
+
+  it('keeps prevented issues out of the countdown', () => {
+    const allPrevented = withBonuses({ preventedCountdownIssues: ['boatInRangeZone', 'sensorAnomaly'] });
+
+    for (const random of [0, 0.5, 0.99]) {
+      const issues = createCountdown(allPrevented, () => random).timeline.filter((event) => event.kind === 'issue');
+      expect(issues).toEqual([expect.objectContaining({ issue: 'upperLevelWinds' })]);
+    }
+  });
+
+  it('shortens weather holds', () => {
+    const countdown = createCountdown(withBonuses({ weatherHoldDurationFactor: 0.5 }), lowestRandom);
+
+    expect(holdDurationMs(countdown, 'weatherNoGo')).toBe(HOLD_DURATION_MS.weatherNoGo / 2);
+    expect(holdDurationMs(countdown, 'sensorAnomaly')).toBe(HOLD_DURATION_MS.sensorAnomaly);
+  });
+
+  it('raises the chance of success', () => {
+    const countdown = createCountdown(withBonuses({ reliabilityBonus: 0.02 }), lowestRandom);
+
+    expect(successChance(countdown)).toBeCloseTo(ROCKET_MODELS.ibis.reliability + 0.02);
   });
 });

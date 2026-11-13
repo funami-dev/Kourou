@@ -26,6 +26,29 @@ describe('ResearchComponent', () => {
     await fixture.whenStable();
   });
 
+  it('shows the technology tree, but research needs a laboratory', () => {
+    expect(text()).toContain('Wetterradar');
+    expect(text()).toContain('Für eigene Forschung brauchst du ein Labor');
+    expect(buttonWithText('Erforschen')!.disabled).toBe(true);
+  });
+
+  it('starts researching a technology', async () => {
+    store.reset({
+      ...store.snapshot(),
+      buildings: {
+        buildings: [{ type: 'laboratory', constructions: [{ level: 1, startedOnDay: 0, completesOnDay: 0 }] }]
+      },
+      research: { ...store.snapshot().research, researchPoints: 100 }
+    });
+    await fixture.whenStable();
+
+    buttonWithText('Erforschen')!.click();
+    await fixture.whenStable();
+
+    expect(store.selectSnapshot(ResearchState.progress).activeProject?.technologyId).toBe('weatherRadar');
+    expect(text()).toContain('In Forschung: Wetterradar');
+  });
+
   it('offers to build a laboratory', async () => {
     buttonWithText('Labor bauen')!.click();
     await fixture.whenStable();

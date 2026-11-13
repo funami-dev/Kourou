@@ -4,10 +4,12 @@ import { Store, provideStore } from '@ngxs/store';
 
 import { STARTING_BALANCE } from '../../game/economy/economy.constants';
 import { ROCKET_MODELS } from '../../game/rockets/rockets.constants';
+import { BuildingsState } from '../buildings';
 import { ClockState } from '../clock';
 import { FinanceState } from '../finance';
 import { StartNewGame } from '../game.actions';
 import { GuiState } from '../gui';
+import { ResearchState } from '../research';
 import { OrderRocket } from './rockets.actions';
 import { RocketsState } from './rockets.state';
 
@@ -19,7 +21,10 @@ describe('RocketsState', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideRouter([]), provideStore([ClockState, FinanceState, GuiState, RocketsState])]
+      providers: [
+        provideRouter([]),
+        provideStore([BuildingsState, ClockState, FinanceState, GuiState, ResearchState, RocketsState])
+      ]
     });
     store = TestBed.inject(Store);
   });

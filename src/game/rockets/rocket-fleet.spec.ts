@@ -35,6 +35,17 @@ describe('orderRocket', () => {
     expect(fleet.rockets.map((rocket) => rocket.serialName)).toEqual(['IB-01', 'AL-01', 'IB-02']);
   });
 
+  it('is delivered and assembled faster with technology bonuses', () => {
+    const { rocket } = orderRocket(NEW_GAME_ROCKET_FLEET, 'ibis', ORDERED_AT, {
+      assemblyDurationFactor: 0.5,
+      shippingDaysSaved: 3
+    });
+    const arrivesAt = ORDERED_AT + (SHIP_DELIVERY_DAYS - 3) * MS_PER_DAY;
+
+    expect(rocket.arrivesAtMs).toBe(arrivesAt);
+    expect(rocket.readyAtMs).toBe(arrivesAt + IBIS_ASSEMBLY / 2);
+  });
+
   it('waits with assembly until the assembly hall is free', () => {
     const first = orderRocket(NEW_GAME_ROCKET_FLEET, 'ibis', ORDERED_AT);
     const { rocket: second } = orderRocket(first.fleet, 'ibis', ORDERED_AT);

@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 import { Store, provideStore } from '@ngxs/store';
 
 import { NEW_GAME_LEDGER } from '../../game/economy/ledger';
-import { ClockState, FinanceState, GuiState, RocketsState } from '../../store';
+import { BuildingsState, ClockState, FinanceState, GuiState, ResearchState, RocketsState } from '../../store';
 import { RocketsComponent } from './rockets.component';
 
 describe('RocketsComponent', () => {
@@ -16,7 +16,10 @@ describe('RocketsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RocketsComponent],
-      providers: [provideRouter([]), provideStore([ClockState, FinanceState, GuiState, RocketsState])]
+      providers: [
+        provideRouter([]),
+        provideStore([BuildingsState, ClockState, FinanceState, GuiState, ResearchState, RocketsState])
+      ]
     }).compileComponents();
 
     store = TestBed.inject(Store);

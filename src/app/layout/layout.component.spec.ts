@@ -5,6 +5,7 @@ import { provideRouter } from '@angular/router';
 import { provideStore } from '@ngxs/store';
 
 import {
+  BuildingsState,
   ClockState,
   ContractsState,
   CrewState,
@@ -12,6 +13,7 @@ import {
   GuiState,
   LaunchState,
   ReputationState,
+  ResearchState,
   RocketsState
 } from '../../store';
 import { LayoutComponent } from './layout.component';
@@ -28,6 +30,7 @@ describe('LayoutComponent', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         provideStore([
+          BuildingsState,
           ClockState,
           ContractsState,
           CrewState,
@@ -35,6 +38,7 @@ describe('LayoutComponent', () => {
           GuiState,
           LaunchState,
           ReputationState,
+          ResearchState,
           RocketsState
         ])
       ]

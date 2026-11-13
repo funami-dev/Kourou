@@ -12,7 +12,8 @@ export type TransactionCategory =
   | 'scrubCosts'
   | 'padRepair'
   | 'construction'
-  | 'buildingUpkeep';
+  | 'buildingUpkeep'
+  | 'research';
 
 export interface Transaction {
   id: number;

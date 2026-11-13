@@ -28,3 +28,59 @@
     font-variant-numeric: tabular-nums;
   }
 }
+
+.tree {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.tree__branch {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  h3 {
+    margin: 0;
+    opacity: 0.8;
+  }
+}
+
+.technology {
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+
+  h4 {
+    margin: 0 0 6px;
+  }
+
+  p {
+    margin: 6px 0;
+  }
+}
+
+.technology--unlocked {
+  border-color: #7ee08a;
+}
+
+.technology--inProgress {
+  border-color: #ffd68a;
+}
+
+.technology--locked {
+  opacity: 0.55;
+}
+
+.technology__status {
+  font-weight: bold;
+}
+
+.technology__status--done {
+  color: #7ee08a;
+}
+
+.technology__cost {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}

@@ -20,6 +20,7 @@ import { ClockState, GameDayStarted } from '../clock';
 import { ContractDeadlinesMissed, ContractsState } from '../contracts';
 import { BookTransaction } from '../finance';
 import { StartNewGame } from '../game.actions';
+import { ResearchState } from '../research';
 import { RocketsState } from '../rockets';
 import {
   AdvanceCountdown,
@@ -100,7 +101,12 @@ export class LaunchState {
       return;
     }
 
-    const mission = { campaign, rocketModelId: rocket.modelId, targetOrbit: contract.payload.targetOrbit };
+    const mission = {
+      campaign,
+      rocketModelId: rocket.modelId,
+      targetOrbit: contract.payload.targetOrbit,
+      bonuses: this.store.selectSnapshot(ResearchState.bonuses)
+    };
     ctx.patchState({ countdown: createCountdown(mission, this.randomSource.next), lastResult: null });
   }
 

@@ -5,6 +5,7 @@ import { provideRouter } from '@angular/router';
 import { Store, provideStore } from '@ngxs/store';
 
 import { ClockState, GuiState, LaunchState, NEW_GAME_CLOCK, NEW_GAME_LAUNCH } from '../store';
+import { NO_TECHNOLOGY_BONUSES } from './research/research';
 import { createCountdown } from './launch/countdown';
 import { CLOCK_TICK_INTERVAL_MS, MAX_REAL_MS_PER_TICK, MS_PER_MINUTE } from './clock/clock.constants';
 import { realToGameDuration } from './clock/game-time';
@@ -69,7 +70,12 @@ describe('GameLoop', () => {
   it('runs the countdown instead of game time while the countdown is open', () => {
     startGameAtKourou();
     const countdown = createCountdown(
-      { campaign: { contractId: 1, rocketId: 1 }, rocketModelId: 'ibis', targetOrbit: 'leo' },
+      {
+        campaign: { contractId: 1, rocketId: 1 },
+        rocketModelId: 'ibis',
+        targetOrbit: 'leo',
+        bonuses: NO_TECHNOLOGY_BONUSES
+      },
       () => 0
     );
     store.reset({ ...store.snapshot(), launch: { ...NEW_GAME_LAUNCH, countdown } });

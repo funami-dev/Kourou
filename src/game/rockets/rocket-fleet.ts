@@ -1,4 +1,5 @@
 import { MS_PER_DAY } from '../clock/clock.constants';
+import type { TechnologyBonuses } from '../research/technology.model';
 import type { RocketModelId, Rocket, RocketStatus } from './rocket.model';
 import { ROCKET_MODELS, SHIP_DELIVERY_DAYS } from './rockets.constants';
 
@@ -7,6 +8,11 @@ export interface RocketFleet {
   rockets: Rocket[];
   nextId: number;
 }
+
+/** Technology bonuses that speed up delivery and assembly. */
+export type OrderBonuses = Pick<TechnologyBonuses, 'assemblyDurationFactor' | 'shippingDaysSaved'>;
+
+const NO_ORDER_BONUSES: OrderBonuses = { assemblyDurationFactor: 1, shippingDaysSaved: 0 };
 
 export const NEW_GAME_ROCKET_FLEET: RocketFleet = {
   rockets: [],
@@ -20,10 +26,11 @@ export const NEW_GAME_ROCKET_FLEET: RocketFleet = {
 export function orderRocket(
   fleet: RocketFleet,
   modelId: RocketModelId,
-  orderedAtMs: number
+  orderedAtMs: number,
+  bonuses: OrderBonuses = NO_ORDER_BONUSES
 ): { fleet: RocketFleet; rocket: Rocket } {
   const model = ROCKET_MODELS[modelId];
-  const arrivesAtMs = orderedAtMs + SHIP_DELIVERY_DAYS * MS_PER_DAY;
+  const arrivesAtMs = orderedAtMs + (SHIP_DELIVERY_DAYS - bonuses.shippingDaysSaved) * MS_PER_DAY;
   const assemblyStartsAtMs = Math.max(arrivesAtMs, assemblyHallFreeAtMs(fleet));
 
   const rocket: Rocket = {
@@ -33,7 +40,7 @@ export function orderRocket(
     orderedAtMs,
     arrivesAtMs,
     assemblyStartsAtMs,
-    readyAtMs: assemblyStartsAtMs + model.assemblyDays * MS_PER_DAY
+    readyAtMs: assemblyStartsAtMs + model.assemblyDays * bonuses.assemblyDurationFactor * MS_PER_DAY
   };
 
   return {

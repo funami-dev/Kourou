@@ -58,8 +58,61 @@
     }
   </section>
 
-  <section aria-labelledby="points-title">
-    <h2 id="points-title" i18n="@@research.points.title">Forschungspunkte</h2>
+  <section aria-labelledby="technologies-title">
+    <h2 id="technologies-title" i18n="@@research.technologies.title">Technologiebaum</h2>
     <p class="research__points" i18n="@@research.points.available">{{ researchPoints() }} FP verfügbar</p>
+    @if (activeProject(); as project) {
+      <p class="research__notice" i18n="@@research.technologies.activeProject">
+        In Forschung: {{ technologyName(project.technologyId) }} – fertig ab Tag {{ project.completesOnDay }}.
+      </p>
+    } @else if (lab.level === 0) {
+      <p class="research__hint" i18n="@@research.technologies.needsLaboratory">
+        Für eigene Forschung brauchst du ein Labor.
+      </p>
+    }
+
+    <div class="tree">
+      @for (column of technologyTree(); track column.branch) {
+        <section class="tree__branch" [attr.aria-label]="branchName(column.branch)">
+          <h3>{{ branchName(column.branch) }}</h3>
+          @for (entry of column.technologies; track entry.technology.id) {
+            <article class="technology technology--{{ entry.status }}">
+              <h4>{{ technologyName(entry.technology.id) }}</h4>
+              <p>{{ technologyDescription(entry.technology.id) }}</p>
+              @switch (entry.status) {
+                @case ('unlocked') {
+                  <p class="technology__status technology__status--done" i18n="@@research.technology.unlocked">
+                    Erforscht
+                  </p>
+                }
+                @case ('inProgress') {
+                  <p class="technology__status" i18n="@@research.technology.inProgress">In Forschung</p>
+                }
+                @case ('locked') {
+                  <p class="technology__status" i18n="@@research.technology.locked">
+                    Benötigt: {{ technologyName(entry.technology.prerequisites[0]!) }}
+                  </p>
+                }
+                @case ('available') {
+                  <p class="technology__cost" i18n="@@research.technology.cost">
+                    {{ entry.technology.researchPointCost }} FP · {{ entry.technology.cost | euros }} ·
+                    {{ entry.technology.researchDays }} Tage
+                  </p>
+                  <button
+                    mat-flat-button
+                    type="button"
+                    [disabled]="!entry.canStart"
+                    (click)="startResearch(entry.technology.id)"
+                    i18n="@@research.technology.start"
+                  >
+                    Erforschen
+                  </button>
+                }
+              }
+            </article>
+          }
+        </section>
+      }
+    </div>
   </section>
 </section>

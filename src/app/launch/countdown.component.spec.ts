@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { Store, provideStore } from '@ngxs/store';
 
+import { NO_TECHNOLOGY_BONUSES } from '../../game/research/research';
 import { createCountdown } from '../../game/launch/countdown';
 import type { Countdown } from '../../game/launch/launch.model';
 import { GuiState, LaunchState, NEW_GAME_LAUNCH } from '../../store';
@@ -18,7 +19,15 @@ describe('CountdownComponent', () => {
     Array.from(element().querySelectorAll('button')).find((button) => button.textContent!.includes(label));
 
   const freshCountdown = (): Countdown =>
-    createCountdown({ campaign: { contractId: 1, rocketId: 1 }, rocketModelId: 'ibis', targetOrbit: 'leo' }, () => 0);
+    createCountdown(
+      {
+        campaign: { contractId: 1, rocketId: 1 },
+        rocketModelId: 'ibis',
+        targetOrbit: 'leo',
+        bonuses: NO_TECHNOLOGY_BONUSES
+      },
+      () => 0
+    );
 
   async function showCountdown(countdown: Countdown, lastResult: LaunchResult | null = null): Promise<void> {
     store.reset({ ...store.snapshot(), launch: { ...NEW_GAME_LAUNCH, countdown, lastResult } });

@@ -5,12 +5,14 @@ import { Store, provideStore } from '@ngxs/store';
 import { STARTER_OFFERS } from '../../game/contracts/contracts.constants';
 import {
   AcceptContractOffer,
+  BuildingsState,
   ClockState,
   ContractsState,
   FinanceState,
   GuiState,
   LaunchState,
   OrderRocket,
+  ResearchState,
   RocketsState
 } from '../../store';
 import { LaunchPadComponent } from './launch-pad.component';
@@ -31,7 +33,16 @@ describe('LaunchPadComponent', () => {
       imports: [LaunchPadComponent],
       providers: [
         provideRouter([]),
-        provideStore([ClockState, ContractsState, FinanceState, GuiState, LaunchState, RocketsState]),
+        provideStore([
+          BuildingsState,
+          ClockState,
+          ContractsState,
+          FinanceState,
+          GuiState,
+          LaunchState,
+          ResearchState,
+          RocketsState
+        ]),
         provideCalmMorningInKourou()
       ]
     }).compileComponents();

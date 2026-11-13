@@ -1,4 +1,5 @@
 import type { OrbitType } from '../contracts/contract.model';
+import type { TechnologyBonuses } from '../research/technology.model';
 import type { RocketModelId } from '../rockets/rocket.model';
 
 /** A rocket standing on the launch pad, ready to launch the payload of a contract. */
@@ -7,11 +8,18 @@ export interface LaunchCampaign {
   rocketId: number;
 }
 
+/** Technology bonuses that change how a countdown goes. */
+export type CountdownBonuses = Pick<
+  TechnologyBonuses,
+  'weatherHoldDurationFactor' | 'preventedCountdownIssues' | 'reliabilityBonus'
+>;
+
 /** Facts about the launch the countdown needs, copied when the countdown starts. */
 export interface LaunchMission {
   campaign: LaunchCampaign;
   rocketModelId: RocketModelId;
   targetOrbit: OrbitType;
+  bonuses: CountdownBonuses;
 }
 
 /** Positions in mission control that report "go" or "no go" in the poll before launch. */

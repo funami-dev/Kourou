@@ -9,6 +9,7 @@ import { ROCKET_MODELS } from '../../game/rockets/rockets.constants';
 import { ClockState } from '../clock';
 import { BookTransaction, FinanceState } from '../finance';
 import { StartNewGame } from '../game.actions';
+import { ResearchState } from '../research/research.state';
 import { LaunchCompleted } from '../launch/launch.actions';
 import { OrderRocket } from './rockets.actions';
 
@@ -37,7 +38,8 @@ export class RocketsState {
     }
 
     const nowMs = this.store.selectSnapshot(ClockState.gameTimeMs);
-    const { fleet, rocket } = orderRocket(ctx.getState(), modelId, nowMs);
+    const bonuses = this.store.selectSnapshot(ResearchState.bonuses);
+    const { fleet, rocket } = orderRocket(ctx.getState(), modelId, nowMs, bonuses);
     ctx.setState(fleet);
     ctx.dispatch(new BookTransaction(-model.price, 'rocketPurchase', `${model.name} ${rocket.serialName}`));
   }

@@ -4,8 +4,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterLink } from '@angular/router';
 import { dispatch, select } from '@ngxs/store';
 
-import { availableDecisions } from '../../game/launch/countdown';
-import { HOLD_DURATION_MS, SCRUB_COSTS } from '../../game/launch/launch.constants';
+import { availableDecisions, holdDurationMs, successChance } from '../../game/launch/countdown';
+import { SCRUB_COSTS } from '../../game/launch/launch.constants';
 import type { CountdownDecision, Station } from '../../game/launch/launch.model';
 import { LiveConditionsService } from '../../game/live-conditions/live-conditions.service';
 import { ROCKET_MODELS } from '../../game/rockets/rockets.constants';
@@ -51,8 +51,7 @@ export class CountdownComponent {
 
   protected readonly successChance = computed(() => {
     const countdown = this.countdown();
-    const rocketModel = this.rocketModel();
-    return countdown && rocketModel ? Math.max(0, rocketModel.reliability - countdown.acceptedRisk) : 0;
+    return countdown ? successChance(countdown) : 0;
   });
 
   protected readonly decisions = computed(() => {
@@ -71,11 +70,11 @@ export class CountdownComponent {
   }
 
   protected holdDurationSeconds(): number {
-    const status = this.countdown()?.status;
-    if (status?.kind !== 'awaitingDecision' || status.issue === 'launchWindowClosed') {
+    const countdown = this.countdown();
+    if (countdown?.status.kind !== 'awaitingDecision') {
       return 0;
     }
-    return HOLD_DURATION_MS[status.issue] / MS_PER_SECOND;
+    return holdDurationMs(countdown, countdown.status.issue) / MS_PER_SECOND;
   }
 
   protected close(): void {

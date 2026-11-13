@@ -25,6 +25,7 @@ import {
   ResearchState,
   RocketsState
 } from '../store';
+import { completeSavedGame } from '../store/saved-game';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -47,7 +48,7 @@ export const appConfig: ApplicationConfig = {
         RocketsState
       ],
       { developmentMode: !environment.production },
-      withNgxsStoragePlugin({ keys: '*' }),
+      withNgxsStoragePlugin({ keys: '*', afterDeserialize: completeSavedGame }),
       withNgxsReduxDevtoolsPlugin({ disabled: environment.production })
     ),
     provideAppInitializer(() => inject(GameLoop).start())
