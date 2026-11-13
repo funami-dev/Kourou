@@ -1,22 +1,14 @@
-import { Component, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { timer } from 'rxjs';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-type Daytime = 'day' | 'night';
+import { LiveConditionsService } from '../../live-conditions/live-conditions.service';
 
-const DAYTIMES: readonly Daytime[] = ['night', 'day'];
-
+/** Sky backdrop that follows the real day and night at the launch site. */
 @Component({
   selector: 'app-sky',
   templateUrl: './sky.component.html',
-  styleUrl: './sky.component.scss'
+  styleUrl: './sky.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyComponent {
-  readonly daytime = signal<Daytime>('night');
-
-  constructor() {
-    timer(1000, 10000)
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => this.daytime.set(DAYTIMES[Math.floor(Math.random() * DAYTIMES.length)]!));
-  }
+  protected readonly isDaylight = inject(LiveConditionsService).isDaylight;
 }

@@ -5,6 +5,7 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection
 } from '@angular/core';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { provideStore } from '@ngxs/store';
 import { withNgxsStoragePlugin } from '@ngxs/storage-plugin';
@@ -20,6 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
+    provideHttpClient(withFetch()),
     provideStore(
       [ClockState, ContractsState, CrewState, FinanceState, GuiState, RocketsState],
       { developmentMode: !environment.production },

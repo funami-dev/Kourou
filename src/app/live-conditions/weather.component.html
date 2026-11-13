@@ -1,0 +1,59 @@
+<section class="weather game-panel" aria-labelledby="weather-title">
+  <h1 id="weather-title" i18n="@@weather.title">Wetter &amp; Ortszeit in {{ site().name }}</h1>
+
+  <div class="weather__now">
+    <mat-icon class="weather__icon" aria-hidden="true">{{ icon() }}</mat-icon>
+    <div>
+      <p class="weather__temperature">{{ weather().temperatureCelsius | number: '1.0-1' }} °C</p>
+      <p>{{ conditionLabel() }}</p>
+    </div>
+    <div class="weather__local-time">
+      <p class="weather__clock">{{ nowMs() | siteLocalTime: site().timeZone }}</p>
+      <p>
+        @if (isDaylight()) {
+          <ng-container i18n="@@weather.daylight">Tag</ng-container>
+        } @else {
+          <ng-container i18n="@@weather.night">Nacht</ng-container>
+        }
+      </p>
+    </div>
+  </div>
+
+  <dl class="weather__details">
+    <div>
+      <dt i18n="@@weather.wind">Wind</dt>
+      <dd>{{ weather().windSpeedMetersPerSecond | number: '1.0-1' }} m/s</dd>
+    </div>
+    <div>
+      <dt i18n="@@weather.gusts">Böen</dt>
+      <dd>{{ weather().windGustsMetersPerSecond | number: '1.0-1' }} m/s</dd>
+    </div>
+    <div>
+      <dt i18n="@@weather.precipitation">Niederschlag</dt>
+      <dd>{{ weather().precipitationMillimeters | number: '1.0-1' }} mm</dd>
+    </div>
+    <div>
+      <dt i18n="@@weather.cloudCover">Bewölkung</dt>
+      <dd>{{ weather().cloudCoverPercent | number: '1.0-0' }} %</dd>
+    </div>
+    <div>
+      <dt i18n="@@weather.sunrise">Sonnenaufgang</dt>
+      <dd>{{ weather().sunriseAtMs | siteLocalTime: site().timeZone }}</dd>
+    </div>
+    <div>
+      <dt i18n="@@weather.sunset">Sonnenuntergang</dt>
+      <dd>{{ weather().sunsetAtMs | siteLocalTime: site().timeZone }}</dd>
+    </div>
+  </dl>
+
+  @if (weather().source === 'live') {
+    <p class="weather__source" i18n="@@weather.source.live">
+      Live-Daten, Stand {{ weather().observedAtMs | siteLocalTime: site().timeZone }} Uhr Ortszeit. Wetterdaten von
+      <a [href]="attributionUrl" target="_blank" rel="noopener">Open-Meteo.com</a> (CC BY 4.0).
+    </p>
+  } @else {
+    <p class="weather__source weather__source--typical" i18n="@@weather.source.typical">
+      Gerade sind keine Live-Wetterdaten verfügbar. Angezeigt werden typische Werte für die Jahreszeit.
+    </p>
+  }
+</section>

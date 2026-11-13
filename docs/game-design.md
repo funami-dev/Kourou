@@ -73,6 +73,9 @@ Ein Start bei Sonnenuntergang und echtem Gewitter am Horizont ist ein Moment, de
 
 **Ohne Netz** fällt das Spiel auf plausible, saisonal passende Werte zurück und weist darauf hin.
 
+Die Wetterdaten von Open-Meteo stehen unter CC BY 4.0 und werden im Spiel (Wetter-Seite) genannt.
+Aktualisiert wird alle 15 Minuten – so oft, wie Open-Meteo neue aktuelle Werte liefert.
+
 ### Ortsbezogene Realismus-Details für Kourou
 - **Äquatornähe (~5° N)**: mehr Nutzlast, vor allem für den geostationären Orbit.
 - **Jahreszeiten**: Regenzeit ca. Dezember–Juli, Trockenzeit ca. August–November.
@@ -176,7 +179,7 @@ Ziel: **ein kompletter Durchlauf der Kernschleife** in Kourou.
 2. ✅ **Geld** und einfache Finanzen (Kontostand, Einnahmen, Ausgaben).
 3. ✅ **Aufträge**: eine kleine Liste generierter Aufträge, einen annehmen.
 4. ✅ **Fertige Rakete kaufen** (1–2 Modelle) → Lieferung und Montage über Zeit.
-5. **Live-Wetter Kourou** (Open-Meteo) inkl. Tag/Nacht der Basis nach echter Ortszeit.
+5. ✅ **Live-Wetter Kourou** (Open-Meteo) inkl. Tag/Nacht der Basis nach echter Ortszeit.
 6. **Countdown** mit Go/No-Go gegen die Wetter-Grenzwerte und 1–2 Zufallsereignissen.
 7. **Ergebnis**: Erfolg, Scrub oder Fehlstart → Geld und Ruf.
 

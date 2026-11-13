@@ -1,0 +1,63 @@
+.weather {
+  max-width: 720px;
+}
+
+.weather__now {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 32px;
+
+  p {
+    margin: 0;
+  }
+}
+
+.weather__icon {
+  width: 64px;
+  height: 64px;
+  font-size: 64px;
+}
+
+.weather__temperature,
+.weather__clock {
+  font-size: 2rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.weather__local-time {
+  margin-left: auto;
+  text-align: right;
+}
+
+.weather__details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 0 0 24px;
+
+  dt {
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  dd {
+    margin: 4px 0 0;
+    font-size: 1.25rem;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.weather__source {
+  font-size: 0.85rem;
+  opacity: 0.7;
+
+  a {
+    color: inherit;
+  }
+}
+
+.weather__source--typical {
+  color: #ffd68a;
+  opacity: 1;
+}

@@ -449,9 +449,17 @@
         <source>Finanzen</source>
       </segment>
     </unit>
-    <unit id="layout.menu.settings">
+    <unit id="layout.menu.weather">
       <notes>
         <note category="location">src/app/layout/layout.component.html:31,33</note>
+      </notes>
+      <segment>
+        <source>Wetter</source>
+      </segment>
+    </unit>
+    <unit id="layout.menu.settings">
+      <notes>
+        <note category="location">src/app/layout/layout.component.html:35,37</note>
       </notes>
       <segment>
         <source>Einstellungen</source>
@@ -459,10 +467,178 @@
     </unit>
     <unit id="layout.balance.label">
       <notes>
-        <note category="location">src/app/layout/layout.component.html:39,40</note>
+        <note category="location">src/app/layout/layout.component.html:44,45</note>
       </notes>
       <segment>
         <source>Kontostand – zu den Finanzen</source>
+      </segment>
+    </unit>
+    <unit id="weather.indicator.label">
+      <notes>
+        <note category="location">src/app/live-conditions/live-conditions-indicator.component.ts:31</note>
+      </notes>
+      <segment>
+        <source>Wetter in <ph id="0" equiv="site" disp="this.site().name"/>: <ph id="1" equiv="condition" disp="conditionLabel"/></source>
+      </segment>
+    </unit>
+    <unit id="weather.indicator.labelTypical">
+      <notes>
+        <note category="location">src/app/live-conditions/live-conditions-indicator.component.ts:32</note>
+      </notes>
+      <segment>
+        <source>Wetter in <ph id="0" equiv="site" disp="this.site().name"/>: <ph id="1" equiv="condition" disp="conditionLabel"/> (typische Werte, keine Live-Daten)</source>
+      </segment>
+    </unit>
+    <unit id="weather.condition.clear">
+      <notes>
+        <note category="location">src/app/live-conditions/weather-condition-display.ts:4</note>
+      </notes>
+      <segment>
+        <source>Klar</source>
+      </segment>
+    </unit>
+    <unit id="weather.condition.partlyCloudy">
+      <notes>
+        <note category="location">src/app/live-conditions/weather-condition-display.ts:5</note>
+      </notes>
+      <segment>
+        <source>Teilweise bewölkt</source>
+      </segment>
+    </unit>
+    <unit id="weather.condition.overcast">
+      <notes>
+        <note category="location">src/app/live-conditions/weather-condition-display.ts:6</note>
+      </notes>
+      <segment>
+        <source>Bedeckt</source>
+      </segment>
+    </unit>
+    <unit id="weather.condition.fog">
+      <notes>
+        <note category="location">src/app/live-conditions/weather-condition-display.ts:7</note>
+      </notes>
+      <segment>
+        <source>Nebel</source>
+      </segment>
+    </unit>
+    <unit id="weather.condition.drizzle">
+      <notes>
+        <note category="location">src/app/live-conditions/weather-condition-display.ts:8</note>
+      </notes>
+      <segment>
+        <source>Nieselregen</source>
+      </segment>
+    </unit>
+    <unit id="weather.condition.rain">
+      <notes>
+        <note category="location">src/app/live-conditions/weather-condition-display.ts:9</note>
+      </notes>
+      <segment>
+        <source>Regen</source>
+      </segment>
+    </unit>
+    <unit id="weather.condition.snow">
+      <notes>
+        <note category="location">src/app/live-conditions/weather-condition-display.ts:10</note>
+      </notes>
+      <segment>
+        <source>Schnee</source>
+      </segment>
+    </unit>
+    <unit id="weather.condition.thunderstorm">
+      <notes>
+        <note category="location">src/app/live-conditions/weather-condition-display.ts:11</note>
+      </notes>
+      <segment>
+        <source>Gewitter</source>
+      </segment>
+    </unit>
+    <unit id="weather.title">
+      <notes>
+        <note category="location">src/app/live-conditions/weather.component.html:2,4</note>
+      </notes>
+      <segment>
+        <source>Wetter &amp; Ortszeit in <ph id="0" equiv="INTERPOLATION" disp="{{ site().name }}"/></source>
+      </segment>
+    </unit>
+    <unit id="weather.daylight">
+      <notes>
+        <note category="location">src/app/live-conditions/weather.component.html:14,15</note>
+      </notes>
+      <segment>
+        <source>Tag</source>
+      </segment>
+    </unit>
+    <unit id="weather.night">
+      <notes>
+        <note category="location">src/app/live-conditions/weather.component.html:16,18</note>
+      </notes>
+      <segment>
+        <source>Nacht</source>
+      </segment>
+    </unit>
+    <unit id="weather.wind">
+      <notes>
+        <note category="location">src/app/live-conditions/weather.component.html:24,25</note>
+      </notes>
+      <segment>
+        <source>Wind</source>
+      </segment>
+    </unit>
+    <unit id="weather.gusts">
+      <notes>
+        <note category="location">src/app/live-conditions/weather.component.html:28,29</note>
+      </notes>
+      <segment>
+        <source>Böen</source>
+      </segment>
+    </unit>
+    <unit id="weather.precipitation">
+      <notes>
+        <note category="location">src/app/live-conditions/weather.component.html:32,33</note>
+      </notes>
+      <segment>
+        <source>Niederschlag</source>
+      </segment>
+    </unit>
+    <unit id="weather.cloudCover">
+      <notes>
+        <note category="location">src/app/live-conditions/weather.component.html:36,37</note>
+      </notes>
+      <segment>
+        <source>Bewölkung</source>
+      </segment>
+    </unit>
+    <unit id="weather.sunrise">
+      <notes>
+        <note category="location">src/app/live-conditions/weather.component.html:40,41</note>
+      </notes>
+      <segment>
+        <source>Sonnenaufgang</source>
+      </segment>
+    </unit>
+    <unit id="weather.sunset">
+      <notes>
+        <note category="location">src/app/live-conditions/weather.component.html:44,45</note>
+      </notes>
+      <segment>
+        <source>Sonnenuntergang</source>
+      </segment>
+    </unit>
+    <unit id="weather.source.live">
+      <notes>
+        <note category="location">src/app/live-conditions/weather.component.html:51,54</note>
+      </notes>
+      <segment>
+        <source> Live-Daten, Stand <ph id="0" equiv="INTERPOLATION" disp="{{ weather().observedAtMs | siteLocalTime: site().timeZone }}"/> Uhr Ortszeit. Wetterdaten von <pc id="1" equivStart="START_LINK" equivEnd="CLOSE_LINK" type="link" dispStart="&lt;a [href]=&quot;attributionUrl&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;" dispEnd="&lt;/a&gt;">Open-Meteo.com</pc> (CC BY 4.0). </source>
+      </segment>
+    </unit>
+    <unit id="weather.source.typical">
+      <notes>
+        <note category="location">src/app/live-conditions/weather.component.html:56,60</note>
+      </notes>
+      <segment>
+        <source> Gerade sind keine Live-Wetterdaten verfügbar. Angezeigt werden typische Werte für die Jahreszeit. </source>
       </segment>
     </unit>
     <unit id="locationPicker.worldMap.alt">

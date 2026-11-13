@@ -26,12 +26,17 @@
         <mat-icon>account_balance</mat-icon>
         <span i18n="@@layout.menu.finances">Finanzen</span>
       </button>
+      <button mat-menu-item routerLink="/game/weather">
+        <mat-icon>wb_cloudy</mat-icon>
+        <span i18n="@@layout.menu.weather">Wetter</span>
+      </button>
       <button mat-menu-item routerLink="/settings">
         <mat-icon>settings</mat-icon>
         <span i18n="@@layout.menu.settings">Einstellungen</span>
       </button>
     </mat-menu>
     <span class="toolbar-spacer"></span>
+    <app-live-conditions-indicator />
     <a
       mat-button
       routerLink="/game/finances"

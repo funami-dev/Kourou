@@ -10,6 +10,7 @@ import { FinanceState, GuiState } from '../../store';
 import { LocationPickerComponent } from '../location-picker/location-picker.component';
 import { SkyComponent } from '../components/sky/sky.component';
 import { GameClockComponent } from '../components/game-clock/game-clock.component';
+import { LiveConditionsIndicatorComponent } from '../live-conditions/live-conditions-indicator.component';
 import { EurosPipe } from '../shared/euros.pipe';
 
 @Component({
@@ -24,7 +25,8 @@ import { EurosPipe } from '../shared/euros.pipe';
     LocationPickerComponent,
     SkyComponent,
     GameClockComponent,
-    EurosPipe
+    EurosPipe,
+    LiveConditionsIndicatorComponent
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
