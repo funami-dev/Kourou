@@ -2,20 +2,23 @@ import { Injectable } from '@angular/core';
 import { Action, Selector, State } from '@ngxs/store';
 import type { StateContext } from '@ngxs/store';
 
+import { StartNewGame } from '../game.actions';
 import type { CrewStateModel, CrewMemberModel } from './crew.model';
 import { AddCrewMember, RemoveCrewMember } from './crew.actions';
 
+export const NEW_GAME_CREW: CrewStateModel = {
+  members: [
+    {
+      id: 0,
+      name: 'Alex',
+      position: 'Commander'
+    }
+  ]
+};
+
 @State<CrewStateModel>({
   name: 'crew',
-  defaults: {
-    members: [
-      {
-        id: 0,
-        name: 'Alex',
-        position: 'Commander'
-      }
-    ]
-  }
+  defaults: NEW_GAME_CREW
 })
 @Injectable()
 export class CrewState {
@@ -36,6 +39,11 @@ export class CrewState {
 
   @Action(RemoveCrewMember)
   removeCrewMember(ctx: StateContext<CrewStateModel>, { payload }: RemoveCrewMember): void {
-    ctx.patchState({ members: ctx.getState().members.filter(item => item.id !== payload) });
+    ctx.patchState({ members: ctx.getState().members.filter((item) => item.id !== payload) });
+  }
+
+  @Action(StartNewGame)
+  reset(ctx: StateContext<CrewStateModel>): void {
+    ctx.setState(NEW_GAME_CREW);
   }
 }

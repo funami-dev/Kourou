@@ -12,7 +12,7 @@ import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
 
 import { environment } from '../environments/environment';
 import { GameClockDriver } from '../game/clock/game-clock-driver.service';
-import { ClockState, CrewState, GuiState } from '../store';
+import { ClockState, CrewState, FinanceState, GuiState } from '../store';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -21,7 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideStore(
-      [ClockState, CrewState, GuiState],
+      [ClockState, CrewState, FinanceState, GuiState],
       { developmentMode: !environment.production },
       withNgxsStoragePlugin({ keys: '*' }),
       withNgxsReduxDevtoolsPlugin({ disabled: environment.production })

@@ -19,6 +19,11 @@ Code wird für Menschen geschrieben. Lesbarkeit geht vor Kürze und Cleverness.
 - **Strikte Typen**: kein `any`; Modelle als `interface`/`type`, Zustände als Union-Typen.
 - **Moderne Angular-Patterns**: Standalone-Komponenten, `inject()`, Signals, neue
   Control-Flow-Syntax (`@if`, `@for`), `OnPush`-fähig denken.
+- **Texte & Sprache**: Die Oberfläche ist mehrsprachig vorbereitet (Angular i18n), Quellsprache ist
+  Deutsch. Jeder sichtbare Text bekommt eine Markierung mit fester ID – im Template
+  `i18n="@@bereich.name"` bzw. `i18n-<attribut>`, im Code `$localize`. Neue Texte mit
+  `npm run i18n:extract` nach `src/locale/` übernehmen. Zahlen und Geld über Pipes
+  (`euros`, `gameDateTime`) formatieren, nie per Hand.
 - **State**: Spielzustand im NGXS-Store, Änderungen nur über Actions.
 - **Externe Daten** (Wetter-APIs usw.) laufen über eigene Services mit klaren Modellen und
   Fehlerbehandlung; das Spiel muss auch ohne Netz sinnvoll reagieren.

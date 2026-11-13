@@ -27,3 +27,21 @@ export function toGameDateTime(gameTimeMs: number): GameDateTime {
     minute: Math.floor((timeOfDayMs % MS_PER_HOUR) / MS_PER_MINUTE)
   };
 }
+
+/**
+ * Lists the game days that began within a span of game time, so day-based rules (like daily costs) apply
+ * exactly once per day, even if one clock tick spans several days.
+ *
+ * @returns 1-based day numbers that start after `fromGameTimeMs` and no later than `toGameTimeMs`
+ */
+export function daysStartedBetween(fromGameTimeMs: number, toGameTimeMs: number): number[] {
+  const firstNewDay = toGameDateTime(fromGameTimeMs).day + 1;
+  const lastNewDay = toGameDateTime(toGameTimeMs).day;
+
+  return Array.from({ length: Math.max(0, lastNewDay - firstNewDay + 1) }, (_, index) => firstNewDay + index);
+}
+
+/** Game time at which the given 1-based day begins. */
+export function startOfGameDay(day: number): number {
+  return (day - 1) * MS_PER_DAY;
+}

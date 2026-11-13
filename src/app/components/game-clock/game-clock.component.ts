@@ -5,13 +5,13 @@ import { dispatch, select } from '@ngxs/store';
 
 import { GAME_SPEEDS } from '../../../game/clock/clock.constants';
 import type { GameSpeed } from '../../../game/clock/clock.constants';
-import { toGameDateTime } from '../../../game/clock/game-time';
 import { ClockState, PauseClock, ResumeClock, SetClockSpeed } from '../../../store';
+import { GameDateTimePipe } from '../../shared/game-date-time.pipe';
 
 /** Shows the current game time and lets the player pause the game or change its speed. */
 @Component({
   selector: 'app-game-clock',
-  imports: [MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule, GameDateTimePipe],
   templateUrl: './game-clock.component.html',
   styleUrl: './game-clock.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -21,12 +21,11 @@ export class GameClockComponent {
   protected readonly isPaused = select(ClockState.isPaused);
   protected readonly speed = select(ClockState.speed);
 
-  private readonly gameTimeMs = select(ClockState.gameTimeMs);
-  protected readonly dateTime = computed(() => toGameDateTime(this.gameTimeMs()));
-  protected readonly timeOfDay = computed(() => {
-    const { hour, minute } = this.dateTime();
-    return `${padToTwoDigits(hour)}:${padToTwoDigits(minute)}`;
-  });
+  protected readonly gameTimeMs = select(ClockState.gameTimeMs);
+
+  protected readonly pauseButtonLabel = computed(() =>
+    this.isPaused() ? $localize`:@@gameClock.resume:Spiel fortsetzen` : $localize`:@@gameClock.pause:Spiel pausieren`
+  );
 
   private readonly pause = dispatch(PauseClock);
   private readonly resume = dispatch(ResumeClock);
@@ -43,8 +42,8 @@ export class GameClockComponent {
   protected changeSpeed(speed: GameSpeed): void {
     this.setSpeed(speed);
   }
-}
 
-function padToTwoDigits(value: number): string {
-  return value.toString().padStart(2, '0');
+  protected speedButtonLabel(speed: GameSpeed): string {
+    return $localize`:@@gameClock.speed:Spielgeschwindigkeit ${speed}:speed:-fach`;
+  }
 }

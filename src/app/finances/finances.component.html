@@ -1,0 +1,54 @@
+<section class="finances" aria-labelledby="finances-title">
+  <h1 id="finances-title" i18n="@@finances.title">Finanzen</h1>
+
+  <dl class="finances__overview">
+    <div class="finances__figure">
+      <dt i18n="@@finances.balance">Kontostand</dt>
+      <dd class="finances__balance">{{ balance() | euros }}</dd>
+    </div>
+    <div class="finances__figure">
+      <dt i18n="@@finances.income">Einnahmen</dt>
+      <dd class="finances__amount--income">{{ summary().income | euros }}</dd>
+    </div>
+    <div class="finances__figure">
+      <dt i18n="@@finances.expenses">Ausgaben</dt>
+      <dd class="finances__amount--expense">{{ summary().expenses | euros }}</dd>
+    </div>
+    <div class="finances__figure">
+      <dt i18n="@@finances.dailyOperatingCosts">Laufende Kosten pro Tag</dt>
+      <dd>{{ dailyOperatingCosts | euros }}</dd>
+    </div>
+  </dl>
+
+  <h2 i18n="@@finances.transactions.title">Buchungen</h2>
+  @if (newestTransactionsFirst().length > 0) {
+    <table class="finances__transactions">
+      <thead>
+        <tr>
+          <th scope="col" i18n="@@finances.transactions.time">Zeitpunkt</th>
+          <th scope="col" i18n="@@finances.transactions.category">Vorgang</th>
+          <th scope="col" class="finances__amount" i18n="@@finances.transactions.amount">Betrag</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (transaction of newestTransactionsFirst(); track transaction.id) {
+          <tr>
+            <td>{{ transaction.gameTimeMs | gameDateTime }}</td>
+            <td>{{ categoryLabel(transaction.category) }}</td>
+            <td
+              class="finances__amount"
+              [class.finances__amount--income]="transaction.amount > 0"
+              [class.finances__amount--expense]="transaction.amount < 0"
+            >
+              {{ transaction.amount | euros: { showPlusSign: true } }}
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <p class="finances__empty" i18n="@@finances.transactions.empty">
+      Noch keine Buchungen. Die laufenden Kosten werden jeweils um Mitternacht abgebucht.
+    </p>
+  }
+</section>

@@ -6,10 +6,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { select } from '@ngxs/store';
 
-import { GuiState } from '../../store';
+import { FinanceState, GuiState } from '../../store';
 import { LocationPickerComponent } from '../location-picker/location-picker.component';
 import { SkyComponent } from '../components/sky/sky.component';
 import { GameClockComponent } from '../components/game-clock/game-clock.component';
+import { EurosPipe } from '../shared/euros.pipe';
 
 @Component({
   selector: 'app-layout',
@@ -22,7 +23,8 @@ import { GameClockComponent } from '../components/game-clock/game-clock.componen
     MatIconModule,
     LocationPickerComponent,
     SkyComponent,
-    GameClockComponent
+    GameClockComponent,
+    EurosPipe
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
@@ -32,4 +34,5 @@ import { GameClockComponent } from '../components/game-clock/game-clock.componen
 })
 export class LayoutComponent {
   readonly currentLocation = select(GuiState.getCurrentLocation);
+  protected readonly balance = select(FinanceState.balance);
 }

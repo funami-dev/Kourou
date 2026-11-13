@@ -1,5 +1,5 @@
 import { MS_PER_DAY, MS_PER_HOUR, MS_PER_MINUTE } from './clock.constants';
-import { realToGameDuration, toGameDateTime } from './game-time';
+import { daysStartedBetween, realToGameDuration, startOfGameDay, toGameDateTime } from './game-time';
 
 describe('realToGameDuration', () => {
   it('turns one real hour into one game day at normal speed', () => {
@@ -24,5 +24,26 @@ describe('toGameDateTime', () => {
     const gameTimeMs = 2 * MS_PER_DAY + 14 * MS_PER_HOUR + 35 * MS_PER_MINUTE + 59_999;
 
     expect(toGameDateTime(gameTimeMs)).toEqual({ day: 3, hour: 14, minute: 35 });
+  });
+});
+
+describe('daysStartedBetween', () => {
+  it('returns nothing while the day has not changed', () => {
+    expect(daysStartedBetween(8 * MS_PER_HOUR, 23 * MS_PER_HOUR)).toEqual([]);
+  });
+
+  it('returns the new day when midnight is reached', () => {
+    expect(daysStartedBetween(23 * MS_PER_HOUR, MS_PER_DAY)).toEqual([2]);
+  });
+
+  it('returns every day that began within a long span', () => {
+    expect(daysStartedBetween(12 * MS_PER_HOUR, 3 * MS_PER_DAY + MS_PER_HOUR)).toEqual([2, 3, 4]);
+  });
+});
+
+describe('startOfGameDay', () => {
+  it('returns midnight of the given day', () => {
+    expect(startOfGameDay(1)).toBe(0);
+    expect(startOfGameDay(3)).toBe(2 * MS_PER_DAY);
   });
 });

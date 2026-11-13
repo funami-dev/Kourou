@@ -11,8 +11,8 @@ describe('GameClockComponent', () => {
 
   const element = (): HTMLElement => fixture.nativeElement;
   const pauseButton = (): HTMLButtonElement => element().querySelector('button[mat-icon-button]')!;
-  const speedButton = (label: string): HTMLButtonElement =>
-    element().querySelector(`button[aria-label="Game speed ${label}"]`)!;
+  const speedButton = (speed: number): HTMLButtonElement =>
+    element().querySelector(`button[aria-label="Spielgeschwindigkeit ${speed}-fach"]`)!;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -29,14 +29,14 @@ describe('GameClockComponent', () => {
     store.reset({ clock: { ...NEW_GAME_CLOCK, gameTimeMs: 2 * MS_PER_DAY + 9 * MS_PER_HOUR + 5 * MS_PER_MINUTE } });
     await fixture.whenStable();
 
-    expect(element().textContent).toContain('Day 3 · 09:05');
+    expect(element().textContent).toContain('Tag 3 · 09:05');
   });
 
   it('pauses and resumes the game', async () => {
     pauseButton().click();
     await fixture.whenStable();
     expect(store.selectSnapshot(ClockState.isPaused)).toBe(true);
-    expect(pauseButton().getAttribute('aria-label')).toBe('Resume game');
+    expect(pauseButton().getAttribute('aria-label')).toBe('Spiel fortsetzen');
 
     pauseButton().click();
     await fixture.whenStable();
@@ -44,10 +44,10 @@ describe('GameClockComponent', () => {
   });
 
   it('changes the game speed', async () => {
-    speedButton('4x').click();
+    speedButton(4).click();
     await fixture.whenStable();
 
     expect(store.selectSnapshot(ClockState.speed)).toBe(4);
-    expect(speedButton('4x').getAttribute('aria-pressed')).toBe('true');
+    expect(speedButton(4).getAttribute('aria-pressed')).toBe('true');
   });
 });

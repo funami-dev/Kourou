@@ -4,9 +4,10 @@ import type { StateContext } from '@ngxs/store';
 
 import { MS_PER_HOUR, NEW_GAME_START_HOUR } from '../../game/clock/clock.constants';
 import type { GameSpeed } from '../../game/clock/clock.constants';
-import { realToGameDuration } from '../../game/clock/game-time';
+import { daysStartedBetween, realToGameDuration } from '../../game/clock/game-time';
+import { StartNewGame } from '../game.actions';
 import type { ClockStateModel } from './clock.model';
-import { AdvanceClock, PauseClock, ResumeClock, SetClockSpeed } from './clock.actions';
+import { AdvanceClock, GameDayStarted, PauseClock, ResumeClock, SetClockSpeed } from './clock.actions';
 
 export const NEW_GAME_CLOCK: ClockStateModel = {
   gameTimeMs: NEW_GAME_START_HOUR * MS_PER_HOUR,
@@ -42,7 +43,13 @@ export class ClockState {
       return;
     }
 
-    ctx.patchState({ gameTimeMs: gameTimeMs + realToGameDuration(realElapsedMs, speed) });
+    const nextGameTimeMs = gameTimeMs + realToGameDuration(realElapsedMs, speed);
+    ctx.patchState({ gameTimeMs: nextGameTimeMs });
+
+    const newDayEvents = daysStartedBetween(gameTimeMs, nextGameTimeMs).map((day) => new GameDayStarted(day));
+    if (newDayEvents.length > 0) {
+      ctx.dispatch(newDayEvents);
+    }
   }
 
   @Action(PauseClock)
@@ -58,5 +65,10 @@ export class ClockState {
   @Action(SetClockSpeed)
   setSpeed(ctx: StateContext<ClockStateModel>, { speed }: SetClockSpeed): void {
     ctx.patchState({ speed });
+  }
+
+  @Action(StartNewGame)
+  reset(ctx: StateContext<ClockStateModel>): void {
+    ctx.setState(NEW_GAME_CLOCK);
   }
 }

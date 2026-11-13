@@ -20,3 +20,10 @@ export class SetClockSpeed {
 
   constructor(public readonly speed: GameSpeed) {}
 }
+
+/** Announces that a new game day has begun, so other parts of the game can apply their daily rules. */
+export class GameDayStarted {
+  static readonly type = '[Clock] Game day started';
+
+  constructor(public readonly day: number) {}
+}

@@ -1,19 +1,38 @@
 @if (currentLocation()) {
   <mat-toolbar color="primary">
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Open navigation menu">
-      <mat-icon color="primary">more_vert</mat-icon>
+    <button
+      mat-icon-button
+      type="button"
+      [matMenuTriggerFor]="menu"
+      aria-label="Navigationsmenü öffnen"
+      i18n-aria-label="@@layout.menu.open"
+    >
+      <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item routerLink="/game/area">
         <mat-icon>public</mat-icon>
-        <span>Area</span>
+        <span i18n="@@layout.menu.area">Gelände</span>
+      </button>
+      <button mat-menu-item routerLink="/game/finances">
+        <mat-icon>account_balance</mat-icon>
+        <span i18n="@@layout.menu.finances">Finanzen</span>
       </button>
       <button mat-menu-item routerLink="/settings">
         <mat-icon>settings</mat-icon>
-        <span>Settings</span>
+        <span i18n="@@layout.menu.settings">Einstellungen</span>
       </button>
     </mat-menu>
     <span class="toolbar-spacer"></span>
+    <a
+      mat-button
+      routerLink="/game/finances"
+      class="toolbar-balance"
+      aria-label="Kontostand – zu den Finanzen"
+      i18n-aria-label="@@layout.balance.label"
+    >
+      {{ balance() | euros }}
+    </a>
     <app-game-clock />
   </mat-toolbar>
 } @else {
@@ -24,4 +43,3 @@
 
 <router-outlet></router-outlet>
 <app-sky></app-sky>
-<!-- https://codepen.io/amiangie/pen/RRdQAb -->

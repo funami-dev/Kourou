@@ -3,7 +3,9 @@
   "version": 1,
   "newProjectRoot": "projects",
   "cli": {
-    "schematicCollections": ["angular-eslint"]
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   },
   "projects": {
     "Kourou": {
@@ -36,8 +38,13 @@
                 "output": ""
               }
             ],
-            "styles": ["src/styles.scss"],
-            "scripts": []
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": [],
+            "polyfills": [
+              "@angular/localize/init"
+            ]
           },
           "configurations": {
             "production": {
@@ -76,7 +83,12 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
+          "builder": "@angular/build:extract-i18n",
+          "options": {
+            "buildTarget": "Kourou:build",
+            "outputPath": "src/locale",
+            "format": "xlf2"
+          }
         },
         "test": {
           "builder": "@angular/build:unit-test",
@@ -89,9 +101,15 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
+      },
+      "i18n": {
+        "sourceLocale": "de"
       }
     }
   }

@@ -1,0 +1,77 @@
+:host {
+  display: block;
+  padding: 24px;
+}
+
+.finances {
+  max-width: 880px;
+  max-height: calc(100vh - 64px - 48px);
+  margin: 0 auto;
+  padding: 24px 32px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background: rgba(10, 16, 48, 0.85);
+}
+
+h1 {
+  margin-top: 0;
+}
+
+.finances__overview {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 0 0 32px;
+}
+
+.finances__figure {
+  dt {
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  dd {
+    margin: 4px 0 0;
+    font-size: 1.25rem;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.finances__balance {
+  font-weight: bold;
+}
+
+.finances__transactions {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 8px 4px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  th {
+    font-weight: normal;
+    opacity: 0.7;
+  }
+}
+
+.finances__amount {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.finances__amount--income {
+  color: #7ee08a;
+}
+
+.finances__amount--expense {
+  color: #ff9a8a;
+}
+
+.finances__empty {
+  opacity: 0.7;
+}
