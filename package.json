@@ -10,7 +10,6 @@
     "test": "ng test",
     "lint": "ng lint",
     "i18n:extract": "ng extract-i18n",
-    "now-build": "ng build",
     "mockserver": "json-server src/assets/mockData/mockData.json",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "docs:gen": "compodoc -p tsconfig.app.json -n 'Angular Dokumentation' --hideGenerator --disablePrivate --includes ./additional-documentation --includesName 'Additional documentation' --coverageMinimumPerFile 0 --output ./documentation",

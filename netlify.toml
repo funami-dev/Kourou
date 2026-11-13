@@ -1,0 +1,10 @@
+# Netlify build settings. The Angular application builder writes the browser bundle to dist/kourou/browser.
+[build]
+  command = "npm run build"
+  publish = "dist/kourou/browser"
+
+# The game is a single-page app: every route (e.g. /game/rockets) is served by index.html.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
