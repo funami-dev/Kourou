@@ -57,9 +57,33 @@
         <source>Geostationärer Transferorbit (GTO)</source>
       </segment>
     </unit>
-    <unit id="contracts.payloadType.communication">
+    <unit id="contracts.orbit.leo.short">
       <notes>
         <note category="location">src/app/contracts/contract-labels.ts:11</note>
+      </notes>
+      <segment>
+        <source>LEO</source>
+      </segment>
+    </unit>
+    <unit id="contracts.orbit.sso.short">
+      <notes>
+        <note category="location">src/app/contracts/contract-labels.ts:12</note>
+      </notes>
+      <segment>
+        <source>SSO</source>
+      </segment>
+    </unit>
+    <unit id="contracts.orbit.gto.short">
+      <notes>
+        <note category="location">src/app/contracts/contract-labels.ts:13</note>
+      </notes>
+      <segment>
+        <source>GTO</source>
+      </segment>
+    </unit>
+    <unit id="contracts.payloadType.communication">
+      <notes>
+        <note category="location">src/app/contracts/contract-labels.ts:17</note>
       </notes>
       <segment>
         <source>Kommunikationssatellit</source>
@@ -67,7 +91,7 @@
     </unit>
     <unit id="contracts.payloadType.earthObservation">
       <notes>
-        <note category="location">src/app/contracts/contract-labels.ts:12</note>
+        <note category="location">src/app/contracts/contract-labels.ts:18</note>
       </notes>
       <segment>
         <source>Erdbeobachtungssatellit</source>
@@ -75,7 +99,7 @@
     </unit>
     <unit id="contracts.payloadType.weather">
       <notes>
-        <note category="location">src/app/contracts/contract-labels.ts:13</note>
+        <note category="location">src/app/contracts/contract-labels.ts:19</note>
       </notes>
       <segment>
         <source>Wettersatellit</source>
@@ -83,7 +107,7 @@
     </unit>
     <unit id="contracts.payloadType.science">
       <notes>
-        <note category="location">src/app/contracts/contract-labels.ts:14</note>
+        <note category="location">src/app/contracts/contract-labels.ts:20</note>
       </notes>
       <segment>
         <source>Forschungssatellit</source>
@@ -91,7 +115,7 @@
     </unit>
     <unit id="contracts.payloadType.technologyDemo">
       <notes>
-        <note category="location">src/app/contracts/contract-labels.ts:15</note>
+        <note category="location">src/app/contracts/contract-labels.ts:21</note>
       </notes>
       <segment>
         <source>Technologie-Demonstrator</source>
@@ -99,7 +123,7 @@
     </unit>
     <unit id="contracts.status.inProgress">
       <notes>
-        <note category="location">src/app/contracts/contract-labels.ts:19</note>
+        <note category="location">src/app/contracts/contract-labels.ts:25</note>
       </notes>
       <segment>
         <source>In Arbeit</source>
@@ -107,7 +131,7 @@
     </unit>
     <unit id="contracts.status.missedDeadline">
       <notes>
-        <note category="location">src/app/contracts/contract-labels.ts:20</note>
+        <note category="location">src/app/contracts/contract-labels.ts:26</note>
       </notes>
       <segment>
         <source>Frist verpasst</source>
@@ -377,6 +401,14 @@
         <source>Anzahlung Auftrag</source>
       </segment>
     </unit>
+    <unit id="finances.category.rocketPurchase">
+      <notes>
+        <note category="location">src/app/finances/transaction-category-label.ts:8</note>
+      </notes>
+      <segment>
+        <source>Raketenkauf</source>
+      </segment>
+    </unit>
     <unit id="layout.menu.open">
       <notes>
         <note category="location">src/app/layout/layout.component.html:7,8</note>
@@ -401,9 +433,17 @@
         <source>Aufträge</source>
       </segment>
     </unit>
-    <unit id="layout.menu.finances">
+    <unit id="layout.menu.rockets">
       <notes>
         <note category="location">src/app/layout/layout.component.html:23,25</note>
+      </notes>
+      <segment>
+        <source>Raketen</source>
+      </segment>
+    </unit>
+    <unit id="layout.menu.finances">
+      <notes>
+        <note category="location">src/app/layout/layout.component.html:27,29</note>
       </notes>
       <segment>
         <source>Finanzen</source>
@@ -411,7 +451,7 @@
     </unit>
     <unit id="layout.menu.settings">
       <notes>
-        <note category="location">src/app/layout/layout.component.html:27,29</note>
+        <note category="location">src/app/layout/layout.component.html:31,33</note>
       </notes>
       <segment>
         <source>Einstellungen</source>
@@ -419,7 +459,7 @@
     </unit>
     <unit id="layout.balance.label">
       <notes>
-        <note category="location">src/app/layout/layout.component.html:35,36</note>
+        <note category="location">src/app/layout/layout.component.html:39,40</note>
       </notes>
       <segment>
         <source>Kontostand – zu den Finanzen</source>
@@ -431,6 +471,158 @@
       </notes>
       <segment>
         <source>Weltkarte – Startplatz Kourou auswählen</source>
+      </segment>
+    </unit>
+    <unit id="rockets.status.inTransit">
+      <notes>
+        <note category="location">src/app/rockets/rocket-status-label.ts:4</note>
+      </notes>
+      <segment>
+        <source>Unterwegs per Schiff</source>
+      </segment>
+    </unit>
+    <unit id="rockets.status.waitingForAssembly">
+      <notes>
+        <note category="location">src/app/rockets/rocket-status-label.ts:5</note>
+      </notes>
+      <segment>
+        <source>Wartet auf Montagehalle</source>
+      </segment>
+    </unit>
+    <unit id="rockets.status.inAssembly">
+      <notes>
+        <note category="location">src/app/rockets/rocket-status-label.ts:6</note>
+      </notes>
+      <segment>
+        <source>In Montage</source>
+      </segment>
+    </unit>
+    <unit id="rockets.status.ready">
+      <notes>
+        <note category="location">src/app/rockets/rocket-status-label.ts:7</note>
+      </notes>
+      <segment>
+        <source>Startbereit</source>
+      </segment>
+    </unit>
+    <unit id="rockets.title">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:2,4</note>
+      </notes>
+      <segment>
+        <source>Raketen</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.title">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:4,5</note>
+      </notes>
+      <segment>
+        <source>Katalog</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.delivery">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:6,10</note>
+      </notes>
+      <segment>
+        <source> Bestellte Raketen kommen in Einzelteilen per Schiff aus Europa (<ph id="0" equiv="INTERPOLATION" disp="{{ shipDeliveryDays }}"/> Tage) und werden danach in der Montagehalle zusammengebaut – eine Rakete nach der anderen. </source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.capacity">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:18,20</note>
+      </notes>
+      <segment>
+        <source> Maximale Nutzlast </source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.unreachable">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:28,30</note>
+      </notes>
+      <segment>
+        <source>nicht erreichbar</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.price">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:37,39</note>
+      </notes>
+      <segment>
+        <source>Preis</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.assembly">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:42,43</note>
+      </notes>
+      <segment>
+        <source>Montage</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.assemblyDays">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:44,47</note>
+      </notes>
+      <segment>
+        <source> <ph id="0" equiv="ICU" disp="{model.assemblyDays, plural, =1 {1 Tag} other {{{ model.assemblyDays }} Tage}}" subFlows="142556807115285842"/> </source>
+      </segment>
+    </unit>
+    <unit id="7100558348811913443">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:44</note>
+      </notes>
+      <segment>
+        <source>{VAR_PLURAL, plural, =1 {1 Tag} other {<ph id="0" equiv="INTERPOLATION"/> Tage}}</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.reliability">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:47,48</note>
+      </notes>
+      <segment>
+        <source>Zuverlässigkeit</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.order">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:53,55</note>
+      </notes>
+      <segment>
+        <source>Bestellen</source>
+      </segment>
+    </unit>
+    <unit id="rockets.catalogue.notEnoughMoney">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:55,58</note>
+      </notes>
+      <segment>
+        <source>Nicht genug Geld</source>
+      </segment>
+    </unit>
+    <unit id="rockets.fleet.title">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:62,63</note>
+      </notes>
+      <segment>
+        <source>Eigene Raketen</source>
+      </segment>
+    </unit>
+    <unit id="rockets.fleet.stepEnds">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:78,79</note>
+      </notes>
+      <segment>
+        <source> bis <ph id="0" equiv="INTERPOLATION" disp="{{ entry.currentStepEndsAtMs | gameDateTime }}"/> </source>
+      </segment>
+    </unit>
+    <unit id="rockets.fleet.empty">
+      <notes>
+        <note category="location">src/app/rockets/rockets.component.html:85,88</note>
+      </notes>
+      <segment>
+        <source>Du besitzt noch keine Rakete.</source>
       </segment>
     </unit>
     <unit id="settings.title">

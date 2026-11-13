@@ -15,7 +15,8 @@ import { contractStatusLabel, orbitLabel, payloadTypeLabel } from './contract-la
   imports: [DecimalPipe, MatButtonModule, EurosPipe],
   templateUrl: './contracts.component.html',
   styleUrl: './contracts.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { class: 'game-page' }
 })
 export class ContractsComponent {
   protected readonly offers = select(ContractsState.offers);

@@ -4,7 +4,8 @@ import type { TransactionCategory } from '../../game/economy/ledger';
 const TRANSACTION_CATEGORY_LABELS: Record<TransactionCategory, string> = {
   operatingCosts: $localize`:@@finances.category.operatingCosts:Betriebskosten`,
   stateGrant: $localize`:@@finances.category.stateGrant:Staatliche Förderung`,
-  contractAdvance: $localize`:@@finances.category.contractAdvance:Anzahlung Auftrag`
+  contractAdvance: $localize`:@@finances.category.contractAdvance:Anzahlung Auftrag`,
+  rocketPurchase: $localize`:@@finances.category.rocketPurchase:Raketenkauf`
 };
 
 export function transactionCategoryLabel(category: TransactionCategory): string {

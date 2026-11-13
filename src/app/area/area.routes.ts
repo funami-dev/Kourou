@@ -10,6 +10,10 @@ export const areaRoutes: Routes = [
     loadComponent: () => import('../contracts/contracts.component').then((m) => m.ContractsComponent)
   },
   {
+    path: 'rockets',
+    loadComponent: () => import('../rockets/rockets.component').then((m) => m.RocketsComponent)
+  },
+  {
     path: 'finances',
     loadComponent: () => import('../finances/finances.component').then((m) => m.FinancesComponent)
   },

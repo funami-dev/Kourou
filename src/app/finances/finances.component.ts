@@ -14,7 +14,8 @@ import { transactionCategoryLabel } from './transaction-category-label';
   imports: [EurosPipe, GameDateTimePipe],
   templateUrl: './finances.component.html',
   styleUrl: './finances.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { class: 'game-page' }
 })
 export class FinancesComponent {
   protected readonly balance = select(FinanceState.balance);

@@ -7,6 +7,12 @@ const ORBIT_LABELS: Record<OrbitType, string> = {
   gto: $localize`:@@contracts.orbit.gto:Geostationärer Transferorbit (GTO)`
 };
 
+const ORBIT_SHORT_LABELS: Record<OrbitType, string> = {
+  leo: $localize`:@@contracts.orbit.leo.short:LEO`,
+  sso: $localize`:@@contracts.orbit.sso.short:SSO`,
+  gto: $localize`:@@contracts.orbit.gto.short:GTO`
+};
+
 const PAYLOAD_TYPE_LABELS: Record<PayloadType, string> = {
   communication: $localize`:@@contracts.payloadType.communication:Kommunikationssatellit`,
   earthObservation: $localize`:@@contracts.payloadType.earthObservation:Erdbeobachtungssatellit`,
@@ -22,6 +28,10 @@ const CONTRACT_STATUS_LABELS: Record<ContractStatus, string> = {
 
 export function orbitLabel(orbit: OrbitType): string {
   return ORBIT_LABELS[orbit];
+}
+
+export function orbitShortLabel(orbit: OrbitType): string {
+  return ORBIT_SHORT_LABELS[orbit];
 }
 
 export function payloadTypeLabel(payloadType: PayloadType): string {

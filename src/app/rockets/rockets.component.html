@@ -1,0 +1,87 @@
+<section class="rockets game-panel" aria-labelledby="rockets-title">
+  <h1 id="rockets-title" i18n="@@rockets.title">Raketen</h1>
+
+  <h2 i18n="@@rockets.catalogue.title">Katalog</h2>
+  <p class="rockets__hint" i18n="@@rockets.catalogue.delivery">
+    Bestellte Raketen kommen in Einzelteilen per Schiff aus Europa ({{ shipDeliveryDays }} Tage) und werden danach in
+    der Montagehalle zusammengebaut – eine Rakete nach der anderen.
+  </p>
+
+  <ul class="rockets__catalogue">
+    @for (model of rocketModels; track model.id) {
+      <li class="rocket-model">
+        <h3 class="rocket-model__name">{{ model.name }}</h3>
+        <p class="rocket-model__manufacturer">{{ model.manufacturer }}</p>
+
+        <table class="rocket-model__capacity">
+          <caption i18n="@@rockets.catalogue.capacity">
+            Maximale Nutzlast
+          </caption>
+          <tbody>
+            @for (orbit of orbits; track orbit) {
+              <tr>
+                <th scope="row">{{ orbitShortLabel(orbit) }}</th>
+                <td>
+                  @if (model.payloadCapacityKg[orbit] > 0) {
+                    {{ model.payloadCapacityKg[orbit] | number }} kg
+                  } @else {
+                    <span class="rockets__muted" i18n="@@rockets.catalogue.unreachable">nicht erreichbar</span>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+
+        <dl class="rocket-model__facts">
+          <dt i18n="@@rockets.catalogue.price">Preis</dt>
+          <dd>
+            <strong>{{ model.price | euros }}</strong>
+          </dd>
+
+          <dt i18n="@@rockets.catalogue.assembly">Montage</dt>
+          <dd i18n="@@rockets.catalogue.assemblyDays">
+            {model.assemblyDays, plural, =1 {1 Tag} other {{{ model.assemblyDays }} Tage}}
+          </dd>
+
+          <dt i18n="@@rockets.catalogue.reliability">Zuverlässigkeit</dt>
+          <dd>{{ model.reliability | percent }}</dd>
+        </dl>
+
+        <button mat-flat-button type="button" [disabled]="!canAfford(model)" (click)="orderRocket(model.id)">
+          @if (canAfford(model)) {
+            <ng-container i18n="@@rockets.catalogue.order">Bestellen</ng-container>
+          } @else {
+            <ng-container i18n="@@rockets.catalogue.notEnoughMoney">Nicht genug Geld</ng-container>
+          }
+        </button>
+      </li>
+    }
+  </ul>
+
+  <h2 i18n="@@rockets.fleet.title">Eigene Raketen</h2>
+  @if (fleet().length > 0) {
+    <ul class="rockets__fleet">
+      @for (entry of fleet(); track entry.rocket.id) {
+        <li class="fleet-entry" [class.fleet-entry--ready]="entry.status === 'ready'">
+          <div class="fleet-entry__header">
+            <span class="fleet-entry__name">{{ entry.model.name }} {{ entry.rocket.serialName }}</span>
+            <span class="fleet-entry__status">{{ entry.statusLabel }}</span>
+          </div>
+          @if (entry.currentStepEndsAtMs !== null) {
+            <mat-progress-bar
+              mode="determinate"
+              [value]="entry.progressPercent"
+              [attr.aria-label]="entry.statusLabel"
+            ></mat-progress-bar>
+            <span class="rockets__muted" i18n="@@rockets.fleet.stepEnds">
+              bis {{ entry.currentStepEndsAtMs | gameDateTime }}
+            </span>
+          }
+        </li>
+      }
+    </ul>
+  } @else {
+    <p class="rockets__hint" i18n="@@rockets.fleet.empty">Du besitzt noch keine Rakete.</p>
+  }
+</section>

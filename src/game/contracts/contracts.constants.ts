@@ -64,9 +64,9 @@ export const MAX_CONTRACTS_IN_PROGRESS = 3;
 export const STARTER_OFFERS: readonly ContractOffer[] = [
   {
     id: 1,
-    customer: 'Fennek Raumfahrttechnik',
-    payload: { type: 'technologyDemo', name: 'Fennek-TD-1', massKg: 250, targetOrbit: 'leo' },
-    payment: 2_500_000,
+    customer: 'Institut Lumen',
+    payload: { type: 'science', name: 'Lumen-1', massKg: 900, targetOrbit: 'leo' },
+    payment: 9_000_000,
     deadlineDay: 30,
     offerExpiresOnDay: 5
   },

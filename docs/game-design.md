@@ -97,6 +97,10 @@ Isometrische Ansicht rund um das Hauptquartier. Gebäude werden gebaut und ausge
 | Unterkünfte | Maximale Personalgröße |
 
 ### Raketen
+- Erste fertige Modelle (fiktiv, Hersteller „Orbitalwerk“): **Ibis** (klein, kein GTO) und
+  **Albatros** (schwer, auch GTO). Bezahlt wird bei Bestellung – nur mit eigenem Geld, die
+  staatliche Förderung deckt keine Raketenkäufe.
+- Lieferung per Schiff (10 Tage), danach Montage; die Montagehalle baut eine Rakete nach der anderen.
 - **Fertige Modelle** (fiktiv) werden gekauft und angeliefert: einfach, zuverlässig und teuer.
 - **Eigene Raketen** werden aus Bauteilen zusammengestellt: Stufen, Triebwerke, Tanks,
   Nutzlastverkleidung. Das ist günstiger und flexibler, aber mit eigener Zuverlässigkeit und eigenem Risiko.
@@ -168,10 +172,10 @@ Details folgen in einem eigenen Schritt (offene Fragen siehe unten).
 
 Ziel: **ein kompletter Durchlauf der Kernschleife** in Kourou.
 
-1. **Spiel-Uhr** mit Pause und Tempo; Spielstand wird gespeichert.
-2. **Geld** und einfache Finanzen (Kontostand, Einnahmen, Ausgaben).
-3. **Aufträge**: eine kleine Liste generierter Aufträge, einen annehmen.
-4. **Fertige Rakete kaufen** (1–2 Modelle) → Lieferung und Montage über Zeit.
+1. ✅ **Spiel-Uhr** mit Pause und Tempo; Spielstand wird gespeichert.
+2. ✅ **Geld** und einfache Finanzen (Kontostand, Einnahmen, Ausgaben).
+3. ✅ **Aufträge**: eine kleine Liste generierter Aufträge, einen annehmen.
+4. ✅ **Fertige Rakete kaufen** (1–2 Modelle) → Lieferung und Montage über Zeit.
 5. **Live-Wetter Kourou** (Open-Meteo) inkl. Tag/Nacht der Basis nach echter Ortszeit.
 6. **Countdown** mit Go/No-Go gegen die Wetter-Grenzwerte und 1–2 Zufallsereignissen.
 7. **Ergebnis**: Erfolg, Scrub oder Fehlstart → Geld und Ruf.
