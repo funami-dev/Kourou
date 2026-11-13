@@ -9,6 +9,7 @@ import { select } from '@ngxs/store';
 import { GuiState } from '../../store';
 import { LocationPickerComponent } from '../location-picker/location-picker.component';
 import { SkyComponent } from '../components/sky/sky.component';
+import { GameClockComponent } from '../components/game-clock/game-clock.component';
 
 @Component({
   selector: 'app-layout',
@@ -20,7 +21,8 @@ import { SkyComponent } from '../components/sky/sky.component';
     MatMenuModule,
     MatIconModule,
     LocationPickerComponent,
-    SkyComponent
+    SkyComponent,
+    GameClockComponent
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',

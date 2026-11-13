@@ -1,0 +1,28 @@
+<div class="game-clock" role="group" aria-label="Game clock">
+  <span class="game-clock__time" [class.game-clock__time--paused]="isPaused()">
+    Day {{ dateTime().day }} · {{ timeOfDay() }}
+  </span>
+
+  <button
+    mat-icon-button
+    type="button"
+    [attr.aria-label]="isPaused() ? 'Resume game' : 'Pause game'"
+    (click)="togglePause()"
+  >
+    <mat-icon>{{ isPaused() ? 'play_arrow' : 'pause' }}</mat-icon>
+  </button>
+
+  @for (gameSpeed of gameSpeeds; track gameSpeed) {
+    <button
+      mat-button
+      type="button"
+      class="game-clock__speed"
+      [class.game-clock__speed--active]="gameSpeed === speed()"
+      [attr.aria-pressed]="gameSpeed === speed()"
+      [attr.aria-label]="'Game speed ' + gameSpeed + 'x'"
+      (click)="changeSpeed(gameSpeed)"
+    >
+      {{ gameSpeed }}×
+    </button>
+  }
+</div>
