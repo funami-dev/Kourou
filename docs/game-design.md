@@ -24,7 +24,9 @@ eigene Rekorde und die Spannung jedes einzelnen Starts.
 | Inhalte | Fiktive Kunden, Firmen und Raketenmodelle; reale Orte und Naturdaten |
 | Spieltempo | 1 Spieltag = 60 Minuten Echtzeit (1 Spielstunde = 2,5 Minuten) |
 | Countdown | Eigene Ansicht; die Spielzeit pausiert währenddessen |
-| Bankrott | Nicht möglich: Der Staat springt ein und bewilligt neue Mittel |
+| Bankrott | Nicht möglich: Der Staat springt ein und bewilligt neue Mittel, ohne negative Folgen |
+| Weltstimmung | Alle lieben die Weltraumforschung – ein optimistischer, wohlwollender Grundton |
+| Countdown-Dauer | ca. 10 Minuten Echtzeit, mit allen Checks und Spannungsbogen |
 | Startfenster | Vereinfacht modelliert |
 
 ## Kernschleife
@@ -116,7 +118,9 @@ Isometrische Ansicht rund um das Hauptquartier. Gebäude werden gebaut und ausge
 - Bestehender Ansatz im Code: `crew`-State.
 
 ### Countdown & Start
-- Eigene Ansicht, Spielzeit pausiert.
+- Eigene Ansicht, Spielzeit pausiert, Dauer **ca. 10 Minuten Echtzeit**.
+- Spannungsbogen: Checklisten und Statusabfragen, Betankung, Go/No-Go-Polls, letzte Minuten
+  mit automatischer Sequenz, Zündung.
 - Echtzeit-Phase mit Funkprotokoll-Optik („T-minus 4:00 – Range: Go“).
 - Go/No-Go-Abfrage der Stationen; Live-Wetter gegen die Grenzwerte der Rakete.
 - Zufällige, ortsbezogene Störungen: Sensoranomalie, Boot in der Sperrzone, Ventil, Höhenwind.
@@ -128,9 +132,9 @@ Isometrische Ansicht rund um das Hauptquartier. Gebäude werden gebaut und ausge
 - Einnahmen: Auftragszahlungen.
 - Ausgaben: Raketen und Bauteile, Bau und Ausbau, Gehälter, Treibstoff, Rampengebühren, Scrubs.
 - Alle Balancing-Werte liegen zentral als benannte Konstanten vor.
-- **Kein Bankrott**: Fällt der Kontostand unter null, springt der Staat ein und bewilligt neue Mittel.
-  Damit es trotzdem Konsequenzen hat (Detail offen), sind z. B. denkbar: Ruf-Verlust,
-  Pflicht-Aufträge für den Staat mit geringer Marge oder Auflagen wie ein Ausbau-Stopp auf Zeit.
+- **Kein Bankrott**: Fällt der Kontostand unter null, springt der Staat ein und bewilligt neue Mittel –
+  **ohne negative Folgen**. In dieser Welt lieben alle die Weltraumforschung; Scheitern gehört
+  zum Fortschritt dazu. Der Druck im Spiel entsteht durch Ehrgeiz und Spannung, nicht durch Existenzangst.
 
 ### Langzeitmotivation (Sandbox)
 - Freischaltungen über Ruf: neue Gebäudestufen, Bauteile, Auftragsklassen.
@@ -163,5 +167,4 @@ Erst danach folgen Gebäudebau, Personal-Management, eigene Raketen und weitere 
 
 ## Offene Fragen
 
-- Welche Konsequenzen hat die staatliche Rettung genau?
-- Wie lange dauert ein Countdown in Echtzeit (Vorschlag: 3–5 Minuten)?
+- Derzeit keine. Neue Fragen werden hier gesammelt.
