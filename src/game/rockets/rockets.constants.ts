@@ -16,7 +16,9 @@ export const ROCKET_MODELS: Record<RocketModelId, RocketModel> = {
     payloadCapacityKg: { leo: 1_800, sso: 1_300, gto: 0 },
     price: 7_000_000,
     assemblyDays: 3,
-    reliability: 0.94
+    reliability: 0.94,
+    // Light rockets are pushed around more easily by gusts on the pad and during the first seconds of flight.
+    maxWindGustsMetersPerSecond: 14
   },
   albatros: {
     id: 'albatros',
@@ -27,7 +29,8 @@ export const ROCKET_MODELS: Record<RocketModelId, RocketModel> = {
     payloadCapacityKg: { leo: 12_000, sso: 8_000, gto: 5_500 },
     price: 65_000_000,
     assemblyDays: 7,
-    reliability: 0.97
+    reliability: 0.97,
+    maxWindGustsMetersPerSecond: 17
   }
 };
 

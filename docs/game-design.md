@@ -116,7 +116,7 @@ Isometrische Ansicht rund um das Hauptquartier. Gebäude werden gebaut und ausge
 - Angebote gelten nur einige Tage; täglich kommen neue hinzu.
 - Bei Annahme gibt es eine **Anzahlung**, der Rest wird nach erfolgreichem Start bezahlt.
 - Wird die Frist verpasst, verfällt der Auftrag: Der Rest wird nicht bezahlt, die Anzahlung darf
-  man behalten. Später kostet ein verpasster Auftrag zusätzlich Ruf.
+  man behalten, aber es kostet Ruf. Eine Rakete, die dafür auf der Rampe stand, kommt zurück in die Flotte.
 - Startfenster ergeben sich **vereinfacht** aus dem Ziel-Orbit, z. B. als feste Tageszeit-Spanne
   je Orbit-Typ statt einer echten Bahnberechnung.
 - Mit steigendem **Ruf** werden größere und lukrativere Aufträge angeboten.
@@ -137,16 +137,44 @@ Details folgen in einem eigenen Schritt (offene Fragen siehe unten).
   und gelöst werden.
 - Bestehender Ansatz im Code: `crew`-State.
 
-### Countdown & Start
-- Eigene Ansicht, Spielzeit pausiert, Dauer **ca. 10 Minuten Echtzeit**.
-- Spannungsbogen: Checklisten und Statusabfragen, Betankung, Go/No-Go-Polls, letzte Minuten
-  mit automatischer Sequenz, Zündung.
-- Echtzeit-Phase mit Funkprotokoll-Optik („T-minus 4:00 – Range: Go“).
-- Go/No-Go-Abfrage der Stationen; Live-Wetter gegen die Grenzwerte der Rakete.
-- Zufällige, ortsbezogene Störungen: Sensoranomalie, Boot in der Sperrzone, Ventil, Höhenwind.
-- Entscheidungen: Hold, Weitermachen, Scrub.
-- Danach folgen die Flugphasen (Max-Q, Stufentrennung, Orbit) als Telemetrie, ohne Physiksimulation.
-- Ausgänge: **Erfolg**, **Scrub** oder **Fehlstart** (mit Schaden an der Rampe und am Ruf).
+### Startrampe & Countdown
+**Vorbereitung (Startrampe)**
+- Eine montierte Rakete, die die Nutzlast tragen kann, wird für einen angenommenen Auftrag auf die
+  Rampe gebracht. Es gibt vorerst **eine** Rampe. Solange eine Rakete darauf steht, fällt eine
+  **Rampengebühr** pro Spieltag an.
+- **Startfenster (vereinfacht)** als feste Ortszeit-Spanne je Orbit: LEO 06–22 Uhr, SSO 18–06 Uhr,
+  GTO 16–24 Uhr. Der Countdown kann nur starten, wenn das Fenster beim Abheben (10 Minuten später)
+  offen ist.
+- Die Rampe zeigt Startfenster und Live-Wetter samt Go/No-Go-Einschätzung schon vor dem Start.
+
+**Countdown (eigene Ansicht, ca. 10 Minuten Echtzeit, Spielzeit steht still)**
+- Fester Ablauf im Funkprotokoll: Start des Countdowns, Betankung, Wetterbriefing, Go/No-Go-Abfrage
+  bei T−4:00 (Antrieb, Lenkung, Sperrgebiet, Wetter, Flugdynamik), automatische Sequenz ab T−1:00, Zündung.
+- **Wetter-Go/No-Go** mit Live-Daten: kein Start bei Gewitter oder bei Böen über dem Grenzwert der
+  Rakete (Ibis 14 m/s, Albatros 17 m/s). Regen allein ist erlaubt.
+- **1–2 zufällige Störungen** pro Countdown: Boot in der Sperrzone, Sensoranomalie, starke Höhenwinde.
+- **Entscheidungen**: *Halten* (Hold; danach ist das Problem gelöst bzw. das Wetter wird neu
+  geprüft), *Trotzdem weiter* (senkt die Erfolgschance) oder *Abbrechen* (Scrub). Ein Boot in der
+  Sperrzone und ein geschlossenes Startfenster lassen sich nicht ignorieren.
+- Holds verschieben das Abheben – schließt sich dadurch das Startfenster, bleibt nur der Scrub.
+
+**Flug**
+- Flugphasen als Telemetrie (Startturm, Max-Q, Stufentrennung, Verkleidung, Orbit), ohne
+  Physiksimulation, etwa sechsmal schneller als Echtzeit (ca. 1,5 Minuten).
+- Beim Abheben entscheidet die Erfolgschance (Zuverlässigkeit der Rakete minus eingegangene Risiken),
+  ob und in welcher Phase ein Fehler auftritt.
+
+**Ergebnis**
+| Ausgang | Geld | Ruf | Rakete | Auftrag |
+|---|---|---|---|---|
+| Erfolg | Restzahlung des Kunden | +5 | verbraucht | erfüllt |
+| Fehlstart | Reparatur der Rampe | −10 | verloren | gescheitert (Anzahlung bleibt, Versicherung des Kunden) |
+| Scrub | Kosten des Abbruchs | ±0 | bleibt auf der Rampe | läuft weiter |
+
+### Ruf
+- Skala 0–100, Start bei 50; sichtbar in der Toolbar.
+- Erfolg +5, Fehlstart −10, verpasste Frist −5.
+- Später: Der Ruf entscheidet, welche Aufträge Kunden anbieten.
 
 ### Wirtschaft
 - Einnahmen: Auftragszahlungen.
@@ -180,8 +208,8 @@ Ziel: **ein kompletter Durchlauf der Kernschleife** in Kourou.
 3. ✅ **Aufträge**: eine kleine Liste generierter Aufträge, einen annehmen.
 4. ✅ **Fertige Rakete kaufen** (1–2 Modelle) → Lieferung und Montage über Zeit.
 5. ✅ **Live-Wetter Kourou** (Open-Meteo) inkl. Tag/Nacht der Basis nach echter Ortszeit.
-6. **Countdown** mit Go/No-Go gegen die Wetter-Grenzwerte und 1–2 Zufallsereignissen.
-7. **Ergebnis**: Erfolg, Scrub oder Fehlstart → Geld und Ruf.
+6. ✅ **Countdown** mit Go/No-Go gegen die Wetter-Grenzwerte und 1–2 Zufallsereignissen.
+7. ✅ **Ergebnis**: Erfolg, Scrub oder Fehlstart → Geld und Ruf.
 
 Erst danach folgen Forschung (Auftrags- und eigene Forschung), Gebäudebau, Personal-Management,
 eigene Raketen und weitere Standorte.

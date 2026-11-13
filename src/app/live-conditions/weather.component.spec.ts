@@ -5,8 +5,8 @@ import { provideRouter } from '@angular/router';
 import { provideStore } from '@ngxs/store';
 
 import { GuiState } from '../../store';
-import { OPEN_METEO_FORECAST_URL } from './open-meteo';
-import { SAMPLE_OPEN_METEO_RESPONSE } from './open-meteo.testing';
+import { OPEN_METEO_FORECAST_URL } from '../../game/live-conditions/open-meteo';
+import { SAMPLE_OPEN_METEO_RESPONSE } from '../../game/live-conditions/open-meteo.testing';
 import { WeatherComponent } from './weather.component';
 
 describe('WeatherComponent', () => {

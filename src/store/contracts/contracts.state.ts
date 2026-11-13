@@ -7,6 +7,8 @@ import {
   NEW_GAME_CONTRACT_MARKET,
   acceptOffer,
   canAcceptMoreContracts,
+  overdueContractIds,
+  settleContract,
   startNewDay
 } from '../../game/contracts/contract-market';
 import type { ContractMarket } from '../../game/contracts/contract-market';
@@ -14,7 +16,8 @@ import { RandomSource } from '../../game/random';
 import { ClockState, GameDayStarted } from '../clock';
 import { BookTransaction } from '../finance';
 import { StartNewGame } from '../game.actions';
-import { AcceptContractOffer } from './contracts.actions';
+import { LaunchCompleted } from '../launch/launch.actions';
+import { AcceptContractOffer, ContractDeadlinesMissed } from './contracts.actions';
 
 @State<ContractMarket>({
   name: 'contracts',
@@ -57,7 +60,19 @@ export class ContractsState {
 
   @Action(GameDayStarted)
   startNewDay(ctx: StateContext<ContractMarket>, { day }: GameDayStarted): void {
+    const missedContractIds = overdueContractIds(ctx.getState().contracts, day);
     ctx.setState(startNewDay(ctx.getState(), day, this.randomSource.next));
+
+    if (missedContractIds.length > 0) {
+      ctx.dispatch(new ContractDeadlinesMissed(missedContractIds));
+    }
+  }
+
+  @Action(LaunchCompleted)
+  settleAfterLaunch(ctx: StateContext<ContractMarket>, { outcome, campaign }: LaunchCompleted): void {
+    if (outcome !== 'scrubbed') {
+      ctx.setState(settleContract(ctx.getState(), campaign.contractId, outcome === 'success'));
+    }
   }
 
   @Action(StartNewGame)

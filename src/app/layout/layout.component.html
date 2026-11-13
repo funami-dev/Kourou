@@ -22,6 +22,10 @@
         <mat-icon>rocket_launch</mat-icon>
         <span i18n="@@layout.menu.rockets">Raketen</span>
       </button>
+      <button mat-menu-item routerLink="/game/launch-pad">
+        <mat-icon>flight_takeoff</mat-icon>
+        <span i18n="@@layout.menu.launchPad">Startrampe</span>
+      </button>
       <button mat-menu-item routerLink="/game/finances">
         <mat-icon>account_balance</mat-icon>
         <span i18n="@@layout.menu.finances">Finanzen</span>
@@ -36,6 +40,17 @@
       </button>
     </mat-menu>
     <span class="toolbar-spacer"></span>
+    @if (countdown(); as countdown) {
+      <a
+        mat-flat-button
+        routerLink="/game/countdown"
+        class="toolbar-countdown"
+        aria-label="Zum laufenden Countdown"
+        i18n-aria-label="@@layout.countdown.label"
+      >
+        {{ countdown.missionTimeMs | missionTime }}
+      </a>
+    }
     <app-live-conditions-indicator />
     <a
       mat-button
@@ -46,6 +61,10 @@
     >
       {{ balance() | euros }}
     </a>
+    <span class="toolbar-reputation" [attr.aria-label]="reputationLabel()" [title]="reputationLabel()">
+      <mat-icon aria-hidden="true">star</mat-icon>
+      {{ reputation() }}
+    </span>
     <app-game-clock />
   </mat-toolbar>
 } @else {

@@ -14,6 +14,14 @@ export const areaRoutes: Routes = [
     loadComponent: () => import('../rockets/rockets.component').then((m) => m.RocketsComponent)
   },
   {
+    path: 'launch-pad',
+    loadComponent: () => import('../launch/launch-pad.component').then((m) => m.LaunchPadComponent)
+  },
+  {
+    path: 'countdown',
+    loadComponent: () => import('../launch/countdown.component').then((m) => m.CountdownComponent)
+  },
+  {
     path: 'weather',
     loadComponent: () => import('../live-conditions/weather.component').then((m) => m.WeatherComponent)
   },

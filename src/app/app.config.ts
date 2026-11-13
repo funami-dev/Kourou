@@ -12,8 +12,17 @@ import { withNgxsStoragePlugin } from '@ngxs/storage-plugin';
 import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
 
 import { environment } from '../environments/environment';
-import { GameClockDriver } from '../game/clock/game-clock-driver.service';
-import { ClockState, ContractsState, CrewState, FinanceState, GuiState, RocketsState } from '../store';
+import { GameLoop } from '../game/game-loop.service';
+import {
+  ClockState,
+  ContractsState,
+  CrewState,
+  FinanceState,
+  GuiState,
+  LaunchState,
+  ReputationState,
+  RocketsState
+} from '../store';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -23,11 +32,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withFetch()),
     provideStore(
-      [ClockState, ContractsState, CrewState, FinanceState, GuiState, RocketsState],
+      [ClockState, ContractsState, CrewState, FinanceState, GuiState, LaunchState, ReputationState, RocketsState],
       { developmentMode: !environment.production },
       withNgxsStoragePlugin({ keys: '*' }),
       withNgxsReduxDevtoolsPlugin({ disabled: environment.production })
     ),
-    provideAppInitializer(() => inject(GameClockDriver).start())
+    provideAppInitializer(() => inject(GameLoop).start())
   ]
 };

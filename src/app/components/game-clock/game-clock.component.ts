@@ -5,7 +5,7 @@ import { dispatch, select } from '@ngxs/store';
 
 import { GAME_SPEEDS } from '../../../game/clock/clock.constants';
 import type { GameSpeed } from '../../../game/clock/clock.constants';
-import { ClockState, PauseClock, ResumeClock, SetClockSpeed } from '../../../store';
+import { ClockState, LaunchState, PauseClock, ResumeClock, SetClockSpeed } from '../../../store';
 import { GameDateTimePipe } from '../../shared/game-date-time.pipe';
 
 /** Shows the current game time and lets the player pause the game or change its speed. */
@@ -18,8 +18,11 @@ import { GameDateTimePipe } from '../../shared/game-date-time.pipe';
 })
 export class GameClockComponent {
   protected readonly gameSpeeds = GAME_SPEEDS;
+  protected readonly countdownHint = $localize`:@@gameClock.stoppedByCountdown:Während des Countdowns steht die Spielzeit still.`;
   protected readonly isPaused = select(ClockState.isPaused);
   protected readonly speed = select(ClockState.speed);
+  /** During a countdown, game time stands still regardless of the player's pause setting. */
+  protected readonly isStoppedByCountdown = select(LaunchState.isCountdownOpen);
 
   protected readonly gameTimeMs = select(ClockState.gameTimeMs);
 

@@ -1,5 +1,9 @@
 <div class="game-clock" role="group" aria-label="Spieluhr" i18n-aria-label="@@gameClock.label">
-  <span class="game-clock__time" [class.game-clock__time--paused]="isPaused()">
+  <span
+    class="game-clock__time"
+    [class.game-clock__time--paused]="isPaused() || isStoppedByCountdown()"
+    [title]="isStoppedByCountdown() ? countdownHint : ''"
+  >
     {{ gameTimeMs() | gameDateTime }}
   </span>
 

@@ -1,5 +1,6 @@
 import { MS_PER_HOUR } from '../clock/clock.constants';
 import type { LaunchSite } from '../launch-sites/launch-site.model';
+import { localMonth, startOfLocalDayMs } from '../launch-sites/local-time';
 import type { WeatherReport } from './weather.model';
 
 /** Typical cloud cover and rain, by season. Rough values for a tropical coastal climate. */
@@ -35,35 +36,4 @@ export function typicalWeather(site: LaunchSite, nowMs: number): WeatherReport {
 /** Whether the sun is up at the given moment, according to the report's sunrise and sunset. */
 export function isDaylight(report: WeatherReport, nowMs: number): boolean {
   return nowMs >= report.sunriseAtMs && nowMs < report.sunsetAtMs;
-}
-
-function localMonth(site: LaunchSite, nowMs: number): number {
-  return localDateParts(site, nowMs).month;
-}
-
-/** Real time (epoch ms) of the most recent local midnight at the site. */
-function startOfLocalDayMs(site: LaunchSite, nowMs: number): number {
-  const { hour, minute, second } = localDateParts(site, nowMs);
-  const msSinceLocalMidnight = ((hour * 60 + minute) * 60 + second) * 1000 + (nowMs % 1000);
-  return nowMs - msSinceLocalMidnight;
-}
-
-function localDateParts(site: LaunchSite, nowMs: number): Record<'month' | 'hour' | 'minute' | 'second', number> {
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: site.timeZone,
-    month: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    hourCycle: 'h23'
-  }).formatToParts(nowMs);
-  const partValue = (type: Intl.DateTimeFormatPartTypes): number =>
-    Number(parts.find((part) => part.type === type)?.value);
-
-  return {
-    month: partValue('month'),
-    hour: partValue('hour'),
-    minute: partValue('minute'),
-    second: partValue('second')
-  };
 }

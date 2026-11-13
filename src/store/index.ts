@@ -5,3 +5,5 @@ export * from './clock/index';
 export * from './finance/index';
 export * from './contracts/index';
 export * from './rockets/index';
+export * from './launch/index';
+export * from './reputation/index';

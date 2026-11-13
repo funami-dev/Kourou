@@ -42,6 +42,16 @@ export function orderRocket(
   };
 }
 
+/** Full name of a rocket for display, e.g. "Ibis IB-01". */
+export function rocketDisplayName(rocket: Rocket): string {
+  return `${ROCKET_MODELS[rocket.modelId].name} ${rocket.serialName}`;
+}
+
+/** Removes a rocket from the fleet, e.g. after it has been launched. */
+export function removeRocket(fleet: RocketFleet, rocketId: number): RocketFleet {
+  return { ...fleet, rockets: fleet.rockets.filter((rocket) => rocket.id !== rocketId) };
+}
+
 /** The moment the last planned assembly is finished. */
 function assemblyHallFreeAtMs(fleet: RocketFleet): number {
   return Math.max(0, ...fleet.rockets.map((rocket) => rocket.readyAtMs));

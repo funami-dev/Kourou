@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { MatIconModule } from '@angular/material/icon';
 
 import { SiteLocalTimePipe } from '../shared/site-local-time.pipe';
-import { LiveConditionsService } from './live-conditions.service';
-import { OPEN_METEO_ATTRIBUTION_URL } from './open-meteo';
+import { LiveConditionsService } from '../../game/live-conditions/live-conditions.service';
+import { OPEN_METEO_ATTRIBUTION_URL } from '../../game/live-conditions/open-meteo';
 import { weatherConditionIcon, weatherConditionLabel } from './weather-condition-display';
 
 /** Detailed view of the real local time and live weather at the launch site. */

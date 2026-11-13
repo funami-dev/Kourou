@@ -17,8 +17,10 @@ export interface RocketModel {
   price: Euros;
   /** Game days needed to assemble the rocket once its parts have arrived. */
   assemblyDays: number;
-  /** Chance of a successful launch, between 0 and 1. Used once launches exist. */
+  /** Chance of a successful launch, between 0 and 1. */
   reliability: number;
+  /** Strongest ground wind gusts at which the rocket may still launch. */
+  maxWindGustsMetersPerSecond: number;
 }
 
 /**

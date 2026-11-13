@@ -22,3 +22,15 @@
   margin-right: 16px;
   font-variant-numeric: tabular-nums;
 }
+.toolbar-countdown {
+  margin-right: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.toolbar-reputation {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 16px;
+  font-size: 14px;
+}

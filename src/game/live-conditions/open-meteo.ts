@@ -3,9 +3,9 @@ import { Injectable, inject } from '@angular/core';
 import { map } from 'rxjs';
 import type { Observable } from 'rxjs';
 
-import type { LaunchSite } from '../../game/launch-sites/launch-site.model';
-import { weatherConditionFromWmoCode } from '../../game/weather/weather-condition';
-import type { WeatherReport } from '../../game/weather/weather.model';
+import type { LaunchSite } from '../launch-sites/launch-site.model';
+import { weatherConditionFromWmoCode } from '../weather/weather-condition';
+import type { WeatherReport } from '../weather/weather.model';
 
 /** Free weather API without API key. Data is licensed under CC BY 4.0 and must be attributed. */
 export const OPEN_METEO_FORECAST_URL = 'https://api.open-meteo.com/v1/forecast';

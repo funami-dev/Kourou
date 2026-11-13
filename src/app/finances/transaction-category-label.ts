@@ -5,7 +5,11 @@ const TRANSACTION_CATEGORY_LABELS: Record<TransactionCategory, string> = {
   operatingCosts: $localize`:@@finances.category.operatingCosts:Betriebskosten`,
   stateGrant: $localize`:@@finances.category.stateGrant:Staatliche Förderung`,
   contractAdvance: $localize`:@@finances.category.contractAdvance:Anzahlung Auftrag`,
-  rocketPurchase: $localize`:@@finances.category.rocketPurchase:Raketenkauf`
+  contractPayment: $localize`:@@finances.category.contractPayment:Zahlung nach erfolgreichem Start`,
+  rocketPurchase: $localize`:@@finances.category.rocketPurchase:Raketenkauf`,
+  padFees: $localize`:@@finances.category.padFees:Gebühr Startrampe`,
+  scrubCosts: $localize`:@@finances.category.scrubCosts:Kosten Startabbruch`,
+  padRepair: $localize`:@@finances.category.padRepair:Reparatur Startrampe`
 };
 
 export function transactionCategoryLabel(category: TransactionCategory): string {

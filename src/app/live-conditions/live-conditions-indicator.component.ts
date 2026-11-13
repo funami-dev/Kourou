@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 
 import { SiteLocalTimePipe } from '../shared/site-local-time.pipe';
-import { LiveConditionsService } from './live-conditions.service';
+import { LiveConditionsService } from '../../game/live-conditions/live-conditions.service';
 import { weatherConditionIcon, weatherConditionLabel } from './weather-condition-display';
 
 /** Compact toolbar display of the real local time and weather at the launch site. */

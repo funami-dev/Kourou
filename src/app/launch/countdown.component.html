@@ -1,0 +1,152 @@
+@if (countdown(); as countdown) {
+  <section class="countdown game-panel" aria-labelledby="countdown-title">
+    <header class="countdown__header">
+      <div>
+        <h1 id="countdown-title" i18n="@@countdown.title">Kontrollzentrum</h1>
+        <p class="countdown__secondary" i18n="@@countdown.successChance">
+          {{ rocketModel()?.name }} · Erfolgschance {{ successChance() | percent }}
+        </p>
+      </div>
+      <p class="countdown__clock" aria-live="off">{{ countdown.missionTimeMs | missionTime }}</p>
+    </header>
+
+    @switch (countdown.status.kind) {
+      @case ('counting') {
+        <p class="status status--counting" role="status">
+          @if (countdown.missionTimeMs < 0) {
+            <ng-container i18n="@@countdown.status.counting">Countdown läuft</ng-container>
+          } @else {
+            <ng-container i18n="@@countdown.status.flying">Rakete im Flug</ng-container>
+          }
+        </p>
+      }
+      @case ('holding') {
+        @if (countdown.status.kind === 'holding') {
+          <p class="status status--hold" role="status" i18n="@@countdown.status.holding">
+            HOLD – {{ issueTitle(countdown.status.issue) }} (noch
+            {{ countdown.status.remainingHoldMs / 1000 | number: '1.0-0' }} s)
+          </p>
+        }
+      }
+      @case ('awaitingDecision') {
+        @if (countdown.status.kind === 'awaitingDecision') {
+          <div class="decision" role="alert">
+            <h2>{{ issueTitle(countdown.status.issue) }}</h2>
+            <p>{{ issueDescription(countdown.status.issue) }}</p>
+            <div class="decision__options">
+              @for (decision of decisions(); track decision) {
+                @switch (decision) {
+                  @case ('hold') {
+                    <button mat-flat-button type="button" (click)="decide('hold')" i18n="@@countdown.decision.hold">
+                      Halten ({{ holdDurationSeconds() }} s)
+                    </button>
+                  }
+                  @case ('continue') {
+                    <button
+                      mat-flat-button
+                      type="button"
+                      (click)="decide('continue')"
+                      i18n="@@countdown.decision.continue"
+                    >
+                      Trotzdem weiter (Erfolgschance −{{ countdown.status.riskIfContinued | percent }})
+                    </button>
+                  }
+                  @case ('scrub') {
+                    <button mat-button type="button" (click)="decide('scrub')" i18n="@@countdown.decision.scrub">
+                      Start abbrechen ({{ scrubCosts | euros }})
+                    </button>
+                  }
+                }
+              }
+            </div>
+          </div>
+        }
+      }
+      @case ('finished') {
+        @if (result(); as result) {
+          <div class="result result--{{ result.outcome }}" role="status">
+            <h2>{{ outcomeText(result.outcome) }}</h2>
+            <p>{{ result.customer }} · {{ result.payloadName }} · {{ result.rocketName }}</p>
+            <dl class="result__figures">
+              @if (result.income > 0) {
+                <div>
+                  <dt i18n="@@countdown.result.income">Zahlung erhalten</dt>
+                  <dd>{{ result.income | euros }}</dd>
+                </div>
+              }
+              @if (result.costs > 0) {
+                <div>
+                  <dt i18n="@@countdown.result.costs">Kosten</dt>
+                  <dd>{{ result.costs | euros }}</dd>
+                </div>
+              }
+              <div>
+                <dt i18n="@@countdown.result.reputation">Ruf</dt>
+                <dd>{{ result.reputationChange > 0 ? '+' : '' }}{{ result.reputationChange }}</dd>
+              </div>
+            </dl>
+            @if (result.outcome === 'scrubbed') {
+              <p class="countdown__secondary" i18n="@@countdown.result.scrubbedHint">
+                Die Rakete bleibt auf der Rampe. Du kannst es erneut versuchen, sobald die Bedingungen passen.
+              </p>
+            }
+            <button mat-flat-button type="button" (click)="close()" i18n="@@countdown.result.close">
+              Zurück zur Startrampe
+            </button>
+          </div>
+        }
+      }
+    }
+
+    <div class="countdown__boards">
+      <section aria-labelledby="stations-title">
+        <h2 id="stations-title" i18n="@@countdown.stations.title">Stationen</h2>
+        <ul class="stations">
+          @for (station of stations; track station) {
+            <li class="stations__entry">
+              <span>{{ stationLabel(station) }}</span>
+              @switch (countdown.pollResults[station]) {
+                @case ('go') {
+                  <span class="verdict verdict--go">GO</span>
+                }
+                @case ('noGo') {
+                  <span class="verdict verdict--no-go">NO GO</span>
+                }
+                @default {
+                  <span class="verdict">–</span>
+                }
+              }
+            </li>
+          }
+        </ul>
+
+        <h2 i18n="@@countdown.weather.title">Wetter in Kourou</h2>
+        <p>
+          {{ weatherConditionLabel(weather().condition) }} · {{ weather().temperatureCelsius | number: '1.0-0' }} °C
+        </p>
+        <p i18n="@@countdown.weather.gusts">
+          Böen {{ weather().windGustsMetersPerSecond | number: '1.0-1' }} m/s (Grenze
+          {{ rocketModel()?.maxWindGustsMetersPerSecond }} m/s)
+        </p>
+      </section>
+
+      <section aria-labelledby="log-title">
+        <h2 id="log-title" i18n="@@countdown.log.title">Funkprotokoll</h2>
+        <ol class="log">
+          @for (entry of newestLogEntriesFirst(); track $index) {
+            <li class="log__entry log__entry--{{ entry.kind }}">
+              <span class="log__time">{{ entry.missionTimeMs | missionTime }}</span>
+              <span>{{ logText(entry) }}</span>
+            </li>
+          }
+        </ol>
+      </section>
+    </div>
+  </section>
+} @else {
+  <section class="countdown game-panel">
+    <h1 i18n="@@countdown.title">Kontrollzentrum</h1>
+    <p class="countdown__secondary" i18n="@@countdown.none">Gerade läuft kein Countdown.</p>
+    <a mat-flat-button routerLink="/game/launch-pad" i18n="@@countdown.toLaunchPad">Zur Startrampe</a>
+  </section>
+}

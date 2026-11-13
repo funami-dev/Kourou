@@ -4,10 +4,10 @@ import { select } from '@ngxs/store';
 import { catchError, interval, of, startWith, switchMap } from 'rxjs';
 import type { Observable } from 'rxjs';
 
-import { DEFAULT_LAUNCH_SITE_ID, LAUNCH_SITES } from '../../game/launch-sites/launch-sites.constants';
-import type { LaunchSite } from '../../game/launch-sites/launch-site.model';
-import { isDaylight, typicalWeather } from '../../game/weather/typical-weather';
-import type { WeatherReport } from '../../game/weather/weather.model';
+import { DEFAULT_LAUNCH_SITE_ID, LAUNCH_SITES } from '../launch-sites/launch-sites.constants';
+import type { LaunchSite } from '../launch-sites/launch-site.model';
+import { isDaylight, typicalWeather } from '../weather/typical-weather';
+import type { WeatherReport } from '../weather/weather.model';
 import { GuiState } from '../../store';
 import { OpenMeteoClient } from './open-meteo';
 

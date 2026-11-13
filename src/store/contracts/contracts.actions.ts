@@ -3,3 +3,10 @@ export class AcceptContractOffer {
 
   constructor(public readonly offerId: number) {}
 }
+
+/** Announces contracts whose launch deadline has just passed. */
+export class ContractDeadlinesMissed {
+  static readonly type = '[Contracts] Deadlines missed';
+
+  constructor(public readonly contractIds: number[]) {}
+}

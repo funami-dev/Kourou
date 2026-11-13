@@ -4,7 +4,16 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { provideStore } from '@ngxs/store';
 
-import { ClockState, ContractsState, CrewState, FinanceState, GuiState, RocketsState } from '../../store';
+import {
+  ClockState,
+  ContractsState,
+  CrewState,
+  FinanceState,
+  GuiState,
+  LaunchState,
+  ReputationState,
+  RocketsState
+} from '../../store';
 import { LayoutComponent } from './layout.component';
 
 describe('LayoutComponent', () => {
@@ -18,7 +27,16 @@ describe('LayoutComponent', () => {
         provideRouter([]),
         provideHttpClient(),
         provideHttpClientTesting(),
-        provideStore([ClockState, ContractsState, CrewState, FinanceState, GuiState, RocketsState])
+        provideStore([
+          ClockState,
+          ContractsState,
+          CrewState,
+          FinanceState,
+          GuiState,
+          LaunchState,
+          ReputationState,
+          RocketsState
+        ])
       ]
     }).compileComponents();
 

@@ -44,14 +44,20 @@ function removeExpiredOffers(market: ContractMarket, day: number): ContractMarke
 }
 
 function missOverdueContracts(market: ContractMarket, day: number): ContractMarket {
+  const overdueIds = overdueContractIds(market.contracts, day);
   return {
     ...market,
     contracts: market.contracts.map((contract) =>
-      contract.status === 'inProgress' && contract.deadlineDay < day
-        ? { ...contract, status: 'missedDeadline' }
-        : contract
+      overdueIds.includes(contract.id) ? { ...contract, status: 'missedDeadline' } : contract
     )
   };
+}
+
+/** Contracts still in progress whose launch deadline has passed by the given day. */
+export function overdueContractIds(contracts: readonly Contract[], day: number): number[] {
+  return contracts
+    .filter((contract) => contract.status === 'inProgress' && contract.deadlineDay < day)
+    .map((contract) => contract.id);
 }
 
 function addNewOffers(market: ContractMarket, day: number, random: RandomNumberGenerator): ContractMarket {
@@ -90,6 +96,24 @@ export function generateOffer(id: number, day: number, random: RandomNumberGener
 
 function roundToPaymentStep(amount: Euros): Euros {
   return Math.max(PAYMENT_ROUNDING_STEP, Math.round(amount / PAYMENT_ROUNDING_STEP) * PAYMENT_ROUNDING_STEP);
+}
+
+/**
+ * Closes a contract after its launch. On a failed launch the customer's insurance covers the lost payload,
+ * so the spaceport keeps the advance payment but receives nothing more.
+ */
+export function settleContract(market: ContractMarket, contractId: number, launchSucceeded: boolean): ContractMarket {
+  return {
+    ...market,
+    contracts: market.contracts.map((contract) =>
+      contract.id === contractId ? { ...contract, status: launchSucceeded ? 'completed' : 'failed' } : contract
+    )
+  };
+}
+
+/** What the customer still pays after a successful launch. */
+export function remainingPaymentFor(contract: Contract): Euros {
+  return contract.payment - contract.advancePayment;
 }
 
 /** The part of the payment that is paid when the contract is accepted. */

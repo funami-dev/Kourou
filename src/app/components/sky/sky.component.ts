@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import { LiveConditionsService } from '../../live-conditions/live-conditions.service';
+import { LiveConditionsService } from '../../../game/live-conditions/live-conditions.service';
 
 /** Sky backdrop that follows the real day and night at the launch site. */
 @Component({

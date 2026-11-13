@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import { LiveConditionsService } from '../live-conditions/live-conditions.service';
+import { LiveConditionsService } from '../../game/live-conditions/live-conditions.service';
 
 @Component({
   selector: 'app-area',

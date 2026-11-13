@@ -2,7 +2,15 @@ import { MAX_LEDGER_ENTRIES, STARTING_BALANCE, STATE_GRANT_TARGET_BALANCE } from
 import type { Euros } from './economy.constants';
 
 /** What a transaction was for. Extended as new parts of the economy are added. */
-export type TransactionCategory = 'operatingCosts' | 'stateGrant' | 'contractAdvance' | 'rocketPurchase';
+export type TransactionCategory =
+  | 'operatingCosts'
+  | 'stateGrant'
+  | 'contractAdvance'
+  | 'contractPayment'
+  | 'rocketPurchase'
+  | 'padFees'
+  | 'scrubCosts'
+  | 'padRepair';
 
 export interface Transaction {
   id: number;

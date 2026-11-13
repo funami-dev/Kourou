@@ -3,12 +3,13 @@ import { Action, Selector, State, Store } from '@ngxs/store';
 import type { StateContext } from '@ngxs/store';
 
 import type { Rocket } from '../../game/rockets/rocket.model';
-import { NEW_GAME_ROCKET_FLEET, orderRocket } from '../../game/rockets/rocket-fleet';
+import { NEW_GAME_ROCKET_FLEET, orderRocket, removeRocket } from '../../game/rockets/rocket-fleet';
 import type { RocketFleet } from '../../game/rockets/rocket-fleet';
 import { ROCKET_MODELS } from '../../game/rockets/rockets.constants';
 import { ClockState } from '../clock';
 import { BookTransaction, FinanceState } from '../finance';
 import { StartNewGame } from '../game.actions';
+import { LaunchCompleted } from '../launch/launch.actions';
 import { OrderRocket } from './rockets.actions';
 
 @State<RocketFleet>({
@@ -39,6 +40,14 @@ export class RocketsState {
     const { fleet, rocket } = orderRocket(ctx.getState(), modelId, nowMs);
     ctx.setState(fleet);
     ctx.dispatch(new BookTransaction(-model.price, 'rocketPurchase', `${model.name} ${rocket.serialName}`));
+  }
+
+  /** A launched rocket is used up, whether it reached orbit or not. */
+  @Action(LaunchCompleted)
+  removeLaunchedRocket(ctx: StateContext<RocketFleet>, { outcome, campaign }: LaunchCompleted): void {
+    if (outcome !== 'scrubbed') {
+      ctx.setState(removeRocket(ctx.getState(), campaign.rocketId));
+    }
   }
 
   @Action(StartNewGame)

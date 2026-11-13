@@ -1,17 +1,19 @@
 import { DOCUMENT, DestroyRef, Injectable, inject } from '@angular/core';
 import { Store } from '@ngxs/store';
 
-import { AdvanceClock, GuiState } from '../../store';
-import { CLOCK_TICK_INTERVAL_MS, MAX_REAL_MS_PER_TICK } from './clock.constants';
+import { AdvanceClock, AdvanceCountdown, GuiState, LaunchState } from '../store';
+import { CLOCK_TICK_INTERVAL_MS, MAX_REAL_MS_PER_TICK } from './clock/clock.constants';
 
 /**
- * Drives the game clock: measures how much real time has passed and lets the same amount pass in the game.
+ * Drives the game: measures how much real time has passed and lets it pass in the game.
  *
- * Game time only advances while a game is running (a launch site is selected) and the browser tab is visible.
+ * Normally game time advances. While the countdown screen is open, the countdown runs in real time instead and
+ * game time stands still (see docs/game-design.md, "Zeitmodell").
+ * Nothing happens before a launch site is selected or while the browser tab is hidden.
  * Elapsed time is measured instead of assuming a fixed tick length, because browsers do not fire timers precisely.
  */
 @Injectable({ providedIn: 'root' })
-export class GameClockDriver {
+export class GameLoop {
   private readonly store = inject(Store);
   private readonly document = inject(DOCUMENT);
   private readonly destroyRef = inject(DestroyRef);
@@ -41,7 +43,13 @@ export class GameClockDriver {
     const realElapsedMs = Math.min(now - this.lastTickAt, MAX_REAL_MS_PER_TICK);
     this.lastTickAt = now;
 
-    if (this.isGameRunning() && !this.document.hidden) {
+    if (!this.isGameRunning() || this.document.hidden) {
+      return;
+    }
+
+    if (this.store.selectSnapshot(LaunchState.isCountdownOpen)) {
+      this.store.dispatch(new AdvanceCountdown(realElapsedMs));
+    } else {
       this.store.dispatch(new AdvanceClock(realElapsedMs));
     }
   }

@@ -2,7 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { LAUNCH_SITES } from '../../game/launch-sites/launch-sites.constants';
+import { LAUNCH_SITES } from '../launch-sites/launch-sites.constants';
 import { OPEN_METEO_FORECAST_URL, OpenMeteoClient, toWeatherReport } from './open-meteo';
 import { SAMPLE_OPEN_METEO_RESPONSE } from './open-meteo.testing';
 

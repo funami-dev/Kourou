@@ -30,7 +30,7 @@ export interface ContractOffer {
   offerExpiresOnDay: number;
 }
 
-export type ContractStatus = 'inProgress' | 'missedDeadline';
+export type ContractStatus = 'inProgress' | 'completed' | 'failed' | 'missedDeadline';
 
 /** A contract the player has accepted. */
 export interface Contract {

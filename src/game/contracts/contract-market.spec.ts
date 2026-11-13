@@ -4,6 +4,9 @@ import {
   acceptOffer,
   canAcceptMoreContracts,
   generateOffer,
+  overdueContractIds,
+  remainingPaymentFor,
+  settleContract,
   startNewDay
 } from './contract-market';
 import type { ContractMarket } from './contract-market';
@@ -109,5 +112,26 @@ describe('acceptOffer', () => {
 
     expect(canAcceptMoreContracts(market.contracts)).toBe(false);
     expect(acceptOffer(market, MAX_CONTRACTS_IN_PROGRESS + 1, 1)).toBeNull();
+  });
+});
+
+describe('after the launch', () => {
+  const { market, contract } = acceptOffer(NEW_GAME_CONTRACT_MARKET, 2, 1)!;
+
+  it('completes the contract after a successful launch', () => {
+    expect(settleContract(market, 2, true).contracts[0]?.status).toBe('completed');
+  });
+
+  it('marks the contract as failed after a failed launch', () => {
+    expect(settleContract(market, 2, false).contracts[0]?.status).toBe('failed');
+  });
+
+  it('pays the rest of the payment after a successful launch', () => {
+    expect(contract.advancePayment + remainingPaymentFor(contract)).toBe(contract.payment);
+  });
+
+  it('finds contracts whose deadline has passed', () => {
+    expect(overdueContractIds(market.contracts, contract.deadlineDay)).toEqual([]);
+    expect(overdueContractIds(market.contracts, contract.deadlineDay + 1)).toEqual([2]);
   });
 });

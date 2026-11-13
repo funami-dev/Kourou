@@ -1,8 +1,11 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { Store, provideStore } from '@ngxs/store';
 
 import { MS_PER_DAY, MS_PER_HOUR, MS_PER_MINUTE } from '../../../game/clock/clock.constants';
-import { ClockState, NEW_GAME_CLOCK } from '../../../store';
+import { ClockState, GuiState, LaunchState, NEW_GAME_CLOCK } from '../../../store';
 import { GameClockComponent } from './game-clock.component';
 
 describe('GameClockComponent', () => {
@@ -17,7 +20,12 @@ describe('GameClockComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [GameClockComponent],
-      providers: [provideStore([ClockState])]
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideStore([ClockState, GuiState, LaunchState])
+      ]
     }).compileComponents();
 
     store = TestBed.inject(Store);
@@ -26,7 +34,10 @@ describe('GameClockComponent', () => {
   });
 
   it('shows the game day and time of day', async () => {
-    store.reset({ clock: { ...NEW_GAME_CLOCK, gameTimeMs: 2 * MS_PER_DAY + 9 * MS_PER_HOUR + 5 * MS_PER_MINUTE } });
+    store.reset({
+      ...store.snapshot(),
+      clock: { ...NEW_GAME_CLOCK, gameTimeMs: 2 * MS_PER_DAY + 9 * MS_PER_HOUR + 5 * MS_PER_MINUTE }
+    });
     await fixture.whenStable();
 
     expect(element().textContent).toContain('Tag 3 · 09:05');

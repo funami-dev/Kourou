@@ -23,6 +23,8 @@ const PAYLOAD_TYPE_LABELS: Record<PayloadType, string> = {
 
 const CONTRACT_STATUS_LABELS: Record<ContractStatus, string> = {
   inProgress: $localize`:@@contracts.status.inProgress:In Arbeit`,
+  completed: $localize`:@@contracts.status.completed:Erfüllt`,
+  failed: $localize`:@@contracts.status.failed:Fehlstart`,
   missedDeadline: $localize`:@@contracts.status.missedDeadline:Frist verpasst`
 };
 
