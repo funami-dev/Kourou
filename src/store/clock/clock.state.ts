@@ -4,7 +4,7 @@ import type { StateContext } from '@ngxs/store';
 
 import { MS_PER_HOUR, NEW_GAME_START_HOUR } from '../../game/clock/clock.constants';
 import type { GameSpeed } from '../../game/clock/clock.constants';
-import { daysStartedBetween, realToGameDuration } from '../../game/clock/game-time';
+import { daysStartedBetween, realToGameDuration, toGameDateTime } from '../../game/clock/game-time';
 import { StartNewGame } from '../game.actions';
 import type { ClockStateModel } from './clock.model';
 import { AdvanceClock, GameDayStarted, PauseClock, ResumeClock, SetClockSpeed } from './clock.actions';
@@ -24,6 +24,12 @@ export class ClockState {
   @Selector()
   static gameTimeMs(state: ClockStateModel): number {
     return state.gameTimeMs;
+  }
+
+  /** The current game day, starting at 1. */
+  @Selector()
+  static currentDay(state: ClockStateModel): number {
+    return toGameDateTime(state.gameTimeMs).day;
   }
 
   @Selector()

@@ -33,6 +33,246 @@
         <source>Spielgeschwindigkeit <ph id="0" equiv="speed" disp="speed"/>-fach</source>
       </segment>
     </unit>
+    <unit id="contracts.orbit.leo">
+      <notes>
+        <note category="location">src/app/contracts/contract-labels.ts:5</note>
+      </notes>
+      <segment>
+        <source>Niedriger Erdorbit (LEO)</source>
+      </segment>
+    </unit>
+    <unit id="contracts.orbit.sso">
+      <notes>
+        <note category="location">src/app/contracts/contract-labels.ts:6</note>
+      </notes>
+      <segment>
+        <source>Sonnensynchroner Orbit (SSO)</source>
+      </segment>
+    </unit>
+    <unit id="contracts.orbit.gto">
+      <notes>
+        <note category="location">src/app/contracts/contract-labels.ts:7</note>
+      </notes>
+      <segment>
+        <source>Geostationärer Transferorbit (GTO)</source>
+      </segment>
+    </unit>
+    <unit id="contracts.payloadType.communication">
+      <notes>
+        <note category="location">src/app/contracts/contract-labels.ts:11</note>
+      </notes>
+      <segment>
+        <source>Kommunikationssatellit</source>
+      </segment>
+    </unit>
+    <unit id="contracts.payloadType.earthObservation">
+      <notes>
+        <note category="location">src/app/contracts/contract-labels.ts:12</note>
+      </notes>
+      <segment>
+        <source>Erdbeobachtungssatellit</source>
+      </segment>
+    </unit>
+    <unit id="contracts.payloadType.weather">
+      <notes>
+        <note category="location">src/app/contracts/contract-labels.ts:13</note>
+      </notes>
+      <segment>
+        <source>Wettersatellit</source>
+      </segment>
+    </unit>
+    <unit id="contracts.payloadType.science">
+      <notes>
+        <note category="location">src/app/contracts/contract-labels.ts:14</note>
+      </notes>
+      <segment>
+        <source>Forschungssatellit</source>
+      </segment>
+    </unit>
+    <unit id="contracts.payloadType.technologyDemo">
+      <notes>
+        <note category="location">src/app/contracts/contract-labels.ts:15</note>
+      </notes>
+      <segment>
+        <source>Technologie-Demonstrator</source>
+      </segment>
+    </unit>
+    <unit id="contracts.status.inProgress">
+      <notes>
+        <note category="location">src/app/contracts/contract-labels.ts:19</note>
+      </notes>
+      <segment>
+        <source>In Arbeit</source>
+      </segment>
+    </unit>
+    <unit id="contracts.status.missedDeadline">
+      <notes>
+        <note category="location">src/app/contracts/contract-labels.ts:20</note>
+      </notes>
+      <segment>
+        <source>Frist verpasst</source>
+      </segment>
+    </unit>
+    <unit id="contracts.title">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:2,4</note>
+      </notes>
+      <segment>
+        <source>Aufträge</source>
+      </segment>
+    </unit>
+    <unit id="contracts.offers.title">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:4,5</note>
+      </notes>
+      <segment>
+        <source>Angebote</source>
+      </segment>
+    </unit>
+    <unit id="contracts.offers.limitReached">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:7,10</note>
+      </notes>
+      <segment>
+        <source> Du arbeitest bereits an <ph id="0" equiv="INTERPOLATION" disp="{{ maxContractsInProgress }}"/> Aufträgen. Schließe erst einen ab, bevor du einen neuen annimmst. </source>
+      </segment>
+    </unit>
+    <unit id="contracts.terms.orbit">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:20,21</note>
+        <note category="location">src/app/contracts/contracts.component.html:65,66</note>
+      </notes>
+      <segment>
+        <source>Ziel-Orbit</source>
+      </segment>
+    </unit>
+    <unit id="contracts.terms.mass">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:23,24</note>
+      </notes>
+      <segment>
+        <source>Masse</source>
+      </segment>
+    </unit>
+    <unit id="contracts.terms.payment">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:26,28</note>
+        <note category="location">src/app/contracts/contracts.component.html:66,67</note>
+      </notes>
+      <segment>
+        <source>Vergütung</source>
+      </segment>
+    </unit>
+    <unit id="contracts.terms.advance">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:30,31</note>
+      </notes>
+      <segment>
+        <source> davon <ph id="0" equiv="INTERPOLATION" disp="{{ advancePaymentFor(offer.payment) | euros }}"/> Anzahlung </source>
+      </segment>
+    </unit>
+    <unit id="contracts.terms.deadline">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:34,35</note>
+        <note category="location">src/app/contracts/contracts.component.html:67,68</note>
+      </notes>
+      <segment>
+        <source>Startfrist</source>
+      </segment>
+    </unit>
+    <unit id="contracts.terms.deadlineDay">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:35,37</note>
+        <note category="location">src/app/contracts/contracts.component.html:81,82</note>
+      </notes>
+      <segment>
+        <source>Tag <ph id="0" equiv="INTERPOLATION" disp="{{ offer.deadlineDay }}"/></source>
+      </segment>
+    </unit>
+    <unit id="contracts.terms.offerExpires">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:37,38</note>
+      </notes>
+      <segment>
+        <source>Angebot gültig bis</source>
+      </segment>
+    </unit>
+    <unit id="contracts.terms.offerExpiresDay">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:38,39</note>
+      </notes>
+      <segment>
+        <source>Tag <ph id="0" equiv="INTERPOLATION" disp="{{ offer.offerExpiresOnDay }}"/></source>
+      </segment>
+    </unit>
+    <unit id="contracts.offers.accept">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:48,50</note>
+      </notes>
+      <segment>
+        <source> Auftrag annehmen </source>
+      </segment>
+    </unit>
+    <unit id="contracts.offers.empty">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:55,59</note>
+      </notes>
+      <segment>
+        <source> Gerade liegen keine Angebote vor. Neue Anfragen kommen jeden Morgen herein. </source>
+      </segment>
+    </unit>
+    <unit id="contracts.accepted.title">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:59,61</note>
+      </notes>
+      <segment>
+        <source>Angenommene Aufträge</source>
+      </segment>
+    </unit>
+    <unit id="contracts.accepted.customer">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:64,65</note>
+      </notes>
+      <segment>
+        <source>Kunde · Nutzlast</source>
+      </segment>
+    </unit>
+    <unit id="contracts.accepted.status">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:68,71</note>
+      </notes>
+      <segment>
+        <source>Status</source>
+      </segment>
+    </unit>
+    <unit id="contracts.accepted.daysLeft">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:84,90</note>
+      </notes>
+      <segment>
+        <source> <ph id="0" equiv="ICU" disp="{contract.deadlineDay - today(), plural,
+                    =0 {heute}
+                    =1 {noch 1 Tag}
+                    other {noch {{ contract.deadlineDay - today() }} Tage}
+                  }" subFlows="1712474882536710452"/> </source>
+      </segment>
+    </unit>
+    <unit id="9180569712629439216">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:84,86</note>
+      </notes>
+      <segment>
+        <source>{VAR_PLURAL, plural, =0 {heute} =1 {noch 1 Tag} other {noch <ph id="0" equiv="INTERPOLATION"/> Tage}}</source>
+      </segment>
+    </unit>
+    <unit id="contracts.accepted.empty">
+      <notes>
+        <note category="location">src/app/contracts/contracts.component.html:98,101</note>
+      </notes>
+      <segment>
+        <source>Du hast noch keinen Auftrag angenommen.</source>
+      </segment>
+    </unit>
     <unit id="finances.title">
       <notes>
         <note category="location">src/app/finances/finances.component.html:2,4</note>
@@ -107,7 +347,7 @@
     </unit>
     <unit id="finances.transactions.empty">
       <notes>
-        <note category="location">src/app/finances/finances.component.html:51,55</note>
+        <note category="location">src/app/finances/finances.component.html:56,60</note>
       </notes>
       <segment>
         <source> Noch keine Buchungen. Die laufenden Kosten werden jeweils um Mitternacht abgebucht. </source>
@@ -129,6 +369,14 @@
         <source>Staatliche Förderung</source>
       </segment>
     </unit>
+    <unit id="finances.category.contractAdvance">
+      <notes>
+        <note category="location">src/app/finances/transaction-category-label.ts:7</note>
+      </notes>
+      <segment>
+        <source>Anzahlung Auftrag</source>
+      </segment>
+    </unit>
     <unit id="layout.menu.open">
       <notes>
         <note category="location">src/app/layout/layout.component.html:7,8</note>
@@ -145,9 +393,17 @@
         <source>Gelände</source>
       </segment>
     </unit>
-    <unit id="layout.menu.finances">
+    <unit id="layout.menu.contracts">
       <notes>
         <note category="location">src/app/layout/layout.component.html:19,21</note>
+      </notes>
+      <segment>
+        <source>Aufträge</source>
+      </segment>
+    </unit>
+    <unit id="layout.menu.finances">
+      <notes>
+        <note category="location">src/app/layout/layout.component.html:23,25</note>
       </notes>
       <segment>
         <source>Finanzen</source>
@@ -155,7 +411,7 @@
     </unit>
     <unit id="layout.menu.settings">
       <notes>
-        <note category="location">src/app/layout/layout.component.html:23,25</note>
+        <note category="location">src/app/layout/layout.component.html:27,29</note>
       </notes>
       <segment>
         <source>Einstellungen</source>
@@ -163,7 +419,7 @@
     </unit>
     <unit id="layout.balance.label">
       <notes>
-        <note category="location">src/app/layout/layout.component.html:31,32</note>
+        <note category="location">src/app/layout/layout.component.html:35,36</note>
       </notes>
       <segment>
         <source>Kontostand – zu den Finanzen</source>

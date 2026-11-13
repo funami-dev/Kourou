@@ -7,6 +7,7 @@ export class BookTransaction {
 
   constructor(
     public readonly amount: Euros,
-    public readonly category: TransactionCategory
+    public readonly category: TransactionCategory,
+    public readonly reference?: string
   ) {}
 }

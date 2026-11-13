@@ -1,0 +1,100 @@
+<section class="contracts" aria-labelledby="contracts-title">
+  <h1 id="contracts-title" i18n="@@contracts.title">Aufträge</h1>
+
+  <h2 i18n="@@contracts.offers.title">Angebote</h2>
+  @if (!canAcceptMoreContracts()) {
+    <p class="contracts__hint" i18n="@@contracts.offers.limitReached">
+      Du arbeitest bereits an {{ maxContractsInProgress }} Aufträgen. Schließe erst einen ab, bevor du einen neuen
+      annimmst.
+    </p>
+  }
+
+  @if (offers().length > 0) {
+    <ul class="contracts__offers">
+      @for (offer of offers(); track offer.id) {
+        <li class="offer">
+          <h3 class="offer__customer">{{ offer.customer }}</h3>
+          <p class="offer__payload">{{ payloadTypeLabel(offer.payload.type) }} · {{ offer.payload.name }}</p>
+
+          <dl class="offer__terms">
+            <dt i18n="@@contracts.terms.orbit">Ziel-Orbit</dt>
+            <dd>{{ orbitLabel(offer.payload.targetOrbit) }}</dd>
+
+            <dt i18n="@@contracts.terms.mass">Masse</dt>
+            <dd>{{ offer.payload.massKg | number }} kg</dd>
+
+            <dt i18n="@@contracts.terms.payment">Vergütung</dt>
+            <dd>
+              <strong>{{ offer.payment | euros }}</strong>
+              <span class="offer__advance" i18n="@@contracts.terms.advance">
+                davon {{ advancePaymentFor(offer.payment) | euros }} Anzahlung
+              </span>
+            </dd>
+
+            <dt i18n="@@contracts.terms.deadline">Startfrist</dt>
+            <dd i18n="@@contracts.terms.deadlineDay">Tag {{ offer.deadlineDay }}</dd>
+
+            <dt i18n="@@contracts.terms.offerExpires">Angebot gültig bis</dt>
+            <dd i18n="@@contracts.terms.offerExpiresDay">Tag {{ offer.offerExpiresOnDay }}</dd>
+          </dl>
+
+          <button
+            mat-flat-button
+            type="button"
+            [disabled]="!canAcceptMoreContracts()"
+            (click)="acceptOffer(offer.id)"
+            i18n="@@contracts.offers.accept"
+          >
+            Auftrag annehmen
+          </button>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p class="contracts__hint" i18n="@@contracts.offers.empty">
+      Gerade liegen keine Angebote vor. Neue Anfragen kommen jeden Morgen herein.
+    </p>
+  }
+
+  <h2 i18n="@@contracts.accepted.title">Angenommene Aufträge</h2>
+  @if (contracts().length > 0) {
+    <table class="contracts__accepted">
+      <thead>
+        <tr>
+          <th scope="col" i18n="@@contracts.accepted.customer">Kunde · Nutzlast</th>
+          <th scope="col" i18n="@@contracts.terms.orbit">Ziel-Orbit</th>
+          <th scope="col" class="contracts__number" i18n="@@contracts.terms.payment">Vergütung</th>
+          <th scope="col" i18n="@@contracts.terms.deadline">Startfrist</th>
+          <th scope="col" i18n="@@contracts.accepted.status">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (contract of contracts(); track contract.id) {
+          <tr [class.contracts__row--inactive]="contract.status !== 'inProgress'">
+            <td>
+              {{ contract.customer }}
+              <span class="contracts__secondary">{{ contract.payload.name }}</span>
+            </td>
+            <td>{{ orbitLabel(contract.payload.targetOrbit) }}</td>
+            <td class="contracts__number">{{ contract.payment | euros }}</td>
+            <td>
+              <span i18n="@@contracts.terms.deadlineDay">Tag {{ contract.deadlineDay }}</span>
+              @if (contract.status === 'inProgress') {
+                <span class="contracts__secondary" i18n="@@contracts.accepted.daysLeft">
+                  {contract.deadlineDay - today(), plural,
+                    =0 {heute}
+                    =1 {noch 1 Tag}
+                    other {noch {{ contract.deadlineDay - today() }} Tage}
+                  }
+                </span>
+              }
+            </td>
+            <td>{{ contractStatusLabel(contract.status) }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <p class="contracts__hint" i18n="@@contracts.accepted.empty">Du hast noch keinen Auftrag angenommen.</p>
+  }
+</section>

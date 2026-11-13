@@ -34,7 +34,12 @@
         @for (transaction of newestTransactionsFirst(); track transaction.id) {
           <tr>
             <td>{{ transaction.gameTimeMs | gameDateTime }}</td>
-            <td>{{ categoryLabel(transaction.category) }}</td>
+            <td>
+              {{ categoryLabel(transaction.category) }}
+              @if (transaction.reference) {
+                <span class="finances__reference">{{ transaction.reference }}</span>
+              }
+            </td>
             <td
               class="finances__amount"
               [class.finances__amount--income]="transaction.amount > 0"

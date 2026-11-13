@@ -2,7 +2,7 @@ import { MAX_LEDGER_ENTRIES, STARTING_BALANCE, STATE_GRANT_TARGET_BALANCE } from
 import type { Euros } from './economy.constants';
 
 /** What a transaction was for. Extended as new parts of the economy are added. */
-export type TransactionCategory = 'operatingCosts' | 'stateGrant';
+export type TransactionCategory = 'operatingCosts' | 'stateGrant' | 'contractAdvance';
 
 export interface Transaction {
   id: number;
@@ -11,6 +11,8 @@ export interface Transaction {
   /** Positive for income, negative for expenses. */
   amount: Euros;
   category: TransactionCategory;
+  /** What exactly the transaction refers to, e.g. a customer and satellite. Proper names, not translated. */
+  reference?: string;
 }
 
 export interface Ledger {
@@ -20,11 +22,7 @@ export interface Ledger {
   nextTransactionId: number;
 }
 
-export interface Booking {
-  gameTimeMs: number;
-  amount: Euros;
-  category: TransactionCategory;
-}
+export type Booking = Omit<Transaction, 'id'>;
 
 export const NEW_GAME_LEDGER: Ledger = {
   balance: STARTING_BALANCE,

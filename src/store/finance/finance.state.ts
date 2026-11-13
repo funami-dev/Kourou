@@ -30,9 +30,9 @@ export class FinanceState {
   }
 
   @Action(BookTransaction)
-  bookTransaction(ctx: StateContext<Ledger>, { amount, category }: BookTransaction): void {
+  bookTransaction(ctx: StateContext<Ledger>, { amount, category, reference }: BookTransaction): void {
     const gameTimeMs = this.store.selectSnapshot(ClockState.gameTimeMs);
-    ctx.setState(book(ctx.getState(), { gameTimeMs, amount, category }));
+    ctx.setState(book(ctx.getState(), { gameTimeMs, amount, category, reference }));
   }
 
   @Action(GameDayStarted)
