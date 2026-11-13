@@ -9,7 +9,7 @@
 
 ---
 
-Time to deepen and train my angular knowledge. This is a small game with the goal to launch a rocket successfully.
+Kourou is a spaceport tycoon game for the desktop browser. Build and run your own launch site, take on contracts and launch rockets — under real-world conditions like the actual weather and time of day at the launch site.
 
 ## Development server
 
