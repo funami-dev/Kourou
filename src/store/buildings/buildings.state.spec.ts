@@ -13,6 +13,7 @@ import { STARTING_BALANCE } from '../../game/economy/economy.constants';
 import { AdvanceClock, ClockState } from '../clock';
 import { FinanceState } from '../finance';
 import { GuiState } from '../gui';
+import { ResearchContractsState } from '../research-contracts';
 import { ResearchState } from '../research';
 import { StartBuildingConstruction } from './buildings.actions';
 import { BuildingsState } from './buildings.state';
@@ -31,7 +32,10 @@ describe('BuildingsState', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideRouter([]), provideStore([BuildingsState, ClockState, FinanceState, GuiState, ResearchState])]
+      providers: [
+        provideRouter([]),
+        provideStore([BuildingsState, ClockState, FinanceState, GuiState, ResearchContractsState, ResearchState])
+      ]
     });
     store = TestBed.inject(Store);
   });

@@ -1,3 +1,4 @@
+import type { ResearchContractStatus, ResearchTopic } from '../../game/research/research-contract.model';
 import type { TechnologyBranch, TechnologyId } from '../../game/research/technology.model';
 
 /** Player-facing texts for research. Each `Record` makes sure every value has a text. */
@@ -25,6 +26,30 @@ const BRANCH_NAMES: Record<TechnologyBranch, string> = {
   reliability: $localize`:@@research.branch.reliability:Zuverlässigkeit`,
   infrastructure: $localize`:@@research.branch.infrastructure:Infrastruktur`
 };
+
+const RESEARCH_TOPIC_NAMES: Record<ResearchTopic, string> = {
+  materialsStudy: $localize`:@@research.topic.materialsStudy:Werkstoffstudie`,
+  trajectoryAnalysis: $localize`:@@research.topic.trajectoryAnalysis:Bahnanalyse`,
+  propulsionTest: $localize`:@@research.topic.propulsionTest:Triebwerkstest am Prüfstand`,
+  microgravityExperiment: $localize`:@@research.topic.microgravityExperiment:Experiment in Schwerelosigkeit`,
+  radiationExperiment: $localize`:@@research.topic.radiationExperiment:Strahlungsmessung im Orbit`,
+  biologyExperiment: $localize`:@@research.topic.biologyExperiment:Biologisches Experiment`
+};
+
+const RESEARCH_CONTRACT_STATUS_LABELS: Record<ResearchContractStatus, string> = {
+  inProgress: $localize`:@@research.contractStatus.inProgress:In Arbeit`,
+  completed: $localize`:@@research.contractStatus.completed:Abgeschlossen`,
+  lost: $localize`:@@research.contractStatus.lost:Beim Fehlstart verloren`,
+  missedDeadline: $localize`:@@research.contractStatus.missedDeadline:Frist verpasst`
+};
+
+export function researchTopicName(topic: ResearchTopic): string {
+  return RESEARCH_TOPIC_NAMES[topic];
+}
+
+export function researchContractStatusLabel(status: ResearchContractStatus): string {
+  return RESEARCH_CONTRACT_STATUS_LABELS[status];
+}
 
 export function technologyName(technologyId: TechnologyId): string {
   return TECHNOLOGY_NAMES[technologyId];

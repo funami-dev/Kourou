@@ -55,6 +55,22 @@
         </div>
       </div>
 
+      <div class="rideshare">
+        <h3 i18n="@@launchPad.rideshare.title">Mitfluglasten</h3>
+        @for (experiment of pad.rideshareExperiments; track experiment.id) {
+          <p>
+            {{ experiment.terms.client }} · {{ researchTopicName(experiment.terms.topic) }}
+            @if (experiment.assignment.kind === 'flightExperiment') {
+              ({{ experiment.assignment.massKg }} kg)
+            }
+          </p>
+        } @empty {
+          <p class="launch-pad__hint" i18n="@@launchPad.rideshare.none">
+            Keine Experimente an Bord. Freie Kapazität: {{ pad.spareCapacityKg | number }} kg.
+          </p>
+        }
+      </div>
+
       <p class="launch-pad__hint" i18n="@@launchPad.padFee">
         Solange die Rakete auf der Rampe steht, kostet das {{ padFeePerDay | euros }} pro Tag.
       </p>

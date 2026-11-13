@@ -12,8 +12,8 @@
           <dd>{{ lab.level }}</dd>
         </div>
         <div>
-          <dt i18n="@@research.laboratory.slots">Laborplätze</dt>
-          <dd>{{ lab.slots }}</dd>
+          <dt i18n="@@research.laboratory.slots">Laborplätze belegt</dt>
+          <dd>{{ lab.occupiedSlots }} / {{ lab.slots }}</dd>
         </div>
         <div>
           <dt i18n="@@research.laboratory.pointsPerDay">Forschungspunkte pro Tag</dt>
@@ -114,5 +114,90 @@
         </section>
       }
     </div>
+  </section>
+
+  <section aria-labelledby="research-contracts-title">
+    <h2 id="research-contracts-title" i18n="@@research.contracts.title">Forschungsaufträge</h2>
+    <p class="research__hint" i18n="@@research.contracts.explanation">
+      Studien belegen einen Laborplatz, solange sie laufen. Experimente fliegen als Mitfluglast beim nächsten Start mit,
+      wenn die Rakete noch Kapazität frei hat (höchstens {{ maxFlightExperiments }} warten gleichzeitig).
+    </p>
+
+    @if (researchOffers().length > 0) {
+      <ul class="research-offers">
+        @for (entry of researchOffers(); track entry.offer.id) {
+          <li class="research-offer">
+            <h3>{{ entry.offer.terms.client }}</h3>
+            <p class="research-offer__topic">{{ researchTopicName(entry.offer.terms.topic) }}</p>
+            <dl class="research-offer__terms">
+              @if (entry.offer.assignment.kind === 'groundStudy') {
+                <dt i18n="@@research.offer.kind">Art</dt>
+                <dd i18n="@@research.offer.groundStudy">Studie im Labor</dd>
+                <dt i18n="@@research.offer.duration">Dauer</dt>
+                <dd i18n="@@research.offer.durationDays">{{ entry.offer.assignment.studyDays }} Tage</dd>
+              } @else {
+                <dt i18n="@@research.offer.kind">Art</dt>
+                <dd i18n="@@research.offer.flightExperiment">Experiment im All</dd>
+                <dt i18n="@@research.offer.mass">Masse</dt>
+                <dd>{{ entry.offer.assignment.massKg }} kg</dd>
+                <dt i18n="@@research.offer.deadline">Startfrist</dt>
+                <dd i18n="@@research.offer.deadlineDay">Tag {{ entry.offer.assignment.deadlineDay }}</dd>
+              }
+              <dt i18n="@@research.offer.payment">Vergütung</dt>
+              <dd>{{ entry.offer.terms.payment | euros }}</dd>
+              <dt i18n="@@research.offer.points">Forschungspunkte</dt>
+              <dd>{{ entry.offer.terms.researchPoints }} FP</dd>
+              <dt i18n="@@research.offer.expires">Gültig bis</dt>
+              <dd i18n="@@research.offer.expiresDay">Tag {{ entry.offer.offerExpiresOnDay }}</dd>
+            </dl>
+            <button
+              mat-flat-button
+              type="button"
+              [disabled]="!entry.canAccept"
+              (click)="acceptResearchOffer(entry.offer)"
+              i18n="@@research.offer.accept"
+            >
+              Annehmen
+            </button>
+            @if (!entry.canAccept && entry.offer.assignment.kind === 'groundStudy') {
+              <p class="research__hint" i18n="@@research.offer.needsLabSlot">Braucht einen freien Laborplatz.</p>
+            }
+          </li>
+        }
+      </ul>
+    } @else {
+      <p class="research__hint" i18n="@@research.contracts.noOffers">
+        Gerade liegen keine Anfragen vor. Neue kommen jeden Morgen herein.
+      </p>
+    }
+
+    @if (researchContracts().length > 0) {
+      <h3 i18n="@@research.contracts.accepted">Angenommen</h3>
+      <ul class="research-contracts">
+        @for (contract of researchContracts(); track contract.id) {
+          <li class="research-contract" [class.research-contract--done]="contract.status !== 'inProgress'">
+            <span>
+              <strong>{{ contract.terms.client }}</strong> · {{ researchTopicName(contract.terms.topic) }}
+            </span>
+            <span class="research-contract__state">
+              @if (contract.status === 'inProgress') {
+                @if (contract.assignment.kind === 'groundStudy') {
+                  <ng-container i18n="@@research.contract.studyRunning">
+                    Im Labor, fertig ab Tag {{ contract.assignment.completesOnDay }}
+                  </ng-container>
+                } @else {
+                  <ng-container i18n="@@research.contract.waitingForLaunch">
+                    Wartet auf einen Start ({{ contract.assignment.massKg }} kg), Frist Tag
+                    {{ contract.assignment.deadlineDay }}
+                  </ng-container>
+                }
+              } @else {
+                {{ researchContractStatusLabel(contract.status) }}
+              }
+            </span>
+          </li>
+        }
+      </ul>
+    }
   </section>
 </section>

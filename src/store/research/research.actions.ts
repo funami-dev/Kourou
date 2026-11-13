@@ -6,3 +6,10 @@ export class StartResearch {
 
   constructor(public readonly technologyId: TechnologyId) {}
 }
+
+/** Adds research points, e.g. from a completed research contract. */
+export class AddResearchPoints {
+  static readonly type = '[Research] Add research points';
+
+  constructor(public readonly points: number) {}
+}

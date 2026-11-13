@@ -74,7 +74,8 @@ describe('GameLoop', () => {
         campaign: { contractId: 1, rocketId: 1 },
         rocketModelId: 'ibis',
         targetOrbit: 'leo',
-        bonuses: NO_TECHNOLOGY_BONUSES
+        bonuses: NO_TECHNOLOGY_BONUSES,
+        rideshareContractIds: []
       },
       () => 0
     );

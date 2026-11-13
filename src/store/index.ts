@@ -9,3 +9,4 @@ export * from './launch/index';
 export * from './reputation/index';
 export * from './buildings/index';
 export * from './research/index';
+export * from './research-contracts/index';

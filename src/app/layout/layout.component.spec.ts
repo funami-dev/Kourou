@@ -13,6 +13,7 @@ import {
   GuiState,
   LaunchState,
   ReputationState,
+  ResearchContractsState,
   ResearchState,
   RocketsState
 } from '../../store';
@@ -38,6 +39,7 @@ describe('LayoutComponent', () => {
           GuiState,
           LaunchState,
           ReputationState,
+          ResearchContractsState,
           ResearchState,
           RocketsState
         ])

@@ -3,7 +3,15 @@ import { provideRouter } from '@angular/router';
 import { Store, provideStore } from '@ngxs/store';
 
 import { NEW_GAME_LEDGER } from '../../game/economy/ledger';
-import { BuildingsState, ClockState, FinanceState, GuiState, ResearchState, RocketsState } from '../../store';
+import {
+  BuildingsState,
+  ClockState,
+  FinanceState,
+  GuiState,
+  ResearchContractsState,
+  ResearchState,
+  RocketsState
+} from '../../store';
 import { RocketsComponent } from './rockets.component';
 
 describe('RocketsComponent', () => {
@@ -18,7 +26,15 @@ describe('RocketsComponent', () => {
       imports: [RocketsComponent],
       providers: [
         provideRouter([]),
-        provideStore([BuildingsState, ClockState, FinanceState, GuiState, ResearchState, RocketsState])
+        provideStore([
+          BuildingsState,
+          ClockState,
+          FinanceState,
+          GuiState,
+          ResearchContractsState,
+          ResearchState,
+          RocketsState
+        ])
       ]
     }).compileComponents();
 

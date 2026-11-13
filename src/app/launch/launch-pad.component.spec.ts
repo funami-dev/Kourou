@@ -12,6 +12,7 @@ import {
   GuiState,
   LaunchState,
   OrderRocket,
+  ResearchContractsState,
   ResearchState,
   RocketsState
 } from '../../store';
@@ -40,6 +41,7 @@ describe('LaunchPadComponent', () => {
           FinanceState,
           GuiState,
           LaunchState,
+          ResearchContractsState,
           ResearchState,
           RocketsState
         ]),

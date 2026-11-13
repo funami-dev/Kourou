@@ -24,7 +24,8 @@ describe('CountdownComponent', () => {
         campaign: { contractId: 1, rocketId: 1 },
         rocketModelId: 'ibis',
         targetOrbit: 'leo',
-        bonuses: NO_TECHNOLOGY_BONUSES
+        bonuses: NO_TECHNOLOGY_BONUSES,
+        rideshareContractIds: []
       },
       () => 0
     );
@@ -74,7 +75,8 @@ describe('CountdownComponent', () => {
         rocketName: 'Ibis IB-01',
         income: 8_100_000,
         costs: 0,
-        reputationChange: 5
+        reputationChange: 5,
+        rideshareExperiments: 0
       }
     );
 

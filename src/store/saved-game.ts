@@ -1,6 +1,7 @@
 import { NEW_GAME_CONTRACT_MARKET } from '../game/contracts/contract-market';
 import { NEW_GAME_LEDGER } from '../game/economy/ledger';
 import { NEW_GAME_RESEARCH_PROGRESS } from '../game/research/research';
+import { NEW_GAME_RESEARCH_CONTRACT_MARKET } from '../game/research/research-contracts';
 import { STARTING_REPUTATION } from '../game/reputation/reputation';
 import { NEW_GAME_ROCKET_FLEET } from '../game/rockets/rocket-fleet';
 import { NEW_GAME_BUILDINGS } from './buildings/buildings.state';
@@ -18,6 +19,7 @@ const NEW_GAME_STATES: Record<string, object> = {
   launch: NEW_GAME_LAUNCH,
   reputation: { points: STARTING_REPUTATION },
   research: NEW_GAME_RESEARCH_PROGRESS,
+  researchContracts: NEW_GAME_RESEARCH_CONTRACT_MARKET,
   rockets: NEW_GAME_ROCKET_FLEET
 };
 

@@ -22,6 +22,7 @@ import {
   GuiState,
   LaunchState,
   ReputationState,
+  ResearchContractsState,
   ResearchState,
   RocketsState
 } from '../store';
@@ -44,6 +45,7 @@ export const appConfig: ApplicationConfig = {
         GuiState,
         LaunchState,
         ReputationState,
+        ResearchContractsState,
         ResearchState,
         RocketsState
       ],

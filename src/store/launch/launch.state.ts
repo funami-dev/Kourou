@@ -10,17 +10,20 @@ import { advanceCountdown, createCountdown, decideOnIssue, isCountdownFinished }
 import type { LaunchConditions } from '../../game/launch/countdown';
 import { rocketsAvailableFor } from '../../game/launch/launch-campaign';
 import { PAD_FEE_PER_DAY, PAD_REPAIR_COSTS_AFTER_FAILURE, SCRUB_COSTS } from '../../game/launch/launch.constants';
-import type { Countdown, LaunchCampaign, LaunchOutcome } from '../../game/launch/launch.model';
+import type { Countdown, LaunchCampaign, LaunchMission, LaunchOutcome } from '../../game/launch/launch.model';
 import { LiveConditionsService } from '../../game/live-conditions/live-conditions.service';
 import { RandomSource } from '../../game/random';
+import { selectRideshareExperiments } from '../../game/research/research-contracts';
 import { REPUTATION_CHANGE_BY_OUTCOME } from '../../game/reputation/reputation';
 import type { Rocket } from '../../game/rockets/rocket.model';
 import { rocketDisplayName } from '../../game/rockets/rocket-fleet';
+import { ROCKET_MODELS } from '../../game/rockets/rockets.constants';
 import { ClockState, GameDayStarted } from '../clock';
 import { ContractDeadlinesMissed, ContractsState } from '../contracts';
 import { BookTransaction } from '../finance';
 import { StartNewGame } from '../game.actions';
 import { ResearchState } from '../research';
+import { ResearchContractsState } from '../research-contracts/research-contracts.state';
 import { RocketsState } from '../rockets';
 import {
   AdvanceCountdown,
@@ -101,11 +104,18 @@ export class LaunchState {
       return;
     }
 
+    const rocketModel = ROCKET_MODELS[rocket.modelId];
+    const spareCapacityKg = rocketModel.payloadCapacityKg[contract.payload.targetOrbit] - contract.payload.massKg;
+    const rideshareExperiments = selectRideshareExperiments(
+      this.store.selectSnapshot(ResearchContractsState.contracts),
+      spareCapacityKg
+    );
     const mission = {
       campaign,
       rocketModelId: rocket.modelId,
       targetOrbit: contract.payload.targetOrbit,
-      bonuses: this.store.selectSnapshot(ResearchState.bonuses)
+      bonuses: this.store.selectSnapshot(ResearchState.bonuses),
+      rideshareContractIds: rideshareExperiments.map(({ id }) => id)
     };
     ctx.patchState({ countdown: createCountdown(mission, this.randomSource.next), lastResult: null });
   }
@@ -165,12 +175,13 @@ export class LaunchState {
     ctx.patchState({ countdown });
 
     if (!wasFinished && countdown.status.kind === 'finished') {
-      this.completeLaunch(ctx, countdown.status.outcome, countdown.mission.campaign);
+      this.completeLaunch(ctx, countdown.status.outcome, countdown.mission);
     }
   }
 
   /** Books the money, records the result and tells contracts, rockets and reputation how the launch ended. */
-  private completeLaunch(ctx: StateContext<LaunchStateModel>, outcome: LaunchOutcome, campaign: LaunchCampaign): void {
+  private completeLaunch(ctx: StateContext<LaunchStateModel>, outcome: LaunchOutcome, mission: LaunchMission): void {
+    const { campaign, rideshareContractIds } = mission;
     const contract = this.findContract(campaign.contractId);
     const rocket = this.findRocket(campaign.rocketId);
     if (!contract || !rocket) {
@@ -192,10 +203,11 @@ export class LaunchState {
         rocketName: rocketDisplayName(rocket),
         income: Math.max(0, booking.amount),
         costs: Math.max(0, -booking.amount),
-        reputationChange: REPUTATION_CHANGE_BY_OUTCOME[outcome]
+        reputationChange: REPUTATION_CHANGE_BY_OUTCOME[outcome],
+        rideshareExperiments: rideshareContractIds.length
       }
     });
-    ctx.dispatch(new LaunchCompleted(outcome, campaign));
+    ctx.dispatch(new LaunchCompleted(outcome, campaign, rideshareContractIds));
   }
 
   private launchConditions(): LaunchConditions {

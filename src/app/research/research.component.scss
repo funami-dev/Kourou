@@ -84,3 +84,71 @@
   font-size: 0.9rem;
   opacity: 0.8;
 }
+
+.research-offers {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.research-offer {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+
+  h3 {
+    margin: 0;
+  }
+
+  button {
+    margin-top: auto;
+  }
+}
+
+.research-offer__topic {
+  margin: 4px 0 12px;
+  opacity: 0.8;
+}
+
+.research-offer__terms {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 12px;
+  margin: 0 0 16px;
+
+  dt {
+    opacity: 0.7;
+  }
+
+  dd {
+    margin: 0;
+  }
+}
+
+.research-contracts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.research-contract {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.research-contract--done {
+  opacity: 0.6;
+}
+
+.research-contract__state {
+  text-align: right;
+  opacity: 0.85;
+}

@@ -9,6 +9,7 @@ import {
   CrewState,
   FinanceState,
   GuiState,
+  ResearchContractsState,
   ResearchState,
   RocketsState
 } from '../../store';
@@ -30,6 +31,7 @@ describe('SettingsComponent', () => {
           CrewState,
           FinanceState,
           GuiState,
+          ResearchContractsState,
           ResearchState,
           RocketsState
         ])

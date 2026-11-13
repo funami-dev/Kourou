@@ -10,6 +10,7 @@ import { AdvanceClock, ClockState } from '../clock';
 import { FinanceState } from '../finance';
 import { GuiState } from '../gui';
 import { StartResearch } from './research.actions';
+import { ResearchContractsState } from '../research-contracts';
 import { ResearchState } from './research.state';
 
 const WEATHER_RADAR = TECHNOLOGIES.weatherRadar;
@@ -29,7 +30,10 @@ describe('ResearchState', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideRouter([]), provideStore([BuildingsState, ClockState, FinanceState, GuiState, ResearchState])]
+      providers: [
+        provideRouter([]),
+        provideStore([BuildingsState, ClockState, FinanceState, GuiState, ResearchContractsState, ResearchState])
+      ]
     });
     store = TestBed.inject(Store);
   });

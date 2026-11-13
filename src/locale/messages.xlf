@@ -505,10 +505,18 @@
         <source>Forschung</source>
       </segment>
     </unit>
+    <unit id="finances.category.researchContractPayment">
+      <notes>
+        <note category="location">src/app/finances/transaction-category-label.ts:16</note>
+      </notes>
+      <segment>
+        <source>Zahlung Forschungsauftrag</source>
+      </segment>
+    </unit>
     <unit id="countdown.title">
       <notes>
         <note category="location">src/app/launch/countdown.component.html:5,6</note>
-        <note category="location">src/app/launch/countdown.component.html:148,149</note>
+        <note category="location">src/app/launch/countdown.component.html:170,171</note>
       </notes>
       <segment>
         <source>Kontrollzentrum</source>
@@ -594,9 +602,47 @@
         <source>Ruf</source>
       </segment>
     </unit>
+    <unit id="countdown.result.rideshareDelivered">
+      <notes>
+        <note category="location">src/app/launch/countdown.component.html:92,97</note>
+      </notes>
+      <segment>
+        <source> <ph id="0" equiv="ICU" disp="{result.rideshareExperiments, plural,
+                      =1 {Ein Forschungsexperiment wurde}
+                      other {{{ result.rideshareExperiments }} Forschungsexperimente wurden}
+                    }" subFlows="7354308055879318125"/> als Mitfluglast abgeliefert. </source>
+      </segment>
+    </unit>
+    <unit id="9206495569414447890">
+      <notes>
+        <note category="location">src/app/launch/countdown.component.html:92,94</note>
+      </notes>
+      <segment>
+        <source>{VAR_PLURAL, plural, =1 {Ein Forschungsexperiment wurde} other {<ph id="0" equiv="INTERPOLATION"/> Forschungsexperimente wurden}}</source>
+      </segment>
+    </unit>
+    <unit id="countdown.result.rideshareLost">
+      <notes>
+        <note category="location">src/app/launch/countdown.component.html:101,106</note>
+      </notes>
+      <segment>
+        <source> <ph id="0" equiv="ICU" disp="{result.rideshareExperiments, plural,
+                      =1 {Ein Forschungsexperiment ging}
+                      other {{{ result.rideshareExperiments }} Forschungsexperimente gingen}
+                    }" subFlows="8752773736759697214"/> verloren. </source>
+      </segment>
+    </unit>
+    <unit id="1315802909121259891">
+      <notes>
+        <note category="location">src/app/launch/countdown.component.html:101,103</note>
+      </notes>
+      <segment>
+        <source>{VAR_PLURAL, plural, =1 {Ein Forschungsexperiment ging} other {<ph id="0" equiv="INTERPOLATION"/> Forschungsexperimente gingen}}</source>
+      </segment>
+    </unit>
     <unit id="countdown.result.scrubbedHint">
       <notes>
-        <note category="location">src/app/launch/countdown.component.html:90,92</note>
+        <note category="location">src/app/launch/countdown.component.html:112,114</note>
       </notes>
       <segment>
         <source> Die Rakete bleibt auf der Rampe. Du kannst es erneut versuchen, sobald die Bedingungen passen. </source>
@@ -604,7 +650,7 @@
     </unit>
     <unit id="countdown.result.close">
       <notes>
-        <note category="location">src/app/launch/countdown.component.html:94,96</note>
+        <note category="location">src/app/launch/countdown.component.html:116,118</note>
       </notes>
       <segment>
         <source> Zurück zur Startrampe </source>
@@ -612,7 +658,7 @@
     </unit>
     <unit id="countdown.stations.title">
       <notes>
-        <note category="location">src/app/launch/countdown.component.html:103,105</note>
+        <note category="location">src/app/launch/countdown.component.html:125,127</note>
       </notes>
       <segment>
         <source>Stationen</source>
@@ -620,7 +666,7 @@
     </unit>
     <unit id="countdown.weather.title">
       <notes>
-        <note category="location">src/app/launch/countdown.component.html:123,125</note>
+        <note category="location">src/app/launch/countdown.component.html:145,147</note>
       </notes>
       <segment>
         <source>Wetter in Kourou</source>
@@ -628,7 +674,7 @@
     </unit>
     <unit id="countdown.weather.gusts">
       <notes>
-        <note category="location">src/app/launch/countdown.component.html:128,131</note>
+        <note category="location">src/app/launch/countdown.component.html:150,153</note>
       </notes>
       <segment>
         <source> Böen <ph id="0" equiv="INTERPOLATION" disp="{{ weather().windGustsMetersPerSecond | number: &apos;1.0-1&apos; }}"/> m/s (Grenze <ph id="1" equiv="INTERPOLATION_1" disp="{{ rocketModel()?.maxWindGustsMetersPerSecond }}"/> m/s) </source>
@@ -636,7 +682,7 @@
     </unit>
     <unit id="countdown.log.title">
       <notes>
-        <note category="location">src/app/launch/countdown.component.html:134,136</note>
+        <note category="location">src/app/launch/countdown.component.html:156,158</note>
       </notes>
       <segment>
         <source>Funkprotokoll</source>
@@ -644,7 +690,7 @@
     </unit>
     <unit id="countdown.none">
       <notes>
-        <note category="location">src/app/launch/countdown.component.html:149,150</note>
+        <note category="location">src/app/launch/countdown.component.html:171,172</note>
       </notes>
       <segment>
         <source>Gerade läuft kein Countdown.</source>
@@ -652,7 +698,7 @@
     </unit>
     <unit id="countdown.toLaunchPad">
       <notes>
-        <note category="location">src/app/launch/countdown.component.html:150,153</note>
+        <note category="location">src/app/launch/countdown.component.html:172,175</note>
       </notes>
       <segment>
         <source>Zur Startrampe</source>
@@ -754,9 +800,25 @@
         <source>No Go:</source>
       </segment>
     </unit>
+    <unit id="launchPad.rideshare.title">
+      <notes>
+        <note category="location">src/app/launch/launch-pad.component.html:59,60</note>
+      </notes>
+      <segment>
+        <source>Mitfluglasten</source>
+      </segment>
+    </unit>
+    <unit id="launchPad.rideshare.none">
+      <notes>
+        <note category="location">src/app/launch/launch-pad.component.html:69,71</note>
+      </notes>
+      <segment>
+        <source> Keine Experimente an Bord. Freie Kapazität: <ph id="0" equiv="INTERPOLATION" disp="{{ pad.spareCapacityKg | number }}"/> kg. </source>
+      </segment>
+    </unit>
     <unit id="launchPad.padFee">
       <notes>
-        <note category="location">src/app/launch/launch-pad.component.html:59,62</note>
+        <note category="location">src/app/launch/launch-pad.component.html:75,78</note>
       </notes>
       <segment>
         <source> Solange die Rakete auf der Rampe steht, kostet das <ph id="0" equiv="INTERPOLATION" disp="{{ padFeePerDay | euros }}"/> pro Tag. </source>
@@ -764,7 +826,7 @@
     </unit>
     <unit id="launchPad.startCountdown">
       <notes>
-        <note category="location">src/app/launch/launch-pad.component.html:70,72</note>
+        <note category="location">src/app/launch/launch-pad.component.html:86,88</note>
       </notes>
       <segment>
         <source> Countdown starten </source>
@@ -772,7 +834,7 @@
     </unit>
     <unit id="launchPad.removeRocket">
       <notes>
-        <note category="location">src/app/launch/launch-pad.component.html:79,81</note>
+        <note category="location">src/app/launch/launch-pad.component.html:95,97</note>
       </notes>
       <segment>
         <source> Von der Rampe nehmen </source>
@@ -780,7 +842,7 @@
     </unit>
     <unit id="launchPad.windowTooLate">
       <notes>
-        <note category="location">src/app/launch/launch-pad.component.html:84,87</note>
+        <note category="location">src/app/launch/launch-pad.component.html:100,103</note>
       </notes>
       <segment>
         <source> Der Start wäre zehn Minuten nach Beginn des Countdowns – dann muss das Startfenster offen sein. </source>
@@ -788,7 +850,7 @@
     </unit>
     <unit id="launchPad.empty">
       <notes>
-        <note category="location">src/app/launch/launch-pad.component.html:90,94</note>
+        <note category="location">src/app/launch/launch-pad.component.html:106,110</note>
       </notes>
       <segment>
         <source> Die Rampe ist frei. Bring eine montierte Rakete für einen angenommenen Auftrag auf die Rampe. </source>
@@ -796,7 +858,7 @@
     </unit>
     <unit id="launchPad.waiting.title">
       <notes>
-        <note category="location">src/app/launch/launch-pad.component.html:94,95</note>
+        <note category="location">src/app/launch/launch-pad.component.html:110,111</note>
       </notes>
       <segment>
         <source>Aufträge, die auf ihren Start warten</source>
@@ -804,7 +866,7 @@
     </unit>
     <unit id="launchPad.waiting.payload">
       <notes>
-        <note category="location">src/app/launch/launch-pad.component.html:102,104</note>
+        <note category="location">src/app/launch/launch-pad.component.html:118,120</note>
       </notes>
       <segment>
         <source> <ph id="0" equiv="INTERPOLATION" disp="{{ entry.contract.payload.massKg | number }}"/> kg · <ph id="1" equiv="INTERPOLATION_1" disp="{{ orbitLabel(entry.contract.payload.targetOrbit) }}"/> · Startfrist Tag <ph id="2" equiv="INTERPOLATION_2" disp="{{ entry.contract.deadlineDay }}"/> </source>
@@ -812,7 +874,7 @@
     </unit>
     <unit id="launchPad.moveToPad">
       <notes>
-        <note category="location">src/app/launch/launch-pad.component.html:115,116</note>
+        <note category="location">src/app/launch/launch-pad.component.html:131,132</note>
       </notes>
       <segment>
         <source> <ph id="0" equiv="INTERPOLATION" disp="{{ rocketDisplayName(rocket) }}"/> auf die Rampe </source>
@@ -820,7 +882,7 @@
     </unit>
     <unit id="launchPad.noRocket">
       <notes>
-        <note category="location">src/app/launch/launch-pad.component.html:119,120</note>
+        <note category="location">src/app/launch/launch-pad.component.html:135,136</note>
       </notes>
       <segment>
         <source> Keine montierte Rakete, die diese Nutzlast tragen kann. </source>
@@ -828,7 +890,7 @@
     </unit>
     <unit id="launchPad.waiting.empty">
       <notes>
-        <note category="location">src/app/launch/launch-pad.component.html:127,130</note>
+        <note category="location">src/app/launch/launch-pad.component.html:143,146</note>
       </notes>
       <segment>
         <source>Kein angenommener Auftrag wartet auf einen Start.</source>
@@ -1468,7 +1530,7 @@
     </unit>
     <unit id="research.technology.weatherRadar">
       <notes>
-        <note category="location">src/app/research/research-texts.ts:6</note>
+        <note category="location">src/app/research/research-texts.ts:7</note>
       </notes>
       <segment>
         <source>Wetterradar</source>
@@ -1476,7 +1538,7 @@
     </unit>
     <unit id="research.technology.rangeSurveillance">
       <notes>
-        <note category="location">src/app/research/research-texts.ts:7</note>
+        <note category="location">src/app/research/research-texts.ts:8</note>
       </notes>
       <segment>
         <source>Sperrzonen-Überwachung</source>
@@ -1484,7 +1546,7 @@
     </unit>
     <unit id="research.technology.qualityAssurance">
       <notes>
-        <note category="location">src/app/research/research-texts.ts:8</note>
+        <note category="location">src/app/research/research-texts.ts:9</note>
       </notes>
       <segment>
         <source>Qualitätssicherung</source>
@@ -1492,7 +1554,7 @@
     </unit>
     <unit id="research.technology.redundantSensors">
       <notes>
-        <note category="location">src/app/research/research-texts.ts:9</note>
+        <note category="location">src/app/research/research-texts.ts:10</note>
       </notes>
       <segment>
         <source>Redundante Sensoren</source>
@@ -1500,7 +1562,7 @@
     </unit>
     <unit id="research.technology.modularAssembly">
       <notes>
-        <note category="location">src/app/research/research-texts.ts:10</note>
+        <note category="location">src/app/research/research-texts.ts:11</note>
       </notes>
       <segment>
         <source>Modulare Montage</source>
@@ -1508,7 +1570,7 @@
     </unit>
     <unit id="research.technology.portLogistics">
       <notes>
-        <note category="location">src/app/research/research-texts.ts:11</note>
+        <note category="location">src/app/research/research-texts.ts:12</note>
       </notes>
       <segment>
         <source>Hafenlogistik</source>
@@ -1516,7 +1578,7 @@
     </unit>
     <unit id="research.technology.weatherRadar.description">
       <notes>
-        <note category="location">src/app/research/research-texts.ts:15</note>
+        <note category="location">src/app/research/research-texts.ts:16</note>
       </notes>
       <segment>
         <source>Bessere Kurzfristprognosen: Wetter-Holds im Countdown dauern nur noch halb so lang.</source>
@@ -1524,7 +1586,7 @@
     </unit>
     <unit id="research.technology.rangeSurveillance.description">
       <notes>
-        <note category="location">src/app/research/research-texts.ts:16</note>
+        <note category="location">src/app/research/research-texts.ts:17</note>
       </notes>
       <segment>
         <source>Das Radar überwacht auch das Meer: Boote in der Sperrzone stoppen keinen Countdown mehr.</source>
@@ -1532,7 +1594,7 @@
     </unit>
     <unit id="research.technology.qualityAssurance.description">
       <notes>
-        <note category="location">src/app/research/research-texts.ts:17</note>
+        <note category="location">src/app/research/research-texts.ts:18</note>
       </notes>
       <segment>
         <source>Strengere Prüfungen bei der Montage: +2 Prozentpunkte Erfolgschance bei jedem Start.</source>
@@ -1540,7 +1602,7 @@
     </unit>
     <unit id="research.technology.redundantSensors.description">
       <notes>
-        <note category="location">src/app/research/research-texts.ts:18</note>
+        <note category="location">src/app/research/research-texts.ts:19</note>
       </notes>
       <segment>
         <source>Jede Messung doppelt: Sensoranomalien stoppen keinen Countdown mehr.</source>
@@ -1548,7 +1610,7 @@
     </unit>
     <unit id="research.technology.modularAssembly.description">
       <notes>
-        <note category="location">src/app/research/research-texts.ts:19</note>
+        <note category="location">src/app/research/research-texts.ts:20</note>
       </notes>
       <segment>
         <source>Vormontierte Baugruppen: Raketen werden 30 % schneller montiert.</source>
@@ -1556,7 +1618,7 @@
     </unit>
     <unit id="research.technology.portLogistics.description">
       <notes>
-        <note category="location">src/app/research/research-texts.ts:20</note>
+        <note category="location">src/app/research/research-texts.ts:21</note>
       </notes>
       <segment>
         <source>Eigener Liegeplatz und Kräne am Hafen: Lieferungen per Schiff kommen 3 Tage früher an.</source>
@@ -1564,7 +1626,7 @@
     </unit>
     <unit id="research.branch.launchOperations">
       <notes>
-        <note category="location">src/app/research/research-texts.ts:24</note>
+        <note category="location">src/app/research/research-texts.ts:25</note>
       </notes>
       <segment>
         <source>Startbetrieb</source>
@@ -1572,7 +1634,7 @@
     </unit>
     <unit id="research.branch.reliability">
       <notes>
-        <note category="location">src/app/research/research-texts.ts:25</note>
+        <note category="location">src/app/research/research-texts.ts:26</note>
       </notes>
       <segment>
         <source>Zuverlässigkeit</source>
@@ -1580,10 +1642,90 @@
     </unit>
     <unit id="research.branch.infrastructure">
       <notes>
-        <note category="location">src/app/research/research-texts.ts:26</note>
+        <note category="location">src/app/research/research-texts.ts:27</note>
       </notes>
       <segment>
         <source>Infrastruktur</source>
+      </segment>
+    </unit>
+    <unit id="research.topic.materialsStudy">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:31</note>
+      </notes>
+      <segment>
+        <source>Werkstoffstudie</source>
+      </segment>
+    </unit>
+    <unit id="research.topic.trajectoryAnalysis">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:32</note>
+      </notes>
+      <segment>
+        <source>Bahnanalyse</source>
+      </segment>
+    </unit>
+    <unit id="research.topic.propulsionTest">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:33</note>
+      </notes>
+      <segment>
+        <source>Triebwerkstest am Prüfstand</source>
+      </segment>
+    </unit>
+    <unit id="research.topic.microgravityExperiment">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:34</note>
+      </notes>
+      <segment>
+        <source>Experiment in Schwerelosigkeit</source>
+      </segment>
+    </unit>
+    <unit id="research.topic.radiationExperiment">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:35</note>
+      </notes>
+      <segment>
+        <source>Strahlungsmessung im Orbit</source>
+      </segment>
+    </unit>
+    <unit id="research.topic.biologyExperiment">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:36</note>
+      </notes>
+      <segment>
+        <source>Biologisches Experiment</source>
+      </segment>
+    </unit>
+    <unit id="research.contractStatus.inProgress">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:40</note>
+      </notes>
+      <segment>
+        <source>In Arbeit</source>
+      </segment>
+    </unit>
+    <unit id="research.contractStatus.completed">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:41</note>
+      </notes>
+      <segment>
+        <source>Abgeschlossen</source>
+      </segment>
+    </unit>
+    <unit id="research.contractStatus.lost">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:42</note>
+      </notes>
+      <segment>
+        <source>Beim Fehlstart verloren</source>
+      </segment>
+    </unit>
+    <unit id="research.contractStatus.missedDeadline">
+      <notes>
+        <note category="location">src/app/research/research-texts.ts:43</note>
+      </notes>
+      <segment>
+        <source>Frist verpasst</source>
       </segment>
     </unit>
     <unit id="research.title">
@@ -1615,7 +1757,7 @@
         <note category="location">src/app/research/research.component.html:15,16</note>
       </notes>
       <segment>
-        <source>Laborplätze</source>
+        <source>Laborplätze belegt</source>
       </segment>
     </unit>
     <unit id="research.laboratory.pointsPerDay">
@@ -1736,6 +1878,167 @@
       </notes>
       <segment>
         <source> Erforschen </source>
+      </segment>
+    </unit>
+    <unit id="research.contracts.title">
+      <notes>
+        <note category="location">src/app/research/research.component.html:120,121</note>
+      </notes>
+      <segment>
+        <source>Forschungsaufträge</source>
+      </segment>
+    </unit>
+    <unit id="research.contracts.explanation">
+      <notes>
+        <note category="location">src/app/research/research.component.html:122,126</note>
+      </notes>
+      <segment>
+        <source> Studien belegen einen Laborplatz, solange sie laufen. Experimente fliegen als Mitfluglast beim nächsten Start mit, wenn die Rakete noch Kapazität frei hat (höchstens <ph id="0" equiv="INTERPOLATION" disp="{{ maxFlightExperiments }}"/> warten gleichzeitig). </source>
+      </segment>
+    </unit>
+    <unit id="research.offer.kind">
+      <notes>
+        <note category="location">src/app/research/research.component.html:135</note>
+        <note category="location">src/app/research/research.component.html:140</note>
+      </notes>
+      <segment>
+        <source>Art</source>
+      </segment>
+    </unit>
+    <unit id="research.offer.groundStudy">
+      <notes>
+        <note category="location">src/app/research/research.component.html:135,136</note>
+      </notes>
+      <segment>
+        <source>Studie im Labor</source>
+      </segment>
+    </unit>
+    <unit id="research.offer.duration">
+      <notes>
+        <note category="location">src/app/research/research.component.html:136,137</note>
+      </notes>
+      <segment>
+        <source>Dauer</source>
+      </segment>
+    </unit>
+    <unit id="research.offer.durationDays">
+      <notes>
+        <note category="location">src/app/research/research.component.html:137,138</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="INTERPOLATION" disp="{{ entry.offer.assignment.studyDays }}"/> Tage</source>
+      </segment>
+    </unit>
+    <unit id="research.offer.flightExperiment">
+      <notes>
+        <note category="location">src/app/research/research.component.html:140,141</note>
+      </notes>
+      <segment>
+        <source>Experiment im All</source>
+      </segment>
+    </unit>
+    <unit id="research.offer.mass">
+      <notes>
+        <note category="location">src/app/research/research.component.html:141,142</note>
+      </notes>
+      <segment>
+        <source>Masse</source>
+      </segment>
+    </unit>
+    <unit id="research.offer.deadline">
+      <notes>
+        <note category="location">src/app/research/research.component.html:143,144</note>
+      </notes>
+      <segment>
+        <source>Startfrist</source>
+      </segment>
+    </unit>
+    <unit id="research.offer.deadlineDay">
+      <notes>
+        <note category="location">src/app/research/research.component.html:144,145</note>
+      </notes>
+      <segment>
+        <source>Tag <ph id="0" equiv="INTERPOLATION" disp="{{ entry.offer.assignment.deadlineDay }}"/></source>
+      </segment>
+    </unit>
+    <unit id="research.offer.payment">
+      <notes>
+        <note category="location">src/app/research/research.component.html:146,147</note>
+      </notes>
+      <segment>
+        <source>Vergütung</source>
+      </segment>
+    </unit>
+    <unit id="research.offer.points">
+      <notes>
+        <note category="location">src/app/research/research.component.html:148,149</note>
+      </notes>
+      <segment>
+        <source>Forschungspunkte</source>
+      </segment>
+    </unit>
+    <unit id="research.offer.expires">
+      <notes>
+        <note category="location">src/app/research/research.component.html:150,151</note>
+      </notes>
+      <segment>
+        <source>Gültig bis</source>
+      </segment>
+    </unit>
+    <unit id="research.offer.expiresDay">
+      <notes>
+        <note category="location">src/app/research/research.component.html:151,152</note>
+      </notes>
+      <segment>
+        <source>Tag <ph id="0" equiv="INTERPOLATION" disp="{{ entry.offer.offerExpiresOnDay }}"/></source>
+      </segment>
+    </unit>
+    <unit id="research.offer.accept">
+      <notes>
+        <note category="location">src/app/research/research.component.html:160,162</note>
+      </notes>
+      <segment>
+        <source> Annehmen </source>
+      </segment>
+    </unit>
+    <unit id="research.offer.needsLabSlot">
+      <notes>
+        <note category="location">src/app/research/research.component.html:163,166</note>
+      </notes>
+      <segment>
+        <source>Braucht einen freien Laborplatz.</source>
+      </segment>
+    </unit>
+    <unit id="research.contracts.noOffers">
+      <notes>
+        <note category="location">src/app/research/research.component.html:170,174</note>
+      </notes>
+      <segment>
+        <source> Gerade liegen keine Anfragen vor. Neue kommen jeden Morgen herein. </source>
+      </segment>
+    </unit>
+    <unit id="research.contracts.accepted">
+      <notes>
+        <note category="location">src/app/research/research.component.html:175,176</note>
+      </notes>
+      <segment>
+        <source>Angenommen</source>
+      </segment>
+    </unit>
+    <unit id="research.contract.studyRunning">
+      <notes>
+        <note category="location">src/app/research/research.component.html:186,187</note>
+      </notes>
+      <segment>
+        <source> Im Labor, fertig ab Tag <ph id="0" equiv="INTERPOLATION" disp="{{ contract.assignment.completesOnDay }}"/> </source>
+      </segment>
+    </unit>
+    <unit id="research.contract.waitingForLaunch">
+      <notes>
+        <note category="location">src/app/research/research.component.html:190,192</note>
+      </notes>
+      <segment>
+        <source> Wartet auf einen Start (<ph id="0" equiv="INTERPOLATION" disp="{{ contract.assignment.massKg }}"/> kg), Frist Tag <ph id="1" equiv="INTERPOLATION_1" disp="{{ contract.assignment.deadlineDay }}"/> </source>
       </segment>
     </unit>
     <unit id="rockets.status.inTransit">

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { Store, provideStore } from '@ngxs/store';
 
-import { BuildingsState, ClockState, FinanceState, GuiState, ResearchState } from '../../store';
+import { BuildingsState, ClockState, FinanceState, GuiState, ResearchContractsState, ResearchState } from '../../store';
 import { ResearchComponent } from './research.component';
 
 describe('ResearchComponent', () => {
@@ -18,7 +18,10 @@ describe('ResearchComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ResearchComponent],
-      providers: [provideRouter([]), provideStore([BuildingsState, ClockState, FinanceState, GuiState, ResearchState])]
+      providers: [
+        provideRouter([]),
+        provideStore([BuildingsState, ClockState, FinanceState, GuiState, ResearchContractsState, ResearchState])
+      ]
     }).compileComponents();
 
     store = TestBed.inject(Store);
@@ -47,6 +50,17 @@ describe('ResearchComponent', () => {
 
     expect(store.selectSnapshot(ResearchState.progress).activeProject?.technologyId).toBe('weatherRadar');
     expect(text()).toContain('In Forschung: Wetterradar');
+  });
+
+  it('accepts a flight experiment without a laboratory', async () => {
+    const experimentButton = Array.from(
+      (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('.research-offer button')
+    )[1]!;
+    experimentButton.click();
+    await fixture.whenStable();
+
+    expect(store.selectSnapshot(ResearchContractsState.contracts)).toHaveLength(1);
+    expect(text()).toContain('Wartet auf einen Start');
   });
 
   it('offers to build a laboratory', async () => {

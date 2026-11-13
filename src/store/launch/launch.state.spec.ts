@@ -5,6 +5,7 @@ import { Store, provideStore } from '@ngxs/store';
 
 import { GAME_TIME_PER_REAL_TIME, MS_PER_DAY, MS_PER_MINUTE } from '../../game/clock/clock.constants';
 import { STARTER_OFFERS } from '../../game/contracts/contracts.constants';
+import { STARTER_RESEARCH_OFFERS } from '../../game/research/research-contracts.constants';
 import { PAD_FEE_PER_DAY, SCRUB_COSTS } from '../../game/launch/launch.constants';
 import { LAUNCH_SITES } from '../../game/launch-sites/launch-sites.constants';
 import { LiveConditionsService } from '../../game/live-conditions/live-conditions.service';
@@ -18,6 +19,7 @@ import { FinanceState } from '../finance';
 import { GuiState } from '../gui';
 import { ReputationState } from '../reputation';
 import { ResearchState } from '../research';
+import { AcceptResearchOffer, ResearchContractsState } from '../research-contracts';
 import { OrderRocket, RocketsState } from '../rockets';
 import {
   AdvanceCountdown,
@@ -67,6 +69,7 @@ describe('LaunchState', () => {
           GuiState,
           LaunchState,
           ReputationState,
+          ResearchContractsState,
           ResearchState,
           RocketsState
         ]),
@@ -161,5 +164,25 @@ describe('LaunchState', () => {
 
     const newTransactions = store.selectSnapshot(FinanceState.transactions).slice(transactionsBefore);
     expect(newTransactions).toContainEqual(expect.objectContaining({ category: 'padFees', amount: -PAD_FEE_PER_DAY }));
+  });
+
+  it('takes a research experiment along and delivers it with a successful launch', () => {
+    const experimentOffer = STARTER_RESEARCH_OFFERS[1]!; // 30 kg, fits next to Lumen-1 into an Ibis
+    store.dispatch(new AcceptResearchOffer(experimentOffer.id));
+    prepareLaunch();
+
+    store.dispatch(new StartCountdown());
+    expect(launch().countdown?.mission.rideshareContractIds).toEqual([experimentOffer.id]);
+
+    store.dispatch(new AdvanceCountdown(ENOUGH_TIME_FOR_COUNTDOWN_AND_FLIGHT));
+    store.dispatch(new DecideOnCountdownIssue('hold'));
+    store.dispatch(new AdvanceCountdown(ENOUGH_TIME_FOR_COUNTDOWN_AND_FLIGHT));
+
+    expect(launch().lastResult).toMatchObject({ outcome: 'success', rideshareExperiments: 1 });
+    expect(store.selectSnapshot(ResearchContractsState.contracts)[0]?.status).toBe('completed');
+    expect(store.selectSnapshot(ResearchState.researchPoints)).toBe(experimentOffer.terms.researchPoints);
+    expect(store.selectSnapshot(FinanceState.transactions)).toContainEqual(
+      expect.objectContaining({ category: 'researchContractPayment', amount: experimentOffer.terms.payment })
+    );
   });
 });

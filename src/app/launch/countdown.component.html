@@ -85,6 +85,28 @@
                 <dd>{{ result.reputationChange > 0 ? '+' : '' }}{{ result.reputationChange }}</dd>
               </div>
             </dl>
+            @if (result.rideshareExperiments > 0) {
+              @switch (result.outcome) {
+                @case ('success') {
+                  <p i18n="@@countdown.result.rideshareDelivered">
+                    {result.rideshareExperiments, plural,
+                      =1 {Ein Forschungsexperiment wurde}
+                      other {{{ result.rideshareExperiments }} Forschungsexperimente wurden}
+                    }
+                    als Mitfluglast abgeliefert.
+                  </p>
+                }
+                @case ('failure') {
+                  <p i18n="@@countdown.result.rideshareLost">
+                    {result.rideshareExperiments, plural,
+                      =1 {Ein Forschungsexperiment ging}
+                      other {{{ result.rideshareExperiments }} Forschungsexperimente gingen}
+                    }
+                    verloren.
+                  </p>
+                }
+              }
+            }
             @if (result.outcome === 'scrubbed') {
               <p class="countdown__secondary" i18n="@@countdown.result.scrubbedHint">
                 Die Rakete bleibt auf der Rampe. Du kannst es erneut versuchen, sobald die Bedingungen passen.

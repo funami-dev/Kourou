@@ -20,6 +20,8 @@ export interface LaunchMission {
   rocketModelId: RocketModelId;
   targetOrbit: OrbitType;
   bonuses: CountdownBonuses;
+  /** Research experiments riding along with the main payload. */
+  rideshareContractIds: number[];
 }
 
 /** Positions in mission control that report "go" or "no go" in the poll before launch. */

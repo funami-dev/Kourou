@@ -42,7 +42,8 @@ const leoMission: LaunchMission = {
   campaign: { contractId: 1, rocketId: 1 },
   rocketModelId: 'ibis',
   targetOrbit: 'leo',
-  bonuses: NO_TECHNOLOGY_BONUSES
+  bonuses: NO_TECHNOLOGY_BONUSES,
+  rideshareContractIds: []
 };
 
 /** Random numbers that make every roll succeed and pick the first option. */

@@ -3,6 +3,7 @@ import { Action, Selector, State, Store } from '@ngxs/store';
 import type { StateContext } from '@ngxs/store';
 
 import { laboratorySlots } from '../../game/buildings/buildings';
+import { studiesInLabOn } from '../../game/research/research-contracts';
 import { RESEARCH_POINTS_PER_FREE_LAB_SLOT_PER_DAY } from '../../game/buildings/buildings.constants';
 import {
   NEW_GAME_RESEARCH_PROGRESS,
@@ -18,7 +19,8 @@ import { ClockState, GameDayStarted } from '../clock';
 import { BookTransaction } from '../finance/finance.actions';
 import { FinanceState } from '../finance/finance.state';
 import { StartNewGame } from '../game.actions';
-import { StartResearch } from './research.actions';
+import { ResearchContractsState } from '../research-contracts/research-contracts.state';
+import { AddResearchPoints, StartResearch } from './research.actions';
 
 /** The spaceport's own research: research points and the technology tree. */
 @State<ResearchProgress>({
@@ -61,10 +63,20 @@ export class ResearchState {
     }
   }
 
-  /** Each morning, finished research becomes available and every free lab slot produces research points. */
+  @Action(AddResearchPoints)
+  addResearchPoints(ctx: StateContext<ResearchProgress>, { points }: AddResearchPoints): void {
+    ctx.setState(addResearchPoints(ctx.getState(), points));
+  }
+
+  /**
+   * Each morning, finished research becomes available and every free lab slot produces research points.
+   * Slots occupied by studies for clients produce no points.
+   */
   @Action(GameDayStarted)
   startResearchDay(ctx: StateContext<ResearchProgress>, { day }: GameDayStarted): void {
-    const freeLabSlots = laboratorySlots(this.store.selectSnapshot(BuildingsState.buildings), day);
+    const labSlots = laboratorySlots(this.store.selectSnapshot(BuildingsState.buildings), day);
+    const occupiedLabSlots = studiesInLabOn(this.store.selectSnapshot(ResearchContractsState.contracts), day);
+    const freeLabSlots = Math.max(0, labSlots - occupiedLabSlots);
     const progress = completeResearchIfDue(ctx.getState(), day);
     ctx.setState(addResearchPoints(progress, freeLabSlots * RESEARCH_POINTS_PER_FREE_LAB_SLOT_PER_DAY));
   }

@@ -144,6 +144,15 @@ Zwei Wege, die sich ergänzen und über **Forschungspunkte (FP)** verbunden sind
     verloren; Frist verpasst → Auftrag verfällt.
 - Mitfluglasten machen auch Starts mit kleiner Hauptnutzlast lohnender.
 
+**Technologiebaum (erste Version)**
+| Zweig | Stufe 1 | Stufe 2 |
+|---|---|---|
+| Startbetrieb | Wetterradar: Wetter-Holds halb so lang | Sperrzonen-Überwachung: keine Boote mehr in der Sperrzone |
+| Zuverlässigkeit | Qualitätssicherung: +2 Prozentpunkte Erfolgschance | Redundante Sensoren: keine Sensoranomalien mehr |
+| Infrastruktur | Modulare Montage: 30 % schneller montiert | Hafenlogistik: Lieferung 3 Tage schneller |
+
+Stufe 1 kostet 30 FP, 2 Mio. € und 4 Tage; Stufe 2 kostet 60 FP, 4 Mio. € und 6 Tage.
+
 ### Personal
 - Einstellbare Mitarbeiter mit Rolle (z. B. Flight Director, Wetter, Antrieb, Range Safety)
   und Eigenschaften (erfahren, vorsichtig, risikofreudig …).
@@ -225,8 +234,9 @@ Ziel: **ein kompletter Durchlauf der Kernschleife** in Kourou.
 6. ✅ **Countdown** mit Go/No-Go gegen die Wetter-Grenzwerte und 1–2 Zufallsereignissen.
 7. ✅ **Ergebnis**: Erfolg, Scrub oder Fehlstart → Geld und Ruf.
 
-Danach: Forschung mit Labor (in Arbeit), weiterer Gebäudebau, Personal-Management,
-eigene Raketen und weitere Standorte.
+Danach umgesetzt: ✅ Forschung mit Labor, Technologiebaum und Forschungsaufträgen.
+
+Als Nächstes: weiterer Gebäudebau, Personal-Management, eigene Raketen und weitere Standorte.
 
 ## Offene Fragen
 

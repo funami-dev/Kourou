@@ -14,6 +14,7 @@ import {
 } from '../../game/launch/launch-window';
 import { assessLaunchWeather } from '../../game/launch/launch-weather';
 import { LiveConditionsService } from '../../game/live-conditions/live-conditions.service';
+import { selectRideshareExperiments } from '../../game/research/research-contracts';
 import { rocketDisplayName } from '../../game/rockets/rocket-fleet';
 import { ROCKET_MODELS } from '../../game/rockets/rockets.constants';
 import {
@@ -22,12 +23,14 @@ import {
   LaunchState,
   MoveRocketToPad,
   RemoveRocketFromPad,
+  ResearchContractsState,
   RocketsState,
   StartCountdown
 } from '../../store';
 import { orbitLabel, payloadTypeLabel } from '../contracts/contract-labels';
 import { EurosPipe } from '../shared/euros.pipe';
 import { SiteLocalTimePipe } from '../shared/site-local-time.pipe';
+import { researchTopicName } from '../research/research-texts';
 import { weatherConstraintText } from './launch-texts';
 
 /** Prepares launches: brings a rocket to the pad for a contract and starts the countdown when conditions allow. */
@@ -46,6 +49,7 @@ export class LaunchPadComponent {
   private readonly contracts = select(ContractsState.contracts);
   private readonly rockets = select(RocketsState.rockets);
   private readonly gameTimeMs = select(ClockState.gameTimeMs);
+  private readonly researchContracts = select(ResearchContractsState.contracts);
   protected readonly campaign = select(LaunchState.campaign);
   protected readonly isCountdownOpen = select(LaunchState.isCountdownOpen);
 
@@ -55,6 +59,7 @@ export class LaunchPadComponent {
   protected readonly payloadTypeLabel = payloadTypeLabel;
   protected readonly rocketDisplayName = rocketDisplayName;
   protected readonly weatherConstraintText = weatherConstraintText;
+  protected readonly researchTopicName = researchTopicName;
 
   /** Contracts waiting for a launch, each with the rockets that could carry its payload. */
   protected readonly contractsWaitingForLaunch = computed(() =>
@@ -78,6 +83,7 @@ export class LaunchPadComponent {
     const orbit = contract.payload.targetOrbit;
     const nowMs = this.liveConditions.nowMs();
     const rocketModel = ROCKET_MODELS[rocket.modelId];
+    const spareCapacityKg = rocketModel.payloadCapacityKg[orbit] - contract.payload.massKg;
     return {
       contract,
       rocket,
@@ -87,7 +93,9 @@ export class LaunchPadComponent {
       windowOpensAtMs: nextLaunchWindowOpeningMs(this.site(), orbit, nowMs),
       canStartCountdown: canStartCountdownNow(this.site(), orbit, nowMs),
       weather: this.liveConditions.weather(),
-      weatherAssessment: assessLaunchWeather(this.liveConditions.weather(), rocketModel)
+      weatherAssessment: assessLaunchWeather(this.liveConditions.weather(), rocketModel),
+      spareCapacityKg,
+      rideshareExperiments: selectRideshareExperiments(this.researchContracts(), spareCapacityKg)
     };
   });
 

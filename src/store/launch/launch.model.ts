@@ -12,6 +12,8 @@ export interface LaunchResult {
   /** Money spent because of the launch (repairs, scrub costs). */
   costs: Euros;
   reputationChange: number;
+  /** Research experiments that rode along: delivered after a success, lost after a failure, still waiting after a scrub. */
+  rideshareExperiments: number;
 }
 
 export interface LaunchStateModel {

@@ -43,6 +43,7 @@ export class LaunchCompleted {
 
   constructor(
     public readonly outcome: LaunchOutcome,
-    public readonly campaign: LaunchCampaign
+    public readonly campaign: LaunchCampaign,
+    public readonly rideshareContractIds: number[]
   ) {}
 }
